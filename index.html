@@ -18,6 +18,8 @@
       <img src="/assets/GAMEFINDER.svg" class="header-img" />
     </header>
 
+    <!-- Background Static Slider -->
+
     <div class="slider__container">
       <div class="slider">
         <figure class="slide__img">
@@ -34,6 +36,8 @@
         </figure>
       </div>
     </div>
+
+   <!-- Controllers -->
 
     <a href="" class="slider__arrow">
       <img
@@ -105,5 +109,45 @@
         class="slider__bullets"
       />
     </svg>
+
+    <!-- Login -->
+    
+    <div class="login__container">
+      <div class="login__card">
+        <div class="login__card__header">
+          <h1>Welcome! Log in or register</h1>
+          <p>Log in to find the games you're loking for!</p>
+        <div>
+          <form class="login__card__form">
+           <fieldset>
+            <input type="email" placeholder="Email" class="login__card__form--email"/>
+            <input type="password" placeholder="Password" class="login__card__form--pwd"/>
+           </fieldset>
+           <div class="login__card__form--secondary_container">
+             <fieldset>
+               <input type="checkbox" id="checkbox" class="login__card__form--checkbox"/>
+               <label for="checkbox" class="login__card__form--checkbox_label">Remember me</label>
+             </fieldset>
+             <span class="login__card__form--checkbox_span">Forgot password?</span>
+           </div>
+           <button type="submit" class="login__card__form__button">Log in</button>            
+          </form>
+          <div class="login__card__form--secondary_container register__container">
+            <p>Not register yet?</p>
+            <a href="">Register Now</a>
+          </div>
+          <div class="login__card__form--secondary_container">
+            <div class="login__card__form--vector"/>
+            <p>or</p>
+            <div class="login__card__form--vector"/>
+          </div>
+          <div class="login__card__form--ssmm_login__container">
+            <a class="login__card__form--ssmm_login" type="button" href="">Login with Twitter</a>
+            <a class="login__card__form--ssmm_login" type="button" href="">Login with Google </a>
+            <a class="login__card__form--ssmm_login" type="button" href="">Login with Facebook</a>
+          </div>
+
+      </div>
+   </div>
   </body>
 </html>
