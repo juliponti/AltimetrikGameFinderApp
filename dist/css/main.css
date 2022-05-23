@@ -9,14 +9,14 @@
 html,
 body {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .header {
-  position: fixed;
   width: 100%;
   height: 65px;
-  padding: 0 15px;
+  padding: 0 25px;
+  margin-top: 25px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -30,23 +30,24 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.header-logo {
+  width: 25%;
+  min-width: 180px;
   z-index: 2;
 }
 
-.header-img {
-  width: 25%;
-  min-width: 180px;
-}
-
-.slider__container {
+.slider {
+  position: absolute;
+  top: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
 
-.slider__container .slider {
-  position: relative;
-  width: 500%;
+.slider .slide__container {
+  width: 420%;
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -58,26 +59,22 @@ body {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0px;
 }
 
-.slider__img {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-}
-
-.slider__img img {
-  height: 100%;
-  width: 100%;
+.slider .slide__container .slide {
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 1510px;
+  height: 1062px;
 }
 
 .slider__arrow--left {
   position: absolute;
   top: 50%;
-  width: 30px;
   left: 2%;
   z-index: 2;
 }
@@ -85,7 +82,6 @@ body {
 .slider__arrow--right {
   position: absolute;
   top: 50%;
-  width: 30px;
   right: 2%;
 }
 
@@ -93,6 +89,6 @@ body {
   position: absolute;
   width: 100%;
   margin: auto;
-  bottom: 2%;
+  bottom: 4%;
 }
 /*# sourceMappingURL=main.css.map */
