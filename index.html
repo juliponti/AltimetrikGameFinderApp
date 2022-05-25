@@ -76,17 +76,13 @@
             <h2>Log in to find the games you're loking for!</h2>
           </div>
           <form class="login__card__form">
-            <fieldset>
-              <input
-                type="email"
-                placeholder="Email"
-                class="login__card__form--email"
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                class="login__card__form--pwd"
-              />
+            <fieldset class="login__card__form--fieldset1">
+              <input type="email" placeholder="Email" />
+              <input type="password" placeholder="Password" />
+              <div class="icon__container">
+                <img src="./assets/login/eye.svg" class="icon--inactive" />
+                <img src="./assets/login/cross-eye.svg" class="icon--active" />
+              </div>
             </fieldset>
             <div class="login__card__form--secondary_container">
               <fieldset>
@@ -98,6 +94,7 @@
                 <label for="checkbox" class="login__card__form--checkbox_label"
                   >Remember me</label
                 >
+                <img src="./assets/login/check.svg" class="checkbox__vector" />
               </fieldset>
               <span class="login__card__form--checkbox_span"
                 >Forgot password?</span
@@ -107,13 +104,11 @@
               Log in
             </button>
           </form>
-          <div
-            class="login__card__form--secondary_container register__container"
-          >
-            <p>Not register yet?</p>
+          <div class="login__card__form--register__container">
+            <p>Not registered yet?</p>
             <a href="">Register Now</a>
           </div>
-          <div class="login__card__form--secondary_container">
+          <div>
             <p>or</p>
           </div>
           <div class="login__card__form--ssmm_login__container">

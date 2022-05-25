@@ -12,10 +12,19 @@ body {
   height: 100vh;
 }
 
-.header {
+.main {
+  position: relative;
   width: 100%;
-  height: 115px;
-  padding: 0 25px;
+  height: 100%;
+  background-image: URL("../../assets/slider/slide-1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.main .header {
+  width: 100%;
+  height: 134px;
+  padding: 0 18px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -31,23 +40,16 @@ body {
           align-items: center;
 }
 
-.header-logo {
+.main .header-logo {
   width: 25%;
   min-width: 180px;
 }
 
-.main {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-image: URL("../../assets/slider/slide-1.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .main .login__container {
   width: 100%;
-  padding: 0 110px;
+  max-width: 1400px;
+  margin: 46px auto;
+  padding: 0 52px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -64,35 +66,230 @@ body {
 }
 
 .main .login__card {
-  width: 472px;
-  height: 702px;
+  width: 462px;
+  max-height: 702px;
+  padding: 40px 49px;
   border-radius: 12px;
-  background-color: rgba(48, 48, 48, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.slider__arrow--left {
+.main .login__card__header {
+  color: #ffffff;
+  text-align: center;
+}
+
+.main .login__card__header h1 {
+  font-size: 1.25rem;
+  min-width: 285px;
+}
+
+.main .login__card__header h2 {
+  font-size: 1rem;
+  font-weight: 400;
+  min-width: 329px;
+  margin-top: 11px;
+}
+
+.main .login__card__form {
+  margin: 36px 0;
+}
+
+.main .login__card__form--fieldset1 {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: none;
+  gap: 12px;
+}
+
+.main .login__card__form--fieldset1 input {
+  width: 100%;
+  height: 47px;
+  padding: 10.55px 16px;
+  border-radius: 4px;
+}
+
+.main .login__card__form--fieldset1 input::-webkit-input-placeholder {
+  font-size: 1rem;
+  color: #939393;
+}
+
+.main .login__card__form--fieldset1 input:-ms-input-placeholder {
+  font-size: 1rem;
+  color: #939393;
+}
+
+.main .login__card__form--fieldset1 input::-ms-input-placeholder {
+  font-size: 1rem;
+  color: #939393;
+}
+
+.main .login__card__form--fieldset1 input::placeholder {
+  font-size: 1rem;
+  color: #939393;
+}
+
+.main .login__card__form--fieldset1 .icon__container {
   position: absolute;
-  top: 50%;
+  right: 15px;
+  bottom: 10px;
+  cursor: pointer;
+}
+
+.main .login__card__form--fieldset1 .icon__container .icon--active {
+  display: none;
+}
+
+.main .login__card__form--secondary_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.main .login__card__form--secondary_container fieldset {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  border: none;
+  color: #ffffff;
+}
+
+.main .login__card__form--secondary_container fieldset .checkbox__vector {
+  position: absolute;
+  left: 4px;
+  display: none;
+}
+
+.main .login__card__form--secondary_container fieldset .active {
+  display: block;
+}
+
+.main .login__card__form--checkbox {
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.main .login__card__form--checkbox_label {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.main .login__card__form--checkbox_span {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #5fe19b;
+}
+
+.main .login__card__form .checkbox--active {
+  background-color: #36b972;
+  border-color: #36b972;
+}
+
+.main .login__card__form__button {
+  width: 100%;
+  height: 47px;
+  border-radius: 6px;
+  color: #ffffff;
+  background-color: #4cc986;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.main .login__card__form--register__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+}
+
+.main .login__card__form--register__container p {
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.main .login__card__form--register__container a {
+  text-decoration: none;
+  color: #5fe19b;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.main .slider__arrow--left {
+  position: absolute;
   background-color: transparent;
   border: none;
-  left: 2%;
+  top: 512px;
+  left: 31px;
 }
 
-.slider__arrow--right {
+.main .slider__arrow--right {
   position: absolute;
-  top: 50%;
   background-color: transparent;
   border: none;
-  right: 2%;
+  top: 512px;
+  right: 31px;
 }
 
-.slider__bullets-container {
+.main .slider__bullets-container {
   position: absolute;
   width: 100%;
-  bottom: 4%;
+  bottom: 3%;
 }
 
-.slider__bullets-container--svg {
+.main .slider__bullets-container--svg {
   width: 100%;
   margin: auto;
 }

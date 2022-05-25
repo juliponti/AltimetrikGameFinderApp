@@ -13,18 +13,6 @@ body {
   height: 100vh;
 }
 
-.header {
-  width: 100%;
-  height: 115px;
-  padding: 0 25px;
-  @include FlexBox(row, flex-start);
-
-  &-logo {
-    width: 25%;
-    min-width: 180px;
-  }
-}
-
 .main {
   position: relative;
   width: 100%;
@@ -33,45 +21,192 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 
+  .header {
+    width: 100%;
+    height: 134px;
+    padding: 0 18px;
+    @include FlexBox(row, flex-start);
+
+    &-logo {
+      width: 25%;
+      min-width: 180px;
+    }
+  }
+
   .login {
     &__container {
       width: 100%;
-
-      padding: 0 110px;
+      max-width: 1400px;
+      margin: 46px auto;
+      padding: 0 52px;
       @include FlexBox(row, flex-end, flex-start);
     }
 
     &__card {
-      width: 472px;
-      height: 702px;
+      width: 462px;
+      max-height: 702px;
+      padding: 40px 49px;
       border-radius: 12px;
       background-color: $card-bg;
+
+      &__header {
+        color: $white;
+        text-align: center;
+
+        h1 {
+          font-size: 1.25rem;
+
+          min-width: 285px;
+        }
+
+        h2 {
+          font-size: 1rem;
+          font-weight: 400;
+          min-width: 329px;
+          margin-top: 11px;
+        }
+      }
+
+      &__form {
+        margin: 36px 0;
+
+        &--fieldset1 {
+          position: relative;
+          @include FlexBox(column);
+          border: none;
+          gap: 12px;
+
+          input {
+            width: 100%;
+            height: 47px;
+            padding: 10.55px 16px;
+            border-radius: 4px;
+
+            &::placeholder {
+              font-size: 1rem;
+              color: $gray-400;
+            }
+          }
+
+          .icon__container {
+            position: absolute;
+            right: 15px;
+            bottom: 10px;
+            cursor: pointer;
+            .icon {
+              &--active {
+                display: none;
+              }
+            }
+          }
+        }
+
+        &--secondary_container {
+          @include FlexBox(row, space-between);
+          margin-top: 16px;
+          margin-bottom: 24px;
+
+          fieldset {
+            @include FlexBox;
+            position: relative;
+            border: none;
+            color: $white;
+
+            .checkbox__vector {
+              position: absolute;
+              left: 4px;
+              display: none;
+            }
+
+            .active {
+              display: block;
+            }
+          }
+        }
+
+        &--checkbox {
+          appearance: none;
+          -webkit-appearance: none;
+
+          width: 20px;
+          height: 20px;
+          margin-right: 16px;
+          border: 1px solid $white;
+          border-radius: 4px;
+          background-color: transparent;
+          cursor: pointer;
+
+          &_label {
+            font-size: 0.875rem;
+            font-weight: 400;
+          }
+
+          &_span {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: $primary-100;
+          }
+        }
+
+        .checkbox--active {
+          background-color: $primary-300;
+          border-color: $primary-300;
+        }
+
+        &__button {
+          width: 100%;
+          height: 47px;
+          border-radius: 6px;
+          color: $white;
+          background-color: $primary-200;
+
+          font-weight: 700;
+          font-size: 1.125rem;
+        }
+
+        &--register__container {
+          @include FlexBox;
+          gap: 8px;
+
+          p {
+            color: $white;
+            font-size: 0.875rem;
+            font-weight: 400;
+          }
+
+          a {
+            text-decoration: none;
+            color: $primary-100;
+            font-size: 0.875rem;
+            font-weight: 400;
+          }
+        }
+      }
     }
   }
-}
 
-.slider {
-  &__arrow {
-    &--left {
-      @include Arrows;
-      left: 2%;
+  .slider {
+    &__arrow {
+      &--left {
+        @include Arrows;
+        left: 31px;
+      }
+
+      &--right {
+        @include Arrows;
+        right: 31px;
+      }
     }
 
-    &--right {
-      @include Arrows;
-      right: 2%;
-    }
-  }
-
-  &__bullets-container {
-    position: absolute;
-    width: 100%;
-
-    bottom: 4%;
-
-    &--svg {
+    &__bullets-container {
+      position: absolute;
       width: 100%;
-      margin: auto;
+      bottom: 3%;
+
+      &--svg {
+        width: 100%;
+        margin: auto;
+      }
     }
   }
 }

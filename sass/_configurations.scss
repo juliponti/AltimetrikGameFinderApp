@@ -3,8 +3,9 @@
 // Primary
 
 $primary-100: #5fe19b;
-$primary-200: #36b972;
-$primaty-300: #067b3c;
+$primary-200: #4cc986;
+$primary-300: #36b972;
+$primary-400: #067b3c;
 
 // Secondary
 
@@ -29,7 +30,7 @@ $gray-500: #515151;
 $gray-600: #303030;
 $gray-700: #141414;
 
-$card-bg: rgba(48, 48, 48, 0.5);
+$card-bg: rgba(0, 0, 0, 0.5);
 
 // mixings
 
@@ -42,7 +43,7 @@ $card-bg: rgba(48, 48, 48, 0.5);
 
 @mixin Arrows {
   position: absolute;
-  top: 50%;
   background-color: transparent;
   border: none;
+  top: 512px;
 }
