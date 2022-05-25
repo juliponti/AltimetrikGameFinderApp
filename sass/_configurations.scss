@@ -29,6 +29,8 @@ $gray-500: #515151;
 $gray-600: #303030;
 $gray-700: #141414;
 
+$card-bg: rgba(48, 48, 48, 0.5);
+
 // mixings
 
 @mixin FlexBox($direction: row, $justify: center, $align: center) {
@@ -41,4 +43,6 @@ $gray-700: #141414;
 @mixin Arrows {
   position: absolute;
   top: 50%;
+  background-color: transparent;
+  border: none;
 }

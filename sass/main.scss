@@ -10,40 +10,42 @@
 html,
 body {
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .header {
   width: 100%;
-  height: 65px;
+  height: 115px;
   padding: 0 25px;
-  margin-top: 25px;
   @include FlexBox(row, flex-start);
 
   &-logo {
     width: 25%;
     min-width: 180px;
-    z-index: 2;
   }
 }
 
-.slider {
-  position: absolute;
-  top: 0;
+.main {
+  position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  background-image: URL("../../assets/slider/slide-1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 
-  .slide__container {
-    width: 420%;
-    height: 100%;
-    @include FlexBox(row, flex-start);
-    gap: 0px;
+  .login {
+    &__container {
+      width: 100%;
 
-    .slide {
-      object-fit: cover;
-      width: 1510px;
-      height: 1062px;
+      padding: 0 110px;
+      @include FlexBox(row, flex-end, flex-start);
+    }
+
+    &__card {
+      width: 472px;
+      height: 702px;
+      border-radius: 12px;
+      background-color: $card-bg;
     }
   }
 }
@@ -53,7 +55,6 @@ body {
     &--left {
       @include Arrows;
       left: 2%;
-      z-index: 2;
     }
 
     &--right {
@@ -65,7 +66,12 @@ body {
   &__bullets-container {
     position: absolute;
     width: 100%;
-    margin: auto;
+
     bottom: 4%;
+
+    &--svg {
+      width: 100%;
+      margin: auto;
+    }
   }
 }
