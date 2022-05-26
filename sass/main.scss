@@ -13,40 +13,47 @@ body {
   height: 100vh;
 }
 
-.main {
-  position: relative;
-  width: 100%;
-  height: 100%;
+body {
   background-image: URL("../../assets/slider/slide-1.png");
   background-repeat: no-repeat;
   background-size: cover;
+  @include FlexBox(column, space-between);
+}
 
-  .header {
-    width: 100%;
-    height: 134px;
-    padding: 0 18px;
-    @include FlexBox(row, flex-start);
+.header {
+  background: none;
+  width: 100%;
+  height: 159px;
+  padding: 0 18px;
+  @include FlexBox(row, flex-start);
 
-    &-logo {
-      width: 25%;
-      min-width: 180px;
-    }
+  &-logo {
+    width: 25%;
+    min-width: 180px;
   }
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  @include FlexBox;
 
   .login {
     &__container {
       width: 100%;
-      max-width: 1400px;
-      margin: 46px auto;
-      padding: 0 52px;
+      height: 100%;
+      padding: 0 21px;
       @include FlexBox(row, flex-end, flex-start);
     }
 
     &__card {
       width: 462px;
-      max-height: 702px;
+      height: 702px; // sacar el height al final
       padding: 40px 49px;
       border-radius: 12px;
+      margin: 52px 0;
       background-color: $card-bg;
 
       &__header {
@@ -185,28 +192,41 @@ body {
     }
   }
 
-  .slider {
-    &__arrow {
-      &--left {
-        @include Arrows;
-        left: 31px;
-      }
-
-      &--right {
-        @include Arrows;
-        right: 31px;
-      }
+  .slider__arrow {
+    &__container {
+      position: relative;
+      height: 100%;
+      width: 6%;
+      background-color: transparent;
+      border: none;
     }
 
-    &__bullets-container {
-      position: absolute;
-      width: 100%;
-      bottom: 3%;
+    &--left {
+      @include Arrows;
+      left: 32px;
+    }
 
-      &--svg {
-        width: 100%;
-        margin: auto;
-      }
+    &--right {
+      @include Arrows;
+      right: 32px;
+    }
+  }
+}
+
+.footer {
+  height: 100px;
+  width: 100%;
+
+  position: relative;
+
+  &__bullets-container {
+    position: absolute;
+    width: 100%;
+    bottom: 40%;
+
+    &--svg {
+      width: 100%;
+      margin: auto;
     }
   }
 }

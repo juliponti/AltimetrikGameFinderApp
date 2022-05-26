@@ -12,18 +12,29 @@ body {
   height: 100vh;
 }
 
-.main {
-  position: relative;
-  width: 100%;
-  height: 100%;
+body {
   background-image: URL("../../assets/slider/slide-1.png");
   background-repeat: no-repeat;
   background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.main .header {
+.header {
+  background: none;
   width: 100%;
-  height: 134px;
+  height: 159px;
   padding: 0 18px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -40,16 +51,35 @@ body {
           align-items: center;
 }
 
-.main .header-logo {
+.header-logo {
   width: 25%;
   min-width: 180px;
 }
 
+.main {
+  width: 100%;
+  height: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .main .login__container {
   width: 100%;
-  max-width: 1400px;
-  margin: 46px auto;
-  padding: 0 52px;
+  height: 100%;
+  padding: 0 21px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -67,9 +97,10 @@ body {
 
 .main .login__card {
   width: 462px;
-  max-height: 702px;
+  height: 702px;
   padding: 40px 49px;
   border-radius: 12px;
+  margin: 52px 0;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -267,29 +298,43 @@ body {
   font-weight: 400;
 }
 
+.main .slider__arrow__container {
+  position: relative;
+  height: 100%;
+  width: 6%;
+  background-color: transparent;
+  border: none;
+}
+
 .main .slider__arrow--left {
   position: absolute;
   background-color: transparent;
   border: none;
-  top: 512px;
-  left: 31px;
+  top: 45%;
+  left: 32px;
 }
 
 .main .slider__arrow--right {
   position: absolute;
   background-color: transparent;
   border: none;
-  top: 512px;
-  right: 31px;
+  top: 45%;
+  right: 32px;
 }
 
-.main .slider__bullets-container {
+.footer {
+  height: 100px;
+  width: 100%;
+  position: relative;
+}
+
+.footer__bullets-container {
   position: absolute;
   width: 100%;
-  bottom: 3%;
+  bottom: 40%;
 }
 
-.main .slider__bullets-container--svg {
+.footer__bullets-container--svg {
   width: 100%;
   margin: auto;
 }
