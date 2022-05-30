@@ -59,7 +59,6 @@ body {
 .main {
   width: 100%;
   height: 100%;
-  max-width: 1500px;
   margin: 0 auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -68,9 +67,9 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -79,6 +78,7 @@ body {
 .main .login__container {
   width: 100%;
   height: 100%;
+  max-width: 1500px;
   padding: 0 21px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -494,7 +494,7 @@ body {
   transition: all 0.4s ease;
 }
 
-.main .slider__arrow__container {
+.slider__arrow__container {
   position: relative;
   height: 100%;
   width: 91px;
@@ -502,7 +502,7 @@ body {
   border: none;
 }
 
-.main .slider__arrow--left {
+.slider__arrow--left {
   position: relative;
   background-color: transparent;
   border: none;
@@ -511,7 +511,7 @@ body {
   left: 36%;
 }
 
-.main .slider__arrow--right {
+.slider__arrow--right {
   position: relative;
   background-color: transparent;
   border: none;
@@ -520,19 +520,19 @@ body {
   right: -5%;
 }
 
-.main .footer {
+.footer {
   height: 100px;
   width: 100%;
   position: relative;
 }
 
-.main .footer__bullets-container {
+.footer__bullets-container {
   position: absolute;
   width: 100%;
   bottom: 40%;
 }
 
-.main .footer__bullets-container--svg {
+.footer__bullets-container--svg {
   width: 100%;
   margin: auto;
 }

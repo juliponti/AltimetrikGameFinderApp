@@ -36,14 +36,14 @@ body {
 .main {
   width: 100%;
   height: 100%;
-  max-width: 1500px;
   margin: 0 auto;
-  @include FlexBox;
+  @include FlexBox(row, space-between);
 
   .login {
     &__container {
       width: 100%;
       height: 100%;
+      max-width: 1500px;
       padding: 0 21px;
       @include FlexBox(row, flex-end, center);
     }
@@ -310,42 +310,41 @@ body {
       }
     }
   }
-
-  .slider__arrow {
-    &__container {
-      position: relative;
-      height: 100%;
-      width: 91px;
-      background-color: transparent;
-      border: none;
-    }
-
-    &--left {
-      @include Arrows;
-      left: 36%;
-    }
-
-    &--right {
-      @include Arrows;
-      right: -5%;
-    }
+}
+.slider__arrow {
+  &__container {
+    position: relative;
+    height: 100%;
+    width: 91px;
+    background-color: transparent;
+    border: none;
   }
 
-  .footer {
-    height: 100px;
+  &--left {
+    @include Arrows;
+    left: 36%;
+  }
+
+  &--right {
+    @include Arrows;
+    right: -5%;
+  }
+}
+
+.footer {
+  height: 100px;
+  width: 100%;
+
+  position: relative;
+
+  &__bullets-container {
+    position: absolute;
     width: 100%;
+    bottom: 40%;
 
-    position: relative;
-
-    &__bullets-container {
-      position: absolute;
+    &--svg {
       width: 100%;
-      bottom: 40%;
-
-      &--svg {
-        width: 100%;
-        margin: auto;
-      }
+      margin: auto;
     }
   }
 }
