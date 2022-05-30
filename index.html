@@ -102,9 +102,7 @@
                 >
                 <img src="./assets/login/check.svg" class="checkbox__vector" />
               </fieldset>
-              <span class="login__card__form--checkbox_span"
-                >Forgot password?</span
-              >
+              <a class="login__card__form--checkbox__link">Forgot password?</a>
             </div>
             <button type="submit" class="login__card__form__button">
               Log in
@@ -112,21 +110,40 @@
           </form>
           <div class="login__card__form--register__container">
             <p>Not registered yet?</p>
-            <a href="">Register Now</a>
+            <a href="" class="login__card__form--register__link"
+              >Register Now</a
+            >
           </div>
-          <div>
+          <div class="login__card__form--decoration__container">
             <p>or</p>
           </div>
-          <div class="login__card__form--ssmm_login__container">
-            <a class="login__card__form--ssmm_login" type="button" href=""
-              >Login with Twitter</a
-            >
-            <a class="login__card__form--ssmm_login" type="button" href=""
-              >Login with Google
+          <div class="login__card__form--ssmm__container">
+            <a class="login__card__form--ssmm" type="button" href="">
+              <div>
+                <img src="./assets/login/fblogo.svg" alt="facebook logo" />
+                <p class="login__card__form--ssmm__p">Login with Facebook</p>
+              </div>
             </a>
-            <a class="login__card__form--ssmm_login" type="button" href=""
-              >Login with Facebook</a
-            >
+            <a class="login__card__form--ssmm" type="button" href="">
+              <div>
+                <img
+                  src="./assets/login/twlogo.svg"
+                  alt="twitter logo"
+                  class="login__card__form--ssmm__tw"
+                />
+                <p class="login__card__form--ssmm__p">Login with Twitter</p>
+              </div>
+            </a>
+            <a class="login__card__form--ssmm" type="button" href="">
+              <div>
+                <img
+                  src="./assets/login/googlelogo.svg"
+                  alt="google logo"
+                  class="login__card__form--ssmm__google"
+                />
+                <p class="login__card__form--ssmm__p">Login with Google</p>
+              </div>
+            </a>
           </div>
         </div>
       </div>

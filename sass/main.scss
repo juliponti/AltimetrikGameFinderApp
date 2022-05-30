@@ -10,11 +10,11 @@
 html,
 body {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 body {
-  background-image: URL("../../assets/slider/slide-1.png");
+  background-image: URL("../../assets/desktop/slider/slide-1.png");
   background-repeat: no-repeat;
   background-size: cover;
   @include FlexBox(column, space-between);
@@ -23,13 +23,13 @@ body {
 .header {
   background: none;
   width: 100%;
-  height: 159px;
-  padding: 0 18px;
+  padding: 0 16px;
   @include FlexBox(row, flex-start);
 
   &-logo {
     width: 25%;
     min-width: 180px;
+    margin: 45px 0;
   }
 }
 
@@ -45,15 +45,14 @@ body {
       width: 100%;
       height: 100%;
       padding: 0 21px;
-      @include FlexBox(row, flex-end, flex-start);
+      @include FlexBox(row, flex-end, center);
     }
 
     &__card {
       width: 462px;
-      height: 702px; // sacar el height al final
       padding: 40px 49px;
       border-radius: 12px;
-      margin: 52px 0;
+      margin-bottom: 50px;
       background-color: $card-bg;
 
       &__header {
@@ -75,29 +74,35 @@ body {
       }
 
       &__form {
-        margin: 36px 0;
+        margin-top: 36px;
+        margin-bottom: 32px;
 
         &--fieldset1 {
           position: relative;
           @include FlexBox(column);
           border: none;
-          gap: 12px;
+          gap: 17px;
 
           input {
             width: 100%;
             height: 47px;
             padding: 10.55px 16px;
             border-radius: 4px;
+            border: transparent;
 
             &::placeholder {
               font-size: 1rem;
               color: $gray-400;
             }
+
+            &:focus {
+              outline: 3px solid $primary-300;
+            }
           }
 
           .icon__container {
             position: absolute;
-            right: 15px;
+            right: 11px;
             bottom: 10px;
             cursor: pointer;
             .icon {
@@ -110,8 +115,8 @@ body {
 
         &--secondary_container {
           @include FlexBox(row, space-between);
-          margin-top: 16px;
-          margin-bottom: 24px;
+          margin-top: 15px;
+          margin-bottom: 23px;
 
           fieldset {
             @include FlexBox;
@@ -148,10 +153,21 @@ body {
             font-weight: 400;
           }
 
-          &_span {
+          &__link {
             font-size: 0.875rem;
             font-weight: 400;
             color: $primary-100;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+
+            &:after {
+              @include Underline($primary-200);
+            }
+
+            &:hover:after {
+              @include hoverUnderline;
+            }
           }
         }
 
@@ -166,13 +182,30 @@ body {
           border-radius: 6px;
           color: $white;
           background-color: $primary-200;
+          border: none;
+          cursor: pointer;
 
           font-weight: 700;
           font-size: 1.125rem;
+
+          &:disabled {
+            opacity: 0.4;
+          }
+
+          &:hover {
+            filter: drop-shadow(0px 3px 7px $button-hover);
+            transition: all 0.3s ease;
+          }
+
+          &:active {
+            filter: drop-shadow(0px 6px 0px $button-active);
+            transition: all 0.3s ease;
+          }
         }
 
         &--register__container {
           @include FlexBox;
+
           gap: 8px;
 
           p {
@@ -180,12 +213,98 @@ body {
             font-size: 0.875rem;
             font-weight: 400;
           }
+        }
 
-          a {
-            text-decoration: none;
-            color: $primary-100;
-            font-size: 0.875rem;
+        &--register__link {
+          position: relative;
+          text-decoration: none;
+          color: $primary-100;
+          font-size: 0.875rem;
+          font-weight: 400;
+
+          &::after {
+            @include Underline($primary-200);
+          }
+
+          &:hover {
+            &:after {
+              @include hoverUnderline;
+            }
+          }
+        }
+
+        &--decoration__container {
+          height: 70px;
+          position: relative;
+          @include FlexBox;
+
+          p {
+            font-family: "Open Sans";
             font-weight: 400;
+            font-size: 0.875rem;
+            color: $white;
+            opacity: 0.5;
+
+            &:after {
+              @include Vector;
+              right: 200px;
+            }
+
+            &:before {
+              @include Vector;
+              left: 200px;
+            }
+          }
+        }
+
+        &--ssmm {
+          &__container {
+            height: 190px;
+            @include FlexBox(column, space-between);
+          }
+
+          width: 100%;
+          height: 47px;
+          border: 2px solid $white;
+          border-radius: 6px;
+          font-weight: 700;
+          color: $white;
+          font-size: 1.125rem;
+          text-decoration: none;
+
+          @include FlexBox;
+
+          div {
+            @include FlexBox(row, flex-start);
+
+            width: 67%;
+
+            img {
+              margin-right: 14px;
+            }
+
+            .login__card__form--ssmm {
+              &__tw {
+                margin-right: 24px;
+              }
+
+              &__google {
+                margin-right: 30px;
+              }
+
+              &__p {
+                position: relative;
+                &:after {
+                  @include Underline($white);
+                }
+
+                &:hover {
+                  &:after {
+                    @include hoverUnderline;
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -196,19 +315,19 @@ body {
     &__container {
       position: relative;
       height: 100%;
-      width: 6%;
+      width: 91px;
       background-color: transparent;
       border: none;
     }
 
     &--left {
       @include Arrows;
-      left: 32px;
+      left: 36%;
     }
 
     &--right {
       @include Arrows;
-      right: 32px;
+      right: -5%;
     }
   }
 }

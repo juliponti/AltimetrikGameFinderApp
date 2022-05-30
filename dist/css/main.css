@@ -9,11 +9,11 @@
 html,
 body {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 body {
-  background-image: URL("../../assets/slider/slide-1.png");
+  background-image: URL("../../assets/desktop/slider/slide-1.png");
   background-repeat: no-repeat;
   background-size: cover;
   display: -webkit-box;
@@ -34,8 +34,7 @@ body {
 .header {
   background: none;
   width: 100%;
-  height: 159px;
-  padding: 0 18px;
+  padding: 0 16px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -54,6 +53,7 @@ body {
 .header-logo {
   width: 25%;
   min-width: 180px;
+  margin: 45px 0;
 }
 
 .main {
@@ -90,17 +90,16 @@ body {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .main .login__card {
   width: 462px;
-  height: 702px;
   padding: 40px 49px;
   border-radius: 12px;
-  margin: 52px 0;
+  margin-bottom: 50px;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -122,7 +121,8 @@ body {
 }
 
 .main .login__card__form {
-  margin: 36px 0;
+  margin-top: 36px;
+  margin-bottom: 32px;
 }
 
 .main .login__card__form--fieldset1 {
@@ -141,7 +141,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   border: none;
-  gap: 12px;
+  gap: 17px;
 }
 
 .main .login__card__form--fieldset1 input {
@@ -149,6 +149,7 @@ body {
   height: 47px;
   padding: 10.55px 16px;
   border-radius: 4px;
+  border: transparent;
 }
 
 .main .login__card__form--fieldset1 input::-webkit-input-placeholder {
@@ -171,9 +172,13 @@ body {
   color: #939393;
 }
 
+.main .login__card__form--fieldset1 input:focus {
+  outline: 3px solid #36b972;
+}
+
 .main .login__card__form--fieldset1 .icon__container {
   position: absolute;
-  right: 15px;
+  right: 11px;
   bottom: 10px;
   cursor: pointer;
 }
@@ -196,8 +201,8 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 16px;
-  margin-bottom: 24px;
+  margin-top: 15px;
+  margin-bottom: 23px;
 }
 
 .main .login__card__form--secondary_container fieldset {
@@ -247,10 +252,29 @@ body {
   font-weight: 400;
 }
 
-.main .login__card__form--checkbox_span {
+.main .login__card__form--checkbox__link {
   font-size: 0.875rem;
   font-weight: 400;
   color: #5fe19b;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.main .login__card__form--checkbox__link:after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  border: 0px solid #4cc986;
+  width: 0%;
+}
+
+.main .login__card__form--checkbox__link:hover:after {
+  border-width: 1px;
+  width: 100%;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
 
 .main .login__card__form .checkbox--active {
@@ -264,8 +288,28 @@ body {
   border-radius: 6px;
   color: #ffffff;
   background-color: #4cc986;
+  border: none;
+  cursor: pointer;
   font-weight: 700;
   font-size: 1.125rem;
+}
+
+.main .login__card__form__button:disabled {
+  opacity: 0.4;
+}
+
+.main .login__card__form__button:hover {
+  -webkit-filter: drop-shadow(0px 3px 7px #5fe19bb5);
+          filter: drop-shadow(0px 3px 7px #5fe19bb5);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.main .login__card__form__button:active {
+  -webkit-filter: drop-shadow(0px 6px 0px #2bb34f);
+          filter: drop-shadow(0px 6px 0px #2bb34f);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .main .login__card__form--register__container {
@@ -291,35 +335,190 @@ body {
   font-weight: 400;
 }
 
-.main .login__card__form--register__container a {
+.main .login__card__form--register__link {
+  position: relative;
   text-decoration: none;
   color: #5fe19b;
   font-size: 0.875rem;
   font-weight: 400;
 }
 
+.main .login__card__form--register__link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  border: 0px solid #4cc986;
+  width: 0%;
+}
+
+.main .login__card__form--register__link:hover:after {
+  border-width: 1px;
+  width: 100%;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.main .login__card__form--decoration__container {
+  height: 70px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .login__card__form--decoration__container p {
+  font-family: "Open Sans";
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: #ffffff;
+  opacity: 0.5;
+}
+
+.main .login__card__form--decoration__container p:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: 2.07px;
+  width: 47%;
+  border-top: 1px solid #ffffff;
+  right: 200px;
+}
+
+.main .login__card__form--decoration__container p:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: 2.07px;
+  width: 47%;
+  border-top: 1px solid #ffffff;
+  left: 200px;
+}
+
+.main .login__card__form--ssmm {
+  width: 100%;
+  height: 47px;
+  border: 2px solid #ffffff;
+  border-radius: 6px;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 1.125rem;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .login__card__form--ssmm__container {
+  height: 190px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .login__card__form--ssmm div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 67%;
+}
+
+.main .login__card__form--ssmm div img {
+  margin-right: 14px;
+}
+
+.main .login__card__form--ssmm div .login__card__form--ssmm__tw {
+  margin-right: 24px;
+}
+
+.main .login__card__form--ssmm div .login__card__form--ssmm__google {
+  margin-right: 30px;
+}
+
+.main .login__card__form--ssmm div .login__card__form--ssmm__p {
+  position: relative;
+}
+
+.main .login__card__form--ssmm div .login__card__form--ssmm__p:after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  border: 0px solid #ffffff;
+  width: 0%;
+}
+
+.main .login__card__form--ssmm div .login__card__form--ssmm__p:hover:after {
+  border-width: 1px;
+  width: 100%;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
 .main .slider__arrow__container {
   position: relative;
   height: 100%;
-  width: 6%;
+  width: 91px;
   background-color: transparent;
   border: none;
 }
 
 .main .slider__arrow--left {
-  position: absolute;
+  position: relative;
   background-color: transparent;
   border: none;
   top: 45%;
-  left: 32px;
+  cursor: pointer;
+  left: 36%;
 }
 
 .main .slider__arrow--right {
-  position: absolute;
+  position: relative;
   background-color: transparent;
   border: none;
   top: 45%;
-  right: 32px;
+  cursor: pointer;
+  right: -5%;
 }
 
 .footer {
