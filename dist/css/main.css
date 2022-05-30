@@ -187,7 +187,7 @@ body {
   display: none;
 }
 
-.main .login__card__form--secondary_container {
+.main .login__card__form--secondary__container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -205,7 +205,7 @@ body {
   margin-bottom: 23px;
 }
 
-.main .login__card__form--secondary_container fieldset {
+.main .login__card__form--secondary__container fieldset {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -224,13 +224,13 @@ body {
   color: #ffffff;
 }
 
-.main .login__card__form--secondary_container fieldset .checkbox__vector {
+.main .login__card__form--secondary__container fieldset .checkbox__vector {
   position: absolute;
   left: 4px;
   display: none;
 }
 
-.main .login__card__form--secondary_container fieldset .active {
+.main .login__card__form--secondary__container fieldset .active {
   display: block;
 }
 
@@ -378,7 +378,6 @@ body {
 }
 
 .main .login__card__form--decoration__container p {
-  font-family: "Open Sans";
   font-weight: 400;
   font-size: 0.875rem;
   color: #ffffff;
@@ -392,7 +391,7 @@ body {
   height: 2.07px;
   width: 47%;
   border-top: 1px solid #ffffff;
-  right: 200px;
+  left: 200px;
 }
 
 .main .login__card__form--decoration__container p:before {
@@ -402,7 +401,7 @@ body {
   height: 2.07px;
   width: 47%;
   border-top: 1px solid #ffffff;
-  left: 200px;
+  right: 200px;
 }
 
 .main .login__card__form--ssmm {
@@ -521,20 +520,130 @@ body {
   right: -5%;
 }
 
-.footer {
+.main .footer {
   height: 100px;
   width: 100%;
   position: relative;
 }
 
-.footer__bullets-container {
+.main .footer__bullets-container {
   position: absolute;
   width: 100%;
   bottom: 40%;
 }
 
-.footer__bullets-container--svg {
+.main .footer__bullets-container--svg {
   width: 100%;
   margin: auto;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    background-image: URL("../../assets/tablet/slider/slider1-tablet.png");
+  }
+  .header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .header-logo {
+    width: 40%;
+    margin-top: 45px;
+    margin-bottom: 89px;
+  }
+  .main .login__container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .main .login__card {
+    margin-bottom: 0px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  body {
+    background-image: URL("../../assets/mobile/slider/slider1-mobile.png");
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .header-logo {
+    width: 194px;
+    margin-top: 44px;
+    margin-bottom: 13px;
+  }
+  .slider__arrow__container,
+  .footer {
+    display: none;
+  }
+  .main .login__card {
+    padding: 22px 16px;
+  }
+  .main .login__card__header h2 {
+    min-width: 235px;
+    width: 260px;
+    margin: 11px auto 0px;
+  }
+  .main .login__card__form {
+    margin-top: 27px;
+  }
+  .main .login__card__form--secondary_container {
+    margin-bottom: 29px;
+  }
+  .main .login__card__form--decoration__container p:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 2.07px;
+    width: 39%;
+    border-top: 1px solid #ffffff;
+    right: 165px;
+  }
+  .main .login__card__form--decoration__container p:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 2.07px;
+    width: 39%;
+    border-top: 1px solid #ffffff;
+    left: 165px;
+  }
+  .main .login__card__form--ssmm div {
+    width: 78%;
+  }
+  .main .login__card__form--ssmm div img {
+    margin-right: 25px;
+  }
 }
 /*# sourceMappingURL=main.css.map */

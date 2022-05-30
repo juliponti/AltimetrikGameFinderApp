@@ -51,12 +51,12 @@ $card-bg: rgba(0, 0, 0, 0.5);
   cursor: pointer;
 }
 
-@mixin Vector {
+@mixin Vector($width) {
   content: "";
   position: absolute;
   top: 50%;
   height: 2.07px;
-  width: 47%;
+  width: $width;
   border-top: 1px solid $white;
 }
 
