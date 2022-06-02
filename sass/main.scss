@@ -273,7 +273,10 @@ body {
           text-decoration: none;
 
           @include FlexBox;
-
+          &:hover {
+            filter: drop-shadow(0px 3px 5px $white);
+            transition: all 0.3s ease;
+          }
           div {
             @include FlexBox(row, flex-start);
 
@@ -290,19 +293,6 @@ body {
 
               &__google {
                 margin-right: 30px;
-              }
-
-              &__p {
-                position: relative;
-                &:after {
-                  @include Underline($white);
-                }
-
-                &:hover {
-                  &:after {
-                    @include hoverUnderline;
-                  }
-                }
               }
             }
           }

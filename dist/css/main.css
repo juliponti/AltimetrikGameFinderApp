@@ -445,6 +445,13 @@ body {
           align-items: center;
 }
 
+.main .login__card__form--ssmm:hover {
+  -webkit-filter: drop-shadow(0px 3px 5px #ffffff);
+          filter: drop-shadow(0px 3px 5px #ffffff);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
 .main .login__card__form--ssmm div {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -472,26 +479,6 @@ body {
 
 .main .login__card__form--ssmm div .login__card__form--ssmm__google {
   margin-right: 30px;
-}
-
-.main .login__card__form--ssmm div .login__card__form--ssmm__p {
-  position: relative;
-}
-
-.main .login__card__form--ssmm div .login__card__form--ssmm__p:after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0px;
-  border: 0px solid #ffffff;
-  width: 0%;
-}
-
-.main .login__card__form--ssmm div .login__card__form--ssmm__p:hover:after {
-  border-width: 1px;
-  width: 100%;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
 }
 
 .slider__arrow__container {
