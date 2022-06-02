@@ -9,14 +9,32 @@
 html,
 body {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+}
+
+body {
+  background-image: URL("../../assets/desktop/slider/slide-1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .header {
-  position: fixed;
+  background: none;
   width: 100%;
-  height: 65px;
-  padding: 0 15px;
+  padding: 0 16px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -30,24 +48,411 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 2;
 }
 
-.header-img {
+.header-logo {
   width: 25%;
   min-width: 180px;
+  margin: 45px 0;
 }
 
-.slider__container {
+.main {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.slider__container .slider {
-  position: relative;
-  width: 500%;
+.main .login__container {
+  width: 100%;
   height: 100%;
+  max-width: 1500px;
+  padding: 0 21px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .login__card {
+  width: 462px;
+  padding: 40px 49px;
+  border-radius: 12px;
+  margin-bottom: 50px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.main .login__card__header {
+  color: #ffffff;
+  text-align: center;
+}
+
+.main .login__card__header h1 {
+  font-size: 1.25rem;
+  min-width: 285px;
+}
+
+.main .login__card__header h2 {
+  font-size: 1rem;
+  font-weight: 400;
+  min-width: 329px;
+  margin-top: 11px;
+}
+
+.main .login__card__form {
+  margin-top: 36px;
+  margin-bottom: 32px;
+}
+
+.main .login__card__form--fieldset1 {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: none;
+  gap: 17px;
+}
+
+.main .login__card__form--fieldset1 input {
+  width: 100%;
+  height: 47px;
+  padding: 10.55px 16px;
+  border-radius: 4px;
+  border: transparent;
+}
+
+.main .login__card__form--fieldset1 input::-webkit-input-placeholder {
+  font-size: 1rem;
+  color: #939393;
+}
+
+.main .login__card__form--fieldset1 input:-ms-input-placeholder {
+  font-size: 1rem;
+  color: #939393;
+}
+
+.main .login__card__form--fieldset1 input::-ms-input-placeholder {
+  font-size: 1rem;
+  color: #939393;
+}
+
+.main .login__card__form--fieldset1 input::placeholder {
+  font-size: 1rem;
+  color: #939393;
+}
+
+.main .login__card__form--fieldset1 input:focus {
+  outline: 3px solid #36b972;
+}
+
+.main .login__card__form--fieldset1 .icon__container {
+  position: absolute;
+  right: 11px;
+  bottom: 10px;
+  cursor: pointer;
+}
+
+.main .login__card__form--fieldset1 .icon__container .icon--active {
+  display: none;
+}
+
+.main .login__card__form--secondary__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 15px;
+  margin-bottom: 23px;
+}
+
+.main .login__card__form--secondary__container fieldset {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  border: none;
+  color: #ffffff;
+}
+
+.main .login__card__form--secondary__container fieldset .checkbox__vector {
+  position: absolute;
+  left: 4px;
+  display: none;
+}
+
+.main .login__card__form--secondary__container fieldset .active {
+  display: block;
+}
+
+.main .login__card__form--checkbox {
+  -moz-appearance: none;
+       appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-right: 16px;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.main .login__card__form--checkbox_label {
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.main .login__card__form--checkbox__link {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #5fe19b;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.main .login__card__form--checkbox__link:after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  border: 0px solid #4cc986;
+  width: 0%;
+}
+
+.main .login__card__form--checkbox__link:hover:after {
+  border-width: 1px;
+  width: 100%;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.main .login__card__form .checkbox--active {
+  background-color: #36b972;
+  border-color: #36b972;
+}
+
+.main .login__card__form__button {
+  width: 100%;
+  height: 47px;
+  border-radius: 6px;
+  color: #ffffff;
+  background-color: #4cc986;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.main .login__card__form__button:disabled {
+  opacity: 0.4;
+}
+
+.main .login__card__form__button:hover {
+  -webkit-filter: drop-shadow(0px 3px 7px #5fe19bb5);
+          filter: drop-shadow(0px 3px 7px #5fe19bb5);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.main .login__card__form__button:active {
+  -webkit-filter: drop-shadow(0px 6px 0px #2bb34f);
+          filter: drop-shadow(0px 6px 0px #2bb34f);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.main .login__card__form--register__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 8px;
+}
+
+.main .login__card__form--register__container p {
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.main .login__card__form--register__link {
+  position: relative;
+  text-decoration: none;
+  color: #5fe19b;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.main .login__card__form--register__link::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  border: 0px solid #4cc986;
+  width: 0%;
+}
+
+.main .login__card__form--register__link:hover:after {
+  border-width: 1px;
+  width: 100%;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.main .login__card__form--decoration__container {
+  height: 70px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .login__card__form--decoration__container p {
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: #ffffff;
+  opacity: 0.5;
+}
+
+.main .login__card__form--decoration__container p:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: 2.07px;
+  width: 47%;
+  border-top: 1px solid #ffffff;
+  left: 200px;
+}
+
+.main .login__card__form--decoration__container p:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  height: 2.07px;
+  width: 47%;
+  border-top: 1px solid #ffffff;
+  right: 200px;
+}
+
+.main .login__card__form--ssmm {
+  width: 100%;
+  height: 47px;
+  border: 2px solid #ffffff;
+  border-radius: 6px;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 1.125rem;
+  text-decoration: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .login__card__form--ssmm__container {
+  height: 190px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main .login__card__form--ssmm:hover {
+  -webkit-filter: drop-shadow(0px 3px 5px #ffffff);
+          filter: drop-shadow(0px 3px 5px #ffffff);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.main .login__card__form--ssmm div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -58,41 +463,174 @@ body {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 67%;
 }
 
-.slider__img {
-  position: absolute;
-  height: 100%;
-  width: 100%;
+.main .login__card__form--ssmm div img {
+  margin-right: 14px;
 }
 
-.slider__img img {
+.main .login__card__form--ssmm div .login__card__form--ssmm__tw {
+  margin-right: 24px;
+}
+
+.main .login__card__form--ssmm div .login__card__form--ssmm__google {
+  margin-right: 30px;
+}
+
+.slider__arrow__container {
+  position: relative;
   height: 100%;
-  width: 100%;
+  width: 91px;
+  background-color: transparent;
+  border: none;
 }
 
 .slider__arrow--left {
-  position: absolute;
-  top: 50%;
-  width: 30px;
-  left: 2%;
-  z-index: 2;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  top: 45%;
+  cursor: pointer;
+  left: 36%;
 }
 
 .slider__arrow--right {
-  position: absolute;
-  top: 50%;
-  width: 30px;
-  right: 2%;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  top: 45%;
+  cursor: pointer;
+  right: -5%;
 }
 
-.slider__bullets-container {
+.footer {
+  height: 100px;
+  width: 100%;
+  position: relative;
+}
+
+.footer__bullets-container {
   position: absolute;
   width: 100%;
+  bottom: 40%;
+}
+
+.footer__bullets-container--svg {
+  width: 100%;
   margin: auto;
-  bottom: 2%;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    background-image: URL("../../assets/tablet/slider/slider1-tablet.png");
+  }
+  .header {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .header-logo {
+    width: 40%;
+    margin-top: 45px;
+    margin-bottom: 89px;
+  }
+  .main .login__container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .main .login__card {
+    margin-bottom: 0px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  body {
+    background-image: URL("../../assets/mobile/slider/slider1-mobile.png");
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .header-logo {
+    width: 194px;
+    margin-top: 44px;
+    margin-bottom: 13px;
+  }
+  .slider__arrow__container,
+  .footer {
+    display: none;
+  }
+  .main .login__card {
+    padding: 22px 16px;
+  }
+  .main .login__card__header h2 {
+    min-width: 235px;
+    width: 260px;
+    margin: 11px auto 0px;
+  }
+  .main .login__card__form {
+    margin-top: 27px;
+  }
+  .main .login__card__form--secondary_container {
+    margin-bottom: 29px;
+  }
+  .main .login__card__form--decoration__container p:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 2.07px;
+    width: 39%;
+    border-top: 1px solid #ffffff;
+    right: 165px;
+  }
+  .main .login__card__form--decoration__container p:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 2.07px;
+    width: 39%;
+    border-top: 1px solid #ffffff;
+    left: 165px;
+  }
+  .main .login__card__form--ssmm div {
+    width: 78%;
+  }
+  .main .login__card__form--ssmm div img {
+    margin-right: 25px;
+  }
 }
 /*# sourceMappingURL=main.css.map */

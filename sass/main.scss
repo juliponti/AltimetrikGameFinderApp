@@ -10,65 +10,419 @@
 html,
 body {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+}
+
+body {
+  background-image: URL("../../assets/desktop/slider/slide-1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  @include FlexBox(column, space-between);
 }
 
 .header {
-  position: fixed;
+  background: none;
   width: 100%;
-  height: 65px;
-  padding: 0 15px;
+  padding: 0 16px;
   @include FlexBox(row, flex-start);
-  z-index: 2;
 
-  &-img {
+  &-logo {
     width: 25%;
     min-width: 180px;
+    margin: 45px 0;
   }
 }
 
-.slider {
-  &__container {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+.main {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  @include FlexBox(row, space-between);
 
-    .slider {
-      position: relative;
-      width: 500%;
-      height: 100%;
-      @include FlexBox(row, flex-start, flex-start);
-    }
-  }
-
-  &__img {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-
-    img {
-      height: 100%;
+  .login {
+    &__container {
       width: 100%;
-    }
-  }
-
-  &__arrow {
-    &--left {
-      @include Arrows;
-      left: 2%;
-      z-index: 2;
+      height: 100%;
+      max-width: 1500px;
+      padding: 0 21px;
+      @include FlexBox(row, flex-end, center);
     }
 
-    &--right {
-      @include Arrows;
-      right: 2%;
+    &__card {
+      width: 462px;
+      padding: 40px 49px;
+      border-radius: 12px;
+      margin-bottom: 50px;
+      background-color: $card-bg;
+
+      &__header {
+        color: $white;
+        text-align: center;
+
+        h1 {
+          font-size: 1.25rem;
+
+          min-width: 285px;
+        }
+
+        h2 {
+          font-size: 1rem;
+          font-weight: 400;
+          min-width: 329px;
+          margin-top: 11px;
+        }
+      }
+
+      &__form {
+        margin-top: 36px;
+        margin-bottom: 32px;
+
+        &--fieldset1 {
+          position: relative;
+          @include FlexBox(column);
+          border: none;
+          gap: 17px;
+
+          input {
+            width: 100%;
+            height: 47px;
+            padding: 10.55px 16px;
+            border-radius: 4px;
+            border: transparent;
+
+            &::placeholder {
+              font-size: 1rem;
+              color: $gray-400;
+            }
+
+            &:focus {
+              outline: 3px solid $primary-300;
+            }
+          }
+
+          .icon__container {
+            position: absolute;
+            right: 11px;
+            bottom: 10px;
+            cursor: pointer;
+            .icon {
+              &--active {
+                display: none;
+              }
+            }
+          }
+        }
+
+        &--secondary__container {
+          @include FlexBox(row, space-between);
+          margin-top: 15px;
+          margin-bottom: 23px;
+
+          fieldset {
+            @include FlexBox;
+            position: relative;
+            border: none;
+            color: $white;
+
+            .checkbox__vector {
+              position: absolute;
+              left: 4px;
+              display: none;
+            }
+
+            .active {
+              display: block;
+            }
+          }
+        }
+
+        &--checkbox {
+          appearance: none;
+          -webkit-appearance: none;
+
+          width: 20px;
+          height: 20px;
+          margin-right: 16px;
+          border: 1px solid $white;
+          border-radius: 4px;
+          background-color: transparent;
+          cursor: pointer;
+
+          &_label {
+            font-size: 0.875rem;
+            font-weight: 400;
+          }
+
+          &__link {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: $primary-100;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+
+            &:after {
+              @include Underline($primary-200);
+            }
+
+            &:hover:after {
+              @include hoverUnderline;
+            }
+          }
+        }
+
+        .checkbox--active {
+          background-color: $primary-300;
+          border-color: $primary-300;
+        }
+
+        &__button {
+          width: 100%;
+          height: 47px;
+          border-radius: 6px;
+          color: $white;
+          background-color: $primary-200;
+          border: none;
+          cursor: pointer;
+
+          font-weight: 700;
+          font-size: 1.125rem;
+
+          &:disabled {
+            opacity: 0.4;
+          }
+
+          &:hover {
+            filter: drop-shadow(0px 3px 7px $button-hover);
+            transition: all 0.3s ease;
+          }
+
+          &:active {
+            filter: drop-shadow(0px 6px 0px $button-active);
+            transition: all 0.3s ease;
+          }
+        }
+
+        &--register {
+          &__container {
+            @include FlexBox;
+
+            gap: 8px;
+
+            p {
+              color: $white;
+              font-size: 0.875rem;
+              font-weight: 400;
+            }
+          }
+
+          &__link {
+            position: relative;
+            text-decoration: none;
+            color: $primary-100;
+            font-size: 0.875rem;
+            font-weight: 400;
+
+            &::after {
+              @include Underline($primary-200);
+            }
+
+            &:hover {
+              &:after {
+                @include hoverUnderline;
+              }
+            }
+          }
+        }
+
+        &--decoration__container {
+          height: 70px;
+          position: relative;
+          @include FlexBox;
+
+          p {
+            font-weight: 400;
+            font-size: 0.875rem;
+            color: $white;
+            opacity: 0.5;
+
+            &:after {
+              @include Vector(47%);
+              left: 200px;
+            }
+            &:before {
+              @include Vector(47%);
+              right: 200px;
+            }
+          }
+        }
+
+        &--ssmm {
+          &__container {
+            height: 190px;
+            @include FlexBox(column, space-between);
+          }
+
+          width: 100%;
+          height: 47px;
+          border: 2px solid $white;
+          border-radius: 6px;
+          font-weight: 700;
+          color: $white;
+          font-size: 1.125rem;
+          text-decoration: none;
+
+          @include FlexBox;
+          &:hover {
+            filter: drop-shadow(0px 3px 5px $white);
+            transition: all 0.3s ease;
+          }
+          div {
+            @include FlexBox(row, flex-start);
+
+            width: 67%;
+
+            img {
+              margin-right: 14px;
+            }
+
+            .login__card__form--ssmm {
+              &__tw {
+                margin-right: 24px;
+              }
+
+              &__google {
+                margin-right: 30px;
+              }
+            }
+          }
+        }
+      }
     }
   }
+}
+.slider__arrow {
+  &__container {
+    position: relative;
+    height: 100%;
+    width: 91px;
+    background-color: transparent;
+    border: none;
+  }
+
+  &--left {
+    @include Arrows;
+    left: 36%;
+  }
+
+  &--right {
+    @include Arrows;
+    right: -5%;
+  }
+}
+
+.footer {
+  height: 100px;
+  width: 100%;
+
+  position: relative;
 
   &__bullets-container {
     position: absolute;
     width: 100%;
-    margin: auto;
-    bottom: 2%;
+    bottom: 40%;
+
+    &--svg {
+      width: 100%;
+      margin: auto;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    background-image: URL("../../assets/tablet/slider/slider1-tablet.png");
+  }
+  .header {
+    @include FlexBox(row, center);
+
+    &-logo {
+      width: 40%;
+      margin-top: 45px;
+      margin-bottom: 89px;
+    }
+  }
+  .main {
+    .login {
+      &__container {
+        @include FlexBox(row, center);
+      }
+
+      &__card {
+        margin-bottom: 0px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 414px) {
+  body {
+    background-image: URL("../../assets/mobile/slider/slider1-mobile.png");
+    @include FlexBox(column, flex-start);
+  }
+
+  .header-logo {
+    width: 194px;
+    margin-top: 44px;
+    margin-bottom: 13px;
+  }
+
+  .slider__arrow__container,
+  .footer {
+    display: none;
+  }
+
+  .main {
+    .login {
+      &__card {
+        padding: 22px 16px;
+
+        &__header {
+          h2 {
+            min-width: 235px;
+            width: 260px;
+            margin: 11px auto 0px;
+          }
+        }
+
+        &__form {
+          margin-top: 27px;
+
+          &--secondary_container {
+            margin-bottom: 29px;
+          }
+
+          &--decoration__container {
+            p:before {
+              @include Vector(39%);
+              right: 165px;
+            }
+            p:after {
+              @include Vector(39%);
+              left: 165px;
+            }
+          }
+          &--ssmm {
+            div {
+              width: 78%;
+
+              img {
+                margin-right: 25px;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

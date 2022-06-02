@@ -3,9 +3,12 @@
 // Primary
 
 $primary-100: #5fe19b;
-$primary-200: #36b972;
-$primaty-300: #067b3c;
+$primary-200: #4cc986;
+$primary-300: #36b972;
+$primary-400: #067b3c;
 
+$button-active: #2bb34f;
+$button-hover: #5fe19bb5;
 // Secondary
 
 $secondary-blue-100: #5f81fb;
@@ -29,6 +32,8 @@ $gray-500: #515151;
 $gray-600: #303030;
 $gray-700: #141414;
 
+$card-bg: rgba(0, 0, 0, 0.5);
+
 // mixings
 
 @mixin FlexBox($direction: row, $justify: center, $align: center) {
@@ -39,7 +44,33 @@ $gray-700: #141414;
 }
 
 @mixin Arrows {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  top: 45%;
+  cursor: pointer;
+}
+
+@mixin Vector($width) {
+  content: "";
   position: absolute;
   top: 50%;
-  width: 30px;
+  height: 2.07px;
+  width: $width;
+  border-top: 1px solid $white;
+}
+
+@mixin Underline($color) {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  border: 0px solid $color;
+  width: 0%;
+}
+
+@mixin hoverUnderline {
+  border-width: 1px;
+  width: 100%;
+  transition: all 0.4s ease;
 }
