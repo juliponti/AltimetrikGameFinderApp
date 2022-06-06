@@ -28,7 +28,7 @@ body {
 
 .home__main {
   width: 100%;
-  height: 90vh;
+  min-height: 90vh;
 
   background-color: $gray-800;
 
@@ -59,14 +59,15 @@ body {
       }
 
       &-btns__container {
-        @include FlexBox(column);
+        @include FlexBox(column, space-around);
 
-        width: 11%;
         height: 100%;
       }
 
       &-darkm__container {
-        @include FlexBox;
+        @include FlexBox(row, space-between);
+        width: 148px;
+        margin-top: 16px;
 
         span {
           color: $white;
@@ -77,28 +78,159 @@ body {
         }
 
         button {
-          cursor: pointer;
-          background-color: inherit;
-          border-radius: 11px;
-          border: transparent;
+          @include secondaryBtns;
+        }
+      }
+
+      &-view-btns__container {
+        @include FlexBox(row, space-between);
+        width: 104px;
+        margin-left: 44px;
+        button {
+          @include secondaryBtns;
         }
       }
     }
   }
 
   &__primary-section {
-    @include FlexBox(row, space-between);
+    @include FlexBox(row, space-between, flex-start);
 
     width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
   }
 
   aside {
-    width: 17%;
+    width: 260px;
     height: 100%;
   }
 
   &__gallery__container {
     width: 83%;
+    max-height: 77vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  &__card {
+    &-container {
+      display: grid;
+      grid-template-columns: repeat(3, 372px);
+      grid-template-rows: repeat(auto-fill, 330px);
+      gap: 15px 13px;
+
+      width: 98%;
+      height: 200%;
+
+      margin: 0 auto;
+    }
+
+    @include FlexBox(column, flex-start);
+    width: 98%;
+    height: 96%;
+
+    margin-left: 8px;
+    margin-top: 8px;
+
+    border-radius: 12px;
+    background-color: $gray-600;
+
+    &-img__container {
+      position: relative;
+
+      width: 100%;
+      height: 180px;
+
+      background-image: URL("https://via.placeholder.com/365x190");
+      object-fit: cover;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+
+      svg {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+      }
+    }
+
+    &-description {
+      &__container {
+        width: 100%;
+        height: 136px;
+
+        padding: 15px;
+      }
+
+      &-title__container {
+        @include FlexBox(row, space-between);
+        font-weight: 700;
+
+        h2 {
+          color: $white;
+          font-size: 1.5rem;
+        }
+
+        span {
+          color: $primary-300;
+          font-size: 1.125rem;
+
+          margin-top: 8px;
+        }
+      }
+
+      &-details__container {
+        @include FlexBox(row, space-between);
+
+        width: 100%;
+        height: 70%;
+
+        .description-details--text__container {
+          @include FlexBox(column, space-between, flex-start);
+          gap: 10px;
+
+          width: 66%;
+          height: 62%;
+
+          margin-top: 9px;
+
+          color: $white;
+
+          div {
+            @include FlexBox(row, flex-start);
+            width: 100%;
+
+            p {
+              font-size: 0.875rem;
+            }
+
+            p:nth-child(1) {
+              color: $gray-400;
+              font-weight: 500;
+            }
+
+            p:nth-child(2) {
+              margin-left: 25px;
+              color: $white;
+              font-weight: 400;
+            }
+          }
+
+          div:nth-child(2) {
+            p:nth-child(2) {
+              margin-left: 63px;
+            }
+          }
+        }
+
+        .console-logos__container {
+          @include FlexBox(row, space-between);
+
+          width: 29%;
+          margin-bottom: 9px;
+        }
+      }
+    }
   }
 }
 

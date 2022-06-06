@@ -78,3 +78,10 @@ $black-transparent-100: rgba(0, 0, 0, 0.0001);
   width: 100%;
   transition: all 0.4s ease;
 }
+
+@mixin secondaryBtns {
+  border: transparent;
+  border-radius: 11px;
+  background-color: inherit;
+  cursor: pointer;
+}
