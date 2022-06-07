@@ -171,6 +171,74 @@ body.dark {
   aside {
     width: 260px;
     height: 100%;
+
+    .navbar__container {
+      @include FlexBox(column, space-between, flex-start);
+
+      width: 100%;
+      height: 436px;
+
+      padding: 0 21px;
+
+      ul {
+        @include FlexBox(column, space-around, flex-start);
+        list-style: none;
+
+        li {
+          color: $white;
+          font-size: 1.125rem;
+          cursor: pointer;
+
+          &:hover {
+            color: $primary-100;
+            transition: all 0.3s ease;
+          }
+        }
+
+        &:first-child {
+          height: 125px;
+          li {
+            font-size: 1.25rem;
+            font-weight: 700;
+          }
+        }
+
+        &:nth-child(2) {
+          @include FlexBox(column, flex-start, flex-start);
+          height: 142px;
+
+          li {
+            @include FlexBox;
+            height: 35px;
+
+            img {
+              margin-right: 7px;
+              margin-bottom: 3px;
+            }
+
+            &:nth-child(2) {
+              margin-top: 4px;
+            }
+
+            &:last-child {
+              margin-top: 7px;
+            }
+          }
+        }
+
+        &:last-child {
+          height: 78px;
+        }
+      }
+
+      .navbar__secondary-title {
+        color: $white;
+        font-size: 1.375rem;
+        font-weight: 700;
+
+        margin-bottom: 12px;
+      }
+    }
   }
 
   &__gallery__container {
