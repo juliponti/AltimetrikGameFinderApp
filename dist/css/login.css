@@ -16,6 +16,8 @@ body {
   background-image: URL("../../assets/desktop/slider/slide-1.png");
   background-repeat: no-repeat;
   background-size: cover;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
