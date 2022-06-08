@@ -1,9 +1,9 @@
 @import "configurations";
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: "Exo", sans-serif;
 }
 
@@ -14,18 +14,18 @@ body {
 }
 
 body {
+  @include FlexBox(column, space-between);
   background-image: URL("../../assets/desktop/slider/slide-1.png");
   background-repeat: no-repeat;
   background-size: cover;
   transition: all 0.3s ease-in-out;
-  @include FlexBox(column, space-between);
 }
 
 .header {
-  background: none;
+  @include FlexBox(row, flex-start);
   width: 100%;
   padding: 0 16px;
-  @include FlexBox(row, flex-start);
+  background: none;
 
   &-logo {
     width: 25%;
@@ -35,25 +35,25 @@ body {
 }
 
 .main {
+  @include FlexBox(row, space-between);
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  @include FlexBox(row, space-between);
 
   .login {
     &__container {
+      @include FlexBox(row, flex-end, center);
       width: 100%;
       height: 100%;
       max-width: 1500px;
       padding: 0 21px;
-      @include FlexBox(row, flex-end, center);
     }
 
     &__card {
       width: 462px;
+      margin-bottom: 50px;
       padding: 40px 49px;
       border-radius: 12px;
-      margin-bottom: 50px;
       background-color: $black-transparent;
 
       &__header {
@@ -61,16 +61,15 @@ body {
         text-align: center;
 
         h1 {
-          font-size: 1.25rem;
-
           min-width: 285px;
+          font-size: 1.25rem;
         }
 
         h2 {
-          font-size: 1rem;
-          font-weight: 400;
           min-width: 329px;
           margin-top: 11px;
+          font-size: 1rem;
+          font-weight: 400;
         }
       }
 
@@ -81,34 +80,60 @@ body {
         &--fieldset1 {
           position: relative;
           @include FlexBox(column);
-          border: none;
           gap: 17px;
+          border: none;
 
           input {
             width: 100%;
             height: 47px;
+
             padding: 10.55px 16px;
-            border-radius: 4px;
+
             border: transparent;
+            border-radius: 4px;
+
+            font-size: 0.938rem;
+            color: $gray-550;
 
             &::placeholder {
-              font-size: 1rem;
               color: $gray-400;
+              font-size: 0.938rem;
+              font-family: "Exo", sans-serif;
+              font-weight: 400;
+            }
+            &:first-child:focus {
+              outline: 1px solid $primary-300;
             }
 
             &:focus {
-              outline: 3px solid $primary-300;
+              outline: 1px solid #ffffff1a;
+            }
+
+            &:disabled {
+              background-color: $gray-55;
             }
           }
 
           .icon__container {
             position: absolute;
             right: 11px;
-            bottom: 10px;
+            bottom: 25px;
+
+            width: 10%;
+            height: 25%;
             cursor: pointer;
             .icon {
               &--active {
                 display: none;
+                position: absolute;
+                top: 13px;
+                left: 15px;
+              }
+
+              &--inactive {
+                position: absolute;
+                top: 13px;
+                left: 15px;
               }
             }
           }
@@ -126,9 +151,10 @@ body {
             color: $white;
 
             .checkbox__vector {
+              display: none;
               position: absolute;
               left: 4px;
-              display: none;
+              cursor: pointer;
             }
 
             .active {
@@ -207,7 +233,6 @@ body {
         &--register {
           &__container {
             @include FlexBox;
-
             gap: 8px;
 
             p {
@@ -219,10 +244,10 @@ body {
 
           &__link {
             position: relative;
-            text-decoration: none;
-            color: $primary-100;
             font-size: 0.875rem;
             font-weight: 400;
+            color: $primary-100;
+            text-decoration: none;
 
             &::after {
               @include Underline($primary-200);
@@ -237,13 +262,13 @@ body {
         }
 
         &--decoration__container {
-          height: 70px;
           position: relative;
           @include FlexBox;
 
+          height: 70px;
           p {
-            font-weight: 400;
             font-size: 0.875rem;
+            font-weight: 400;
             color: $white;
             opacity: 0.5;
 
@@ -260,20 +285,23 @@ body {
 
         &--ssmm {
           &__container {
-            height: 190px;
             @include FlexBox(column, space-between);
+            height: 190px;
           }
+
+          @include FlexBox;
 
           width: 100%;
           height: 47px;
+
           border: 2px solid $white;
           border-radius: 6px;
+
+          font-size: 1.125rem;
           font-weight: 700;
           color: $white;
-          font-size: 1.125rem;
           text-decoration: none;
 
-          @include FlexBox;
           &:hover {
             filter: drop-shadow(0px 3px 5px $white);
             transition: all 0.3s ease;
@@ -302,13 +330,41 @@ body {
     }
   }
 }
+
+.dots {
+  font-family: "Verdana", sans-serif;
+  font-weight: 900;
+}
+
+.error {
+  outline: 2px solid $error-color;
+}
+
+.error-message {
+  width: 100%;
+
+  padding: 5px;
+
+  border: 1px solid $error-color;
+  border-radius: 4px;
+
+  color: $white;
+  text-align: center;
+}
+
+.success {
+  outline: 3px solid $primary-300;
+}
+
 .slider__arrow {
   &__container {
     position: relative;
-    height: 100%;
+
     width: 91px;
-    background-color: transparent;
+    height: 100%;
+
     border: none;
+    background-color: transparent;
   }
 
   &--left {
@@ -323,15 +379,16 @@ body {
 }
 
 .footer {
-  height: 100px;
-  width: 100%;
-
   position: relative;
+
+  width: 100%;
+  height: 100px;
 
   &__bullets-container {
     position: absolute;
-    width: 100%;
     bottom: 40%;
+
+    width: 100%;
 
     &--svg {
       width: 100%;
@@ -368,8 +425,8 @@ body {
 
 @media screen and (max-width: 414px) {
   body {
-    background-image: URL("../../assets/mobile/slider/slider1-mobile.png");
     @include FlexBox(column, flex-start);
+    background-image: URL("../../assets/mobile/slider/slider1-mobile.png");
   }
 
   .header-logo {
@@ -390,8 +447,8 @@ body {
 
         &__header {
           h2 {
-            min-width: 235px;
             width: 260px;
+            min-width: 235px;
             margin: 11px auto 0px;
           }
         }
