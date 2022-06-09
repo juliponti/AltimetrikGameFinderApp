@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "json:server": "json-server --watch db.json",
+    "json:server-auth": "json-server-auth --watch db.json"
   },
   "repository": {
     "type": "git",
@@ -16,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/juliponti/AltimetrikGameFinderApp/issues"
   },
-  "homepage": "https://github.com/juliponti/AltimetrikGameFinderApp#readme"
+  "homepage": "https://github.com/juliponti/AltimetrikGameFinderApp#readme",
+  "devDependencies": {
+    "json-server": "^0.17.0",
+    "json-server-auth": "^2.1.0"
+  }
 }
