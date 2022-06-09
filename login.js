@@ -171,8 +171,6 @@ form.addEventListener("input", function (e) {
   }
 });
 
-let users = [];
-
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -183,14 +181,6 @@ form.addEventListener("submit", function (e) {
 
   if (isFormValid) {
     if (checkbox.classList.contains("checkbox--active")) {
-      const newUser = {
-        email: inputEmail.value,
-        psw: inputPsw.value,
-      };
-      users.push(newUser);
-
-      localStorage.setItem("users", JSON.stringify(users));
-
       inputPsw.value = "";
       inputEmail.value = "";
 
