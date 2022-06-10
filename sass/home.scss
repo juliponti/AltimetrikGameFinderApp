@@ -169,8 +169,11 @@ body.dark {
   }
 
   aside {
+    position: fixed;
+    left: 20px;
+    top: 226px;
+
     width: 260px;
-    height: 100%;
 
     .navbar__container {
       @include FlexBox(column, space-between, flex-start);
@@ -243,7 +246,8 @@ body.dark {
 
   &__gallery__container {
     width: 97%;
-    max-height: 77vh;
+    max-height: 75vh;
+    margin-left: 230px;
     overflow-y: scroll;
     overflow-x: hidden;
     -ms-overflow-style: none;
