@@ -259,8 +259,10 @@ body {
 }
 
 .home__main aside {
+  position: fixed;
+  left: 20px;
+  top: 226px;
   width: 260px;
-  height: 100%;
 }
 
 .home__main aside .navbar__container {
@@ -379,7 +381,8 @@ body {
 
 .home__main__gallery__container {
   width: 97%;
-  max-height: 77vh;
+  max-height: 75vh;
+  margin-left: 230px;
   overflow-y: scroll;
   overflow-x: hidden;
   -ms-overflow-style: none;
