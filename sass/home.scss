@@ -13,9 +13,18 @@ body {
   min-height: 100vh;
 }
 
-body.dark {
+.overlayer {
+  display: none;
+  position: fixed;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
   background-color: $total-black;
   opacity: 0.4;
+
+  z-index: 2;
 }
 
 .home__header {
@@ -34,13 +43,16 @@ body.dark {
   box-shadow: 1px -3px 36px $black-transparent;
 
   &-input__container {
-    position: relative;
+    position: fixed;
+    top: 24px;
+    left: 38%;
 
     width: 27%;
     height: 47px;
 
     margin-right: 146px;
 
+    z-index: 2;
     input {
       width: 100%;
       max-width: 362px;
@@ -261,7 +273,7 @@ body.dark {
     &-container {
       display: grid;
       grid-template-columns: repeat(3, 372px);
-      grid-template-rows: repeat(auto-fill, 330px);
+      grid-template-rows: repeat(auto-fill, 324px);
       gap: 15px 13px;
 
       width: 98%;
@@ -280,17 +292,29 @@ body.dark {
     border-radius: 12px;
     background-color: $gray-600;
 
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
     &-img__container {
       position: relative;
 
       width: 100%;
       height: 180px;
 
-      background-image: URL("https://via.placeholder.com/365x190");
-      object-fit: cover;
       border-top-left-radius: 12px;
       border-top-right-radius: 12px;
 
+      img {
+        width: 100%;
+        height: 100%;
+
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+      }
       svg {
         position: absolute;
         right: 12px;
@@ -301,7 +325,7 @@ body.dark {
     &-description {
       &__container {
         width: 100%;
-        height: 136px;
+        min-height: 136px;
 
         padding: 15px;
       }
@@ -341,7 +365,7 @@ body.dark {
           color: $white;
 
           div {
-            @include FlexBox(row, flex-start);
+            @include FlexBox(row, flex-start, flex-start);
             width: 100%;
 
             p {

@@ -12,9 +12,15 @@ body {
   min-height: 100vh;
 }
 
-body.dark {
+.overlayer {
+  display: none;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: #000000;
   opacity: 0.4;
+  z-index: 2;
 }
 
 .home__header {
@@ -41,10 +47,13 @@ body.dark {
 }
 
 .home__header-input__container {
-  position: relative;
+  position: fixed;
+  top: 24px;
+  left: 38%;
   width: 27%;
   height: 47px;
   margin-right: 146px;
+  z-index: 2;
 }
 
 .home__header-input__container input {
@@ -404,6 +413,9 @@ body.dark {
   margin-top: 8px;
   border-radius: 12px;
   background-color: #303030;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .home__main__card-container {
@@ -411,21 +423,29 @@ body.dark {
   display: grid;
   -ms-grid-columns: (372px)[3];
       grid-template-columns: repeat(3, 372px);
-  -ms-grid-rows: (330px)[auto-fill];
-      grid-template-rows: repeat(auto-fill, 330px);
+  -ms-grid-rows: (324px)[auto-fill];
+      grid-template-rows: repeat(auto-fill, 324px);
   gap: 15px 13px;
   width: 98%;
   height: 200%;
   margin: 0 auto;
 }
 
+.home__main__card::-webkit-scrollbar {
+  display: none;
+}
+
 .home__main__card-img__container {
   position: relative;
   width: 100%;
   height: 180px;
-  background-image: URL("https://via.placeholder.com/365x190");
-  -o-object-fit: cover;
-     object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.home__main__card-img__container img {
+  width: 100%;
+  height: 100%;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 }
@@ -438,7 +458,7 @@ body.dark {
 
 .home__main__card-description__container {
   width: 100%;
-  height: 136px;
+  min-height: 136px;
   padding: 15px;
 }
 
@@ -520,9 +540,9 @@ body.dark {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   width: 100%;
 }
 
