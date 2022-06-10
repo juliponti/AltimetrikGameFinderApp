@@ -93,7 +93,7 @@ function handleRemember() {
 checkbox.addEventListener("click", handleRemember);
 tick.addEventListener("click", handleRemember);
 
-// inputs Validation
+// utils
 
 const isRequired = (value) => (value === "" ? false : true);
 const isEmailValid = (email) => {
@@ -160,6 +160,19 @@ const checkPassword = () => {
   return valid;
 };
 
+const snackbar = (message) => {
+  const snackbar = document.getElementById("snackbar");
+
+  snackbar.classList.add("show");
+  snackbar.innerHTML = message;
+
+  setTimeout(() => {
+    snackbar.classList.remove("show");
+    snackbar.innerHTML = "";
+  }, 3000);
+};
+
+// inputs Validation
 form.addEventListener("input", function (e) {
   switch (e.target.id) {
     case "input-email":
@@ -171,6 +184,49 @@ form.addEventListener("input", function (e) {
   }
 });
 
+const login = async () => {
+  const rawResponse = await fetch("http://localhost:3000/login", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: inputEmail.value,
+      password: inputPsw.value,
+    }),
+  });
+  if (!rawResponse.ok) {
+    const message = await rawResponse.json();
+    snackbar(message);
+  }
+  const content = await rawResponse.json();
+  console.log(content);
+  localStorage.setItem("user", content.user.email);
+  localStorage.setItem("token", content.accessToken);
+  window.location.replace("./pages/home/index.html");
+};
+/* function getGames() {
+  // const accessToken = getAccessToken()
+  // const rawResponse = await fetch("http://localhost:3000/login", {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //        "Authorization": accessToken
+  //     },
+  //     body: JSON.stringify({
+  //       email: inputEmail,
+  //       password: inputPsw,
+  //     }),
+  //   });
+} */
+
+/* function getAccessToken() {
+  // buscar en storage access
+  // return "Bearer " + accessToken
+} */
+
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -181,15 +237,13 @@ form.addEventListener("submit", function (e) {
 
   if (isFormValid) {
     if (checkbox.classList.contains("checkbox--active")) {
-      inputPsw.value = "";
-      inputEmail.value = "";
-
-      console.log("the info is submitted");
+      login().catch((error) => {
+        console.log(error);
+      });
     } else {
-      inputPsw.value = "";
-      inputEmail.value = " ";
-
-      console.log("the info is submitted");
+      login().catch((error) => {
+        console.log(error);
+      });
     }
   }
 });
