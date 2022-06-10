@@ -96,6 +96,9 @@ tick.addEventListener("click", handleRemember);
 // utils
 
 const isRequired = (value) => (value === "" ? false : true);
+const isBetween = (length, min, max) =>
+  length < min || length > max ? false : true;
+
 const isEmailValid = (email) => {
   const re =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -121,6 +124,20 @@ const showSuccess = (input, id) => {
   error.textContent = "";
 };
 
+const snackbar = (message) => {
+  const snackbar = document.getElementById("snackbar");
+
+  snackbar.classList.add("show");
+  snackbar.innerHTML = message;
+
+  setTimeout(() => {
+    snackbar.classList.remove("show");
+    snackbar.innerHTML = "";
+  }, 3000);
+};
+
+// inputs Validation
+
 const checkEmail = () => {
   let valid = false;
   const email = inputEmail.value.trim();
@@ -139,6 +156,8 @@ const checkEmail = () => {
 
 const checkPassword = () => {
   let valid = false;
+  const min = 5,
+    max = 10;
   const password = inputPsw.value.trim();
 
   if (!isRequired(password)) {
@@ -148,6 +167,13 @@ const checkPassword = () => {
     iconContainer.style.cursor = "no-drop";
     pswIcon[0].style.fill = "#FB5F5F";
     pswIcon[1].style.fill = "#FB5F5F";
+  } else if (!isBetween(password.length, min, max)) {
+    iconContainer.style.bottom = "46px";
+    showError(
+      inputPsw,
+      2,
+      `Password must be between  ${min} and ${max} characters`
+    );
   } else {
     showSuccess(inputPsw, 2);
     iconContainer.style.bottom = "25px";
@@ -160,19 +186,6 @@ const checkPassword = () => {
   return valid;
 };
 
-const snackbar = (message) => {
-  const snackbar = document.getElementById("snackbar");
-
-  snackbar.classList.add("show");
-  snackbar.innerHTML = message;
-
-  setTimeout(() => {
-    snackbar.classList.remove("show");
-    snackbar.innerHTML = "";
-  }, 3000);
-};
-
-// inputs Validation
 form.addEventListener("input", function (e) {
   switch (e.target.id) {
     case "input-email":
@@ -199,6 +212,8 @@ const login = async () => {
   if (!rawResponse.ok) {
     const message = await rawResponse.json();
     snackbar(message);
+    inputEmail.value = "";
+    inputPsw.value = "";
   }
   const content = await rawResponse.json();
   console.log(content);
@@ -206,26 +221,6 @@ const login = async () => {
   localStorage.setItem("token", content.accessToken);
   window.location.replace("./pages/home/index.html");
 };
-/* function getGames() {
-  // const accessToken = getAccessToken()
-  // const rawResponse = await fetch("http://localhost:3000/login", {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //        "Authorization": accessToken
-  //     },
-  //     body: JSON.stringify({
-  //       email: inputEmail,
-  //       password: inputPsw,
-  //     }),
-  //   });
-} */
-
-/* function getAccessToken() {
-  // buscar en storage access
-  // return "Bearer " + accessToken
-} */
 
 form.addEventListener("submit", function (e) {
   e.preventDefault();

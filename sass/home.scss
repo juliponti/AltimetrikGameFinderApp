@@ -86,9 +86,19 @@ body {
     @include FlexBox(row, space-between);
     width: 115px;
 
-    p {
+    button {
+      border: none;
+      background-color: inherit;
+
       color: $white;
       font-size: 0.938rem;
+
+      cursor: pointer;
+
+      &:hover {
+        color: $gray-200;
+        transition: all 0.3s;
+      }
     }
 
     div {
@@ -284,7 +294,6 @@ body {
 
     @include FlexBox(column, flex-start);
     width: 98%;
-    height: 96%;
 
     margin-left: 8px;
     margin-top: 8px;
@@ -319,6 +328,7 @@ body {
         position: absolute;
         right: 12px;
         top: 12px;
+        cursor: pointer;
       }
     }
 
@@ -337,6 +347,7 @@ body {
         h4 {
           color: $white;
           font-size: 1.5rem;
+          cursor: pointer;
         }
 
         span {
@@ -351,7 +362,6 @@ body {
         @include FlexBox(row, space-between);
 
         width: 100%;
-        height: 70%;
 
         .description-details--text__container {
           @include FlexBox(column, space-between, flex-start);
@@ -392,10 +402,14 @@ body {
         }
 
         .console-logos__container {
-          @include FlexBox(row, space-between);
+          @include FlexBox(row, center);
 
           width: 29%;
           margin-bottom: 9px;
+
+          img {
+            margin-right: 11px;
+          }
         }
       }
     }

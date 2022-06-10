@@ -17,7 +17,7 @@ body {
   @include FlexBox(column, space-between);
   background-image: URL("../../assets/desktop/slider/slide-1.png");
   background-repeat: no-repeat;
-  background-size: cover;
+
   transition: all 0.3s ease-in-out;
 }
 
