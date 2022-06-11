@@ -1,3 +1,5 @@
+import { snackbar } from "./js/utils.js";
+
 // Carousel
 
 const prevArrow = document.getElementById("prev-arrow");
@@ -122,18 +124,6 @@ const showSuccess = (input, id) => {
   input.classList.add("success");
   error.classList.remove("error-message");
   error.textContent = "";
-};
-
-const snackbar = (message) => {
-  const snackbar = document.getElementById("snackbar");
-
-  snackbar.classList.add("show");
-  snackbar.innerHTML = message;
-
-  setTimeout(() => {
-    snackbar.classList.remove("show");
-    snackbar.innerHTML = "";
-  }, 3000);
 };
 
 // inputs Validation
