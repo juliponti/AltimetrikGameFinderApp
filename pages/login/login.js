@@ -1,52 +1,4 @@
-import { snackbar } from "./js/utils.js";
-
-// Carousel
-
-const prevArrow = document.getElementById("prev-arrow");
-const nextArrow = document.getElementById("next-arrow");
-
-let i = 0;
-const images = [];
-
-images[0] = "./assets/desktop/slider/slide-1.png";
-images[1] = "./assets/desktop/slider/slide-2.jpg";
-images[2] = "./assets/desktop/slider/slide-3.jpg";
-images[3] = "./assets/desktop/slider/slide-4.jpg";
-images[4] = "./assets/desktop/slider/slide-5.jpg";
-images[5] = "./assets/desktop/slider/slide-6.jpg";
-
-function prevPicture() {
-  if (i == 0) {
-    i = 6;
-    document.getElementById(`bullet-${i - 1}`).style.opacity = "1";
-    document.getElementById(`bullet-0`).style.opacity = "0.25";
-    i--;
-    document.body.style.backgroundImage = `url("${images[i]}")`;
-  } else if (i <= 5) {
-    document.getElementById(`bullet-${i}`).style.opacity = "1";
-    i--;
-    document.body.style.backgroundImage = `url("${images[i]}")`;
-    document.getElementById(`bullet-${i}`).style.opacity = "1";
-    document.getElementById(`bullet-${i + 1}`).style.opacity = "0.25";
-  }
-}
-
-function nextPicture() {
-  if (i <= 4) {
-    i++;
-    document.body.style.backgroundImage = `url("${images[i]}")`;
-    document.getElementById(`bullet-${i}`).style.opacity = "1";
-    document.getElementById(`bullet-${i - 1}`).style.opacity = "0.25";
-  } else if (i == 5) {
-    document.getElementById(`bullet-${i}`).style.opacity = "0.25";
-    i = 0;
-    document.body.style.backgroundImage = `url("${images[i]}")`;
-    document.getElementById(`bullet-${i}`).style.opacity = "1";
-  }
-}
-
-prevArrow.addEventListener("click", prevPicture);
-nextArrow.addEventListener("click", nextPicture);
+import { snackbar, showError, showSuccess } from "../../js/utils.js";
 
 // Form validation
 
@@ -60,6 +12,8 @@ const checkbox = document.getElementById("checkbox");
 const tick = document.getElementsByClassName("checkbox__vector")[0];
 
 // password view
+
+iconContainer.addEventListener("click", handleClick);
 
 function handleClick() {
   const eye = document.getElementsByClassName("icon--inactive")[0];
@@ -78,9 +32,10 @@ function handleClick() {
   }
 }
 
-iconContainer.addEventListener("click", handleClick);
-
 // Remember me
+
+checkbox.addEventListener("click", handleRemember);
+tick.addEventListener("click", handleRemember);
 
 function handleRemember() {
   if (checkbox.classList.contains("checkbox--active")) {
@@ -92,10 +47,7 @@ function handleRemember() {
   }
 }
 
-checkbox.addEventListener("click", handleRemember);
-tick.addEventListener("click", handleRemember);
-
-// utils
+// inputs Validation
 
 const isRequired = (value) => (value === "" ? false : true);
 const isBetween = (length, min, max) =>
@@ -107,28 +59,18 @@ const isEmailValid = (email) => {
   return re.test(email);
 };
 
-const showError = (input, id, message) => {
-  const error = document.getElementById(`error-${id}`);
+form.addEventListener("input", function (e) {
+  switch (e.target.id) {
+    case "input-email":
+      checkEmail();
+      break;
+    case "input-psw":
+      checkPassword();
+      break;
+  }
+});
 
-  input.classList.remove("success");
-  input.classList.add("error");
-  error.classList.add("error-message");
-
-  error.textContent = message;
-};
-
-const showSuccess = (input, id) => {
-  const error = document.getElementById(`error-${id}`);
-
-  input.classList.remove("error");
-  input.classList.add("success");
-  error.classList.remove("error-message");
-  error.textContent = "";
-};
-
-// inputs Validation
-
-const checkEmail = () => {
+function checkEmail() {
   let valid = false;
   const email = inputEmail.value.trim();
 
@@ -142,9 +84,9 @@ const checkEmail = () => {
   }
 
   return valid;
-};
+}
 
-const checkPassword = () => {
+function checkPassword() {
   let valid = false;
   const min = 5,
     max = 10;
@@ -174,18 +116,7 @@ const checkPassword = () => {
   }
 
   return valid;
-};
-
-form.addEventListener("input", function (e) {
-  switch (e.target.id) {
-    case "input-email":
-      checkEmail();
-      break;
-    case "input-psw":
-      checkPassword();
-      break;
-  }
-});
+}
 
 const login = async () => {
   const rawResponse = await fetch("http://localhost:3000/login", {
@@ -209,7 +140,7 @@ const login = async () => {
   console.log(content);
   localStorage.setItem("user", content.user.email);
   localStorage.setItem("token", content.accessToken);
-  window.location.replace("./pages/home/index.html");
+  window.location.replace("../home/index.html");
 };
 
 form.addEventListener("submit", function (e) {
@@ -227,7 +158,7 @@ form.addEventListener("submit", function (e) {
       });
     } else {
       login().catch((error) => {
-        console.log(error);
+        snackbar(error);
       });
     }
   }

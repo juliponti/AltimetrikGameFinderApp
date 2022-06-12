@@ -341,7 +341,7 @@ body {
       }
 
       &-title__container {
-        @include FlexBox(row, space-between);
+        @include FlexBox(row, space-between, flex-start);
         font-weight: 700;
 
         h4 {
@@ -359,7 +359,7 @@ body {
       }
 
       &-details__container {
-        @include FlexBox(row, space-between);
+        @include FlexBox(row, space-between, flex-start);
 
         width: 100%;
 
@@ -405,7 +405,7 @@ body {
           @include FlexBox(row, center);
 
           width: 29%;
-          margin-bottom: 9px;
+          margin-top: 10px;
 
           img {
             margin-right: 11px;
@@ -413,6 +413,37 @@ body {
         }
       }
     }
+  }
+}
+
+#loading {
+  visibility: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 2rem;
+  height: 2rem;
+
+  margin: auto;
+
+  border: 5px solid $gray-55;
+  border-top: 6px solid $primary-300;
+  border-radius: 100%;
+
+  animation: spin 1s infinite linear;
+}
+
+#loading.display {
+  visibility: visible;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
   }
 }
 
