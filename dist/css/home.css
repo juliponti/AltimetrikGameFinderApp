@@ -47,7 +47,7 @@ body {
 }
 
 .home__header-input__container {
-  position: fixed;
+  position: absolute;
   top: 24px;
   left: 38%;
   width: 27%;
@@ -61,6 +61,7 @@ body {
   max-width: 362px;
   height: 100%;
   padding: 0 37px;
+  margin-bottom: 6px;
   background-color: #ffffff;
   border-radius: 4px;
   border: transparent;
@@ -92,6 +93,14 @@ body {
   position: absolute;
   top: 15px;
   left: 10px;
+}
+
+.home__header-input__container img.cross {
+  visibility: hidden;
+  position: absolute;
+  top: 10px;
+  left: calc(100% - 16%);
+  cursor: pointer;
 }
 
 .home__header-user__container {
@@ -594,6 +603,59 @@ body {
 
 .home__main__card-description-details__container .console-logos__container img {
   margin-right: 11px;
+}
+
+.options {
+  width: 100%;
+  max-width: 362px;
+  height: 41px;
+  padding: 8px;
+  background-color: #ffffff;
+  border: 1px solid transparent;
+  border-bottom: 1px solid;
+  color: #3d3d3d;
+  font-size: 0.938rem;
+  text-align: left;
+  cursor: pointer;
+  -webkit-animation: fadein 0.5s;
+          animation: fadein 0.5s;
+}
+
+.options:hover {
+  background-color: #5fe19b;
+}
+
+.options:first-child {
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+}
+
+.options:last-child {
+  border-bottom: 0;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
 }
 
 #loading {

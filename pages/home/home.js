@@ -2,23 +2,30 @@ const input = document.getElementById("home-input");
 const layer = document.getElementById("layer");
 const cardContainer = document.getElementById("cards-container");
 const gallery = document.getElementById("gallery");
-const inputEmail = document.getElementById("input-email");
-const inputPsw = document.getElementById("input-psw");
+const optionsContainer = document.getElementById("options-cont");
 const loader = document.querySelector("#loading");
+const cross = document.getElementById("cross");
 
-let card;
 let counter = 0;
 let pageNum = 1;
+let currentValue;
+let searches = [];
 
 gallery.addEventListener("scroll", handleScroll);
-input.addEventListener("keypress", handleChange);
-
+input.addEventListener("keypress", debounce(handleChange, 350));
+cross.addEventListener("click", () => {
+  input.value = "";
+  cross.style.visibility = "hidden";
+});
 input.addEventListener("focus", () => {
   layer.style.display = "block";
 });
-
 input.addEventListener("blur", () => {
   layer.style.display = "none";
+});
+
+window.addEventListener("click", () => {
+  optionsContainer.innerHTML = "";
 });
 
 function displayLoading() {
@@ -33,52 +40,43 @@ function hideLoading() {
   loader.classList.remove("display");
 }
 
-async function fetchData(pageNum) {
-  displayLoading();
-  const getData = await fetch(
-    `https://api.rawg.io/api/games?key=3b8dd54671dc4624a07d03548d00e621&page=${pageNum}`
-  );
-  const dataToJson = await getData.json();
-  const results = dataToJson.results;
-  hideLoading();
+let card = (page) =>
+  page.map((result) => {
+    counter = counter + 1;
 
-  card = (page) =>
-    page.map((result) => {
-      counter = counter + 1;
+    let genreTitle = "";
+    let consoles = [];
 
-      let genreTitle = "";
-      let consoles = [];
-
-      for (let i = 0; i < result.genres.length; i++) {
-        genreTitle += `${result.genres[i].name}, `;
+    for (let i = 0; i < result.genres.length; i++) {
+      genreTitle += `${result.genres[i].name}, `;
+    }
+    for (let i = 0; i < result.parent_platforms.length; i++) {
+      const parentPlatform = result.parent_platforms[i];
+      const id = parentPlatform.platform.id;
+      switch (id) {
+        case 1:
+          const pc = `<img src="../../assets/desktop/home/card/windows-icon.svg" alt="windows logo"/>`;
+          consoles.push(pc);
+          break;
+        case 2:
+          const ps = `<img src="../../assets/desktop/home/card/ps-icon.svg" alt="playstation logo"/>`;
+          consoles.push(ps);
+          break;
+        case 3:
+          const xbox = `<img src="../../assets/desktop/home/card/xbox-icon.svg" alt="xbox logo"/>`;
+          consoles.push(xbox);
+          break;
+        case 7:
+          const nintendo = `<img src="../../assets/desktop/home/card/nintendo.svg" alt="nintendo logo"/>`;
+          consoles.push(nintendo);
+          break;
+        default:
+          " ";
+          break;
       }
-      for (let i = 0; i < result.parent_platforms.length; i++) {
-        const parentPlatform = result.parent_platforms[i];
-        const id = parentPlatform.platform.id;
-        switch (id) {
-          case 1:
-            const pc = `<img src="../../assets/desktop/home/card/windows-icon.svg" alt="windows logo"/>`;
-            consoles.push(pc);
-            break;
-          case 2:
-            const ps = `<img src="../../assets/desktop/home/card/ps-icon.svg" alt="playstation logo"/>`;
-            consoles.push(ps);
-            break;
-          case 3:
-            const xbox = `<img src="../../assets/desktop/home/card/xbox-icon.svg" alt="xbox logo"/>`;
-            consoles.push(xbox);
-            break;
-          case 7:
-            const nintendo = `<img src="../../assets/desktop/home/card/nintendo.svg" alt="nintendo logo"/>`;
-            consoles.push(nintendo);
-            break;
-          default:
-            " ";
-            break;
-        }
-      }
+    }
 
-      return ` <div class="home__main__card">
+    return ` <div class="home__main__card">
             <div class="home__main__card-img__container">
              <img src="${result.background_image}" alt="${result.name}"/>
               <svg
@@ -119,10 +117,25 @@ async function fetchData(pageNum) {
               </div>
             </div>
           </div>`;
-    });
+  });
+
+let optionButton = (options) =>
+  options.map((result) => {
+    return `
+    <button class="options" value="${result.name}">${result.name}</button>
+    `;
+  });
+
+async function fetchData(pageNum) {
+  displayLoading();
+  const getData = await fetch(
+    `https://api.rawg.io/api/games?key=3b8dd54671dc4624a07d03548d00e621&page=${pageNum}`
+  );
+  const dataToJson = await getData.json();
+  const results = dataToJson.results;
+  hideLoading();
 
   const currentCard = card(results);
-
   const allCards = currentCard.join(" ");
 
   cardContainer.innerHTML += allCards;
@@ -136,38 +149,78 @@ function handleScroll() {
 }
 
 function handleChange(e) {
-  const currentValue = e.target.value;
+  currentValue = e.target.value;
   let searchResults = [];
+  cross.style.visibility = "visible";
 
-  if (currentValue == "" || currentValue.length == 0) {
-    counter = 0;
-    cardContainer.innerHTML = "";
-    fetchData(+1);
-  } else if (
-    (currentValue != "" && currentValue.length == 3) ||
-    e.keyCode == 13
+  if (
+    currentValue == "" ||
+    currentValue.length == 0 ||
+    (currentValue == "" && e.keyCode == 13)
   ) {
-    const game = currentValue;
-    console.log(game);
+    cross.style.visibility = "hidden";
+    counter = 0;
+    pageNum = 1;
+    cardContainer.innerHTML = "";
+    optionsContainer.innerHTML = "";
 
+    gallery.addEventListener("scroll", handleScroll, true);
+    fetchData(+1);
+  } else if (currentValue != "" || e.keyCode == 13) {
+    const game = currentValue.toLowerCase();
+    searches.push(game);
+    console.log(searches);
     fetch(
       `https://api.rawg.io/api/games?key=3b8dd54671dc4624a07d03548d00e621&search=${game}`
     )
       .then((res) => res.json())
       .then((data) => {
         const longData = data.results;
-        const shortData = longData.slice(0, 5);
+        const shortData = longData.slice(0, 4);
+
         searchResults.push(shortData);
 
         for (let i = 0; i < searchResults.length; i++) {
-          const item = searchResults[i];
+          let item = searchResults[i];
+
+          const options = optionButton(item);
+          const allOptions = options.join("");
+          optionsContainer.innerHTML = allOptions;
+
+          const searchOption = document.getElementsByClassName("options");
+          for (let i = 0; i < searchOption.length; i++) {
+            const element = searchOption[i];
+
+            element.addEventListener("click", () => {
+              const currentOption = element.value;
+              input.value = currentOption;
+              cross.style.visibility = "hidden";
+              handleChange(e);
+            });
+          }
 
           const searchCard = card(item);
           const allSearchCards = searchCard.join(" ");
           cardContainer.innerHTML = allSearchCards;
+          gallery.addEventListener("scroll", handleScroll, false);
         }
       });
   }
+}
+
+function debounce(fn, wait) {
+  let timeout;
+
+  return (...args) => {
+    const later = () => {
+      clearTimeout(timeout);
+      fn(...args);
+    };
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(later, wait);
+  };
 }
 
 fetchData(+1);

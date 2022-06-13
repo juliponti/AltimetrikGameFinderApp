@@ -399,8 +399,7 @@ body {
 }
 
 .snackbar {
-  display: none;
-
+  visibility: hidden;
   position: fixed;
   left: 50%;
   bottom: 30px;
@@ -415,7 +414,7 @@ body {
   color: $white;
   text-align: center;
 
-  z-index: 1;
+  z-index: 3;
 }
 
 .show {
