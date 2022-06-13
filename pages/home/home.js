@@ -6,22 +6,12 @@ const inputEmail = document.getElementById("input-email");
 const inputPsw = document.getElementById("input-psw");
 const loader = document.querySelector("#loading");
 
+let card;
 let counter = 0;
 let pageNum = 1;
 
 gallery.addEventListener("scroll", handleScroll);
-
-function displayLoading() {
-  loader.classList.add("display");
-
-  setTimeout(() => {
-    loader.classList.remove("display");
-  }, 5000);
-}
-
-function hideLoading() {
-  loader.classList.remove("display");
-}
+input.addEventListener("keypress", handleChange);
 
 input.addEventListener("focus", () => {
   layer.style.display = "block";
@@ -30,6 +20,18 @@ input.addEventListener("focus", () => {
 input.addEventListener("blur", () => {
   layer.style.display = "none";
 });
+
+function displayLoading() {
+  loader.classList.add("display");
+
+  setTimeout(() => {
+    loader.classList.remove("display");
+  }, 10000);
+}
+
+function hideLoading() {
+  loader.classList.remove("display");
+}
 
 async function fetchData(pageNum) {
   displayLoading();
@@ -40,7 +42,7 @@ async function fetchData(pageNum) {
   const results = dataToJson.results;
   hideLoading();
 
-  const card = (page) =>
+  card = (page) =>
     page.map((result) => {
       counter = counter + 1;
 
@@ -130,6 +132,41 @@ function handleScroll() {
   if (gallery.offsetHeight + gallery.scrollTop >= gallery.scrollHeight) {
     pageNum = pageNum + 1;
     fetchData(pageNum);
+  }
+}
+
+function handleChange(e) {
+  const currentValue = e.target.value;
+  let searchResults = [];
+
+  if (currentValue == "" || currentValue.length == 0) {
+    counter = 0;
+    cardContainer.innerHTML = "";
+    fetchData(+1);
+  } else if (
+    (currentValue != "" && currentValue.length == 3) ||
+    e.keyCode == 13
+  ) {
+    const game = currentValue;
+    console.log(game);
+
+    fetch(
+      `https://api.rawg.io/api/games?key=3b8dd54671dc4624a07d03548d00e621&search=${game}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const longData = data.results;
+        const shortData = longData.slice(0, 5);
+        searchResults.push(shortData);
+
+        for (let i = 0; i < searchResults.length; i++) {
+          const item = searchResults[i];
+
+          const searchCard = card(item);
+          const allSearchCards = searchCard.join(" ");
+          cardContainer.innerHTML = allSearchCards;
+        }
+      });
   }
 }
 
