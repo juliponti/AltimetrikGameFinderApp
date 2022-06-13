@@ -28,8 +28,3 @@ export const showSuccess = (input, id) => {
   error.classList.remove("error-message");
   error.textContent = "";
 };
-
-export const getAccessToken = () => {
-  const token = localStorage.getItem("token");
-  return `Bearer ${token}`;
-};

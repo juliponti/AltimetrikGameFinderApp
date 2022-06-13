@@ -1,9 +1,16 @@
 {
   "users": [
     {
-      "email": "altimetrik@gmail.com",
-      "password": "$2a$10$pDXY9eZYKat4OK8lWYoLM.iL8P5rApxwKHZ8kAp15HZPqTjRvpt2G",
+      "email": "maryjane@gmail.com",
+      "password": "$2a$10$WVeE0p2j7GJ.XxWx9fcwYugBRJXZB.fT6q/anHzQGmprg1Vb8rqxK",
+      "picture": false,
       "id": 1
+    },
+    {
+      "email": "janedoe@gmail.com",
+      "password": "$2a$10$VatZS1BnAZlzHUwCwHvhs.4uhCM9fqUF8lF/oNhkUBQ9pLgmGnrrq",
+      "picture": true,
+      "id": 2
     }
   ]
 }

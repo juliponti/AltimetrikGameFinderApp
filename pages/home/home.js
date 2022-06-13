@@ -5,11 +5,18 @@ const gallery = document.getElementById("gallery");
 const optionsContainer = document.getElementById("options-cont");
 const loader = document.querySelector("#loading");
 const cross = document.getElementById("cross");
+const userImg = document.getElementById("user-img-container");
 
 let counter = 0;
 let pageNum = 1;
 let currentValue;
 let searches = [];
+
+if (localStorage.getItem("picture") == "true") {
+  userImg.style.backgroundImage = `url("../../assets/desktop/home/header/Custom.png")`;
+} else {
+  userImg.style.backgroundImage = `url("../../assets/desktop/home/header/EmptyState.png")`;
+}
 
 gallery.addEventListener("scroll", handleScroll);
 input.addEventListener("keypress", debounce(handleChange, 350));
@@ -233,6 +240,7 @@ const logOut = (e) => {
   e.preventDefault();
   localStorage.removeItem("user");
   localStorage.removeItem("token");
+  localStorage.removeItem("picture");
   window.location.replace("../login/index.html");
 };
 
