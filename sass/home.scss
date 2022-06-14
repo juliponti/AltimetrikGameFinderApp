@@ -504,6 +504,7 @@ body {
   &__card {
     &__container {
       display: none;
+      position: relative;
       grid-template-columns: repeat(1, 707px);
       grid-template-rows: repeat(auto-fill, 550px);
       gap: 15px 13px;
@@ -535,6 +536,14 @@ body {
       border-top-left-radius: 12px;
       border-top-right-radius: 12px;
 
+      img {
+        width: 100%;
+        height: 100%;
+
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+      }
+
       svg {
         position: absolute;
         right: 26px;
@@ -551,6 +560,13 @@ body {
         height: 220px;
 
         padding: 10px 18px;
+
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
       }
 
       &-title__container {
@@ -589,7 +605,7 @@ body {
           color: $white;
 
           div {
-            @include FlexBox(row, flex-start);
+            @include FlexBox(row, flex-start, flex-start);
             width: 100%;
 
             p {
@@ -620,7 +636,7 @@ body {
 
     &-description__container {
       width: 100%;
-      margin-top: 19px;
+      margin: 19px 0;
 
       p {
         color: $white;
