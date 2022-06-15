@@ -1,4 +1,4 @@
-import { snackbar, showError, showSuccess } from "../../js/utils.js";
+import { snackbar, showError, showSuccess } from "./utils.js";
 
 // Form validation
 
@@ -59,19 +59,6 @@ const isEmailValid = (email) => {
   return re.test(email);
 };
 
-const isPasswordSecure = (password) => {
-  const re = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])");
-  return re.test(password);
-};
-
-/* 
-(?=.*[a-z]) -> at least one lowercase character
-(?=.*[A-Z]) -> at least one uppercase character
-(?=.*[0-9]) -> at least one number
-(?=.*[!@#$%^&*]) -> at least one special character
-
-*/
-
 form.addEventListener("input", function (e) {
   switch (e.target.id) {
     case "input-email":
@@ -101,8 +88,7 @@ function checkEmail() {
 
 function checkPassword() {
   let valid = false;
-  const min = 8,
-    max = 15;
+
   const password = inputPsw.value.trim();
 
   if (!isRequired(password)) {
@@ -112,20 +98,6 @@ function checkPassword() {
     iconContainer.style.cursor = "no-drop";
     pswIcon[0].style.fill = "#FB5F5F";
     pswIcon[1].style.fill = "#FB5F5F";
-  } else if (!isBetween(password.length, min, max)) {
-    iconContainer.style.bottom = "46px";
-    showError(
-      inputPsw,
-      2,
-      `Password must be between  ${min} and ${max} characters`
-    );
-  } else if (!isPasswordSecure(password)) {
-    iconContainer.style.bottom = "76px";
-    showError(
-      inputPsw,
-      2,
-      "Password must has at least 1 lowercase character, 1 uppercase characters, 1 number, and 1 special character in (!@#$%^&*)"
-    );
   } else {
     showSuccess(inputPsw, 2);
     iconContainer.style.bottom = "25px";

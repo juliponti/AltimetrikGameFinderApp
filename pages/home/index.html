@@ -81,11 +81,16 @@
       </div>
     </header>
     <div class="home__header-input__container" id="search-container">
-      <input type="text" placeholder="Search games..." id="home-input" />
+      <input
+        type="text"
+        placeholder="Search games..."
+        id="home-input"
+        autocomplete="off"
+      />
       <div id="options-cont"></div>
       <img src="../../assets/desktop/home/header/search-icon.svg" />
       <img
-        src="../../assets/desktop/home/header/Circled X.svg"
+        src="../../assets/desktop/home/header/Circled-x.svg"
         class="cross"
         id="cross"
       />
@@ -140,20 +145,20 @@
         <aside>
           <nav class="navbar__container">
             <ul>
-              <li>Home</li>
-              <li>Reviews</li>
-              <li>New Releases</li>
+              <li tabindex="1" id="home-text">Home</li>
+              <li tabindex="2">Reviews</li>
+              <li tabindex="3">New Releases</li>
             </ul>
 
             <ul>
-              <li>
+              <li tabindex="4">
                 <img src="../../assets/desktop/home/aside/Star.svg" />This week
               </li>
-              <li>
+              <li tabindex="5">
                 <img src="../../assets/desktop/home/aside/Calendar.svg" />This
                 month
               </li>
-              <li>
+              <li tabindex="6">
                 <img src="../../assets/desktop/home/aside/Clock.svg" />Coming
                 soon
               </li>
@@ -162,11 +167,11 @@
             <div>
               <h4 class="navbar__secondary-title">Popular</h4>
               <ul>
-                <li>
+                <li id="last-searches" tabindex="7">
                   <img src="../../assets/desktop/home/aside/Search.svg" />Last
                   searches
                 </li>
-                <li>
+                <li tabindex="8">
                   <img
                     src="../../assets/desktop/home/aside/Thumbs Up.svg"
                   />Best of the year
@@ -176,10 +181,9 @@
           </nav>
         </aside>
         <div class="home__main__gallery__container" id="gallery">
+          <div id="loading"></div>
           <!-- Three card view gallery -->
-          <div class="home__main__card-container" id="cards-container">
-            <div id="loading"></div>
-          </div>
+          <div class="home__main__card-container" id="cards-container"></div>
           <!-- One card view gallery -->
           <div
             class="one-card-view__card__container"
@@ -190,6 +194,6 @@
     </main>
     <footer class="home__footer"></footer>
     <script type="module" src="./home.js"></script>
-    <script type="module" src="../../js/utils.js"></script>
+    <script type="module" src="./logout.js"></script>
   </body>
 </html>
