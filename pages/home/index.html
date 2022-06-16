@@ -4,11 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="Game Finder"
-      content="Webpage to find games"
-      author="Julieta Pontino"
-    />
+    <meta name="Game Finder" content="webpage to find games" />
     <link
       rel="icon"
       href="../../favicons/favicon-home-dark.png"
@@ -26,6 +22,7 @@
   </head>
   <body>
     <div id="layer" class="overlayer"></div>
+    <!-- Header -->
     <header class="home__header">
       <svg
         width="269"
@@ -88,14 +85,16 @@
         autocomplete="off"
       />
       <div id="options-cont"></div>
-      <img src="../../assets/desktop/home/header/search-icon.svg" />
+      <img src="../../assets/desktop/home/header/search-icon.svg" alt="" />
       <img
         src="../../assets/desktop/home/header/Circled-x.svg"
         class="cross"
         id="cross"
+        alt=""
       />
     </div>
     <main class="home__main">
+      <!-- "New and trending" section -->
       <section class="home__main__banner-section">
         <div class="banner-text__container">
           <h1>New and trending</h1>
@@ -104,7 +103,7 @@
         <div class="banner-btns__container">
           <div class="banner-darkm__container">
             <span>Dark mode</span>
-            <button>
+            <button aria-label="switch dark and light mode ">
               <svg
                 width="44"
                 height="22"
@@ -126,13 +125,20 @@
             </button>
           </div>
           <div class="banner-view-btns__container">
-            <button id="three-card-view-btn" disabled>
+            <button
+              id="three-card-view-btn"
+              disabled
+              aria-label="change to three column view"
+            >
               <img
                 src="../../assets/desktop/home/banner/three-view-active.svg"
                 alt=""
               />
             </button>
-            <button id="one-card-view-btn">
+            <button
+              id="one-card-view-btn"
+              aria-label="change to one column view"
+            >
               <img
                 src="../../assets/desktop/home/banner/one-view-disable.svg"
                 alt=""
@@ -142,6 +148,7 @@
         </div>
       </section>
       <section class="home__main__primary-section">
+        <!-- Aside/ navigation section-->
         <aside>
           <nav class="navbar__container">
             <ul>
@@ -152,15 +159,22 @@
 
             <ul>
               <li tabindex="4">
-                <img src="../../assets/desktop/home/aside/Star.svg" />This week
+                <img
+                  src="../../assets/desktop/home/aside/Star.svg"
+                  alt=""
+                />This week
               </li>
               <li tabindex="5">
-                <img src="../../assets/desktop/home/aside/Calendar.svg" />This
-                month
+                <img
+                  src="../../assets/desktop/home/aside/Calendar.svg"
+                  alt=""
+                />This month
               </li>
               <li tabindex="6">
-                <img src="../../assets/desktop/home/aside/Clock.svg" />Coming
-                soon
+                <img
+                  src="../../assets/desktop/home/aside/Clock.svg"
+                  alt=""
+                />Coming soon
               </li>
             </ul>
 
@@ -168,20 +182,25 @@
               <h4 class="navbar__secondary-title">Popular</h4>
               <ul>
                 <li id="last-searches" tabindex="7">
-                  <img src="../../assets/desktop/home/aside/Search.svg" />Last
-                  searches
+                  <img
+                    src="../../assets/desktop/home/aside/Search.svg"
+                    alt=""
+                  />Last searches
                 </li>
                 <li tabindex="8">
                   <img
                     src="../../assets/desktop/home/aside/Thumbs Up.svg"
+                    alt=""
                   />Best of the year
                 </li>
               </ul>
             </div>
           </nav>
         </aside>
+        <!-- Gallery section-->
         <div class="home__main__gallery__container" id="gallery">
           <div id="loading"></div>
+          <p id="not-found" class="not-found-text"></p>
           <!-- Three card view gallery -->
           <div class="home__main__card-container" id="cards-container"></div>
           <!-- One card view gallery -->
@@ -192,7 +211,9 @@
         </div>
       </section>
     </main>
+    <!-- Footer -->
     <footer class="home__footer"></footer>
+    <!--Scripts -->
     <script type="module" src="./home.js"></script>
     <script type="module" src="./logout.js"></script>
   </body>

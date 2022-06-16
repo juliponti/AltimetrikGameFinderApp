@@ -50,8 +50,6 @@ function handleRemember() {
 // inputs Validation
 
 const isRequired = (value) => (value === "" ? false : true);
-const isBetween = (length, min, max) =>
-  length < min || length > max ? false : true;
 
 const isEmailValid = (email) => {
   const re =
@@ -146,14 +144,8 @@ form.addEventListener("submit", function (e) {
   let isFormValid = isEmailValid && isPasswordValid;
 
   if (isFormValid) {
-    if (checkbox.classList.contains("checkbox--active")) {
-      login().catch((error) => {
-        console.log(error);
-      });
-    } else {
-      login().catch((error) => {
-        snackbar(error);
-      });
-    }
+    login().catch((error) => {
+      snackbar(error);
+    });
   }
 });

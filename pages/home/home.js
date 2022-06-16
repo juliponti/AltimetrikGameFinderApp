@@ -22,6 +22,7 @@ const oneCardVwBtn = document.getElementById("one-card-view-btn");
 const gallery = document.getElementById("gallery");
 const cardContainer = document.getElementById("cards-container");
 const oneViewContainer = document.getElementById("oneView-container");
+const notFoundText = document.getElementById("not-found");
 
 // aside
 const lastSearches = document.getElementById("last-searches");
@@ -29,7 +30,7 @@ const homeText = document.getElementById("home-text");
 
 let counter = 0;
 let pageNum = 1;
-let currentValueTW;
+let currentValue;
 
 let threeViewVal;
 let oneViewVal;
@@ -52,7 +53,7 @@ cross.addEventListener("click", () => {
   cross.style.visibility = "hidden";
 });
 
-gallery.addEventListener("scroll", handleScroll, false);
+gallery.addEventListener("scroll", handleScroll);
 threeCardVwBtn.addEventListener("click", handleThreeView);
 oneCardVwBtn.addEventListener("click", handleOneView);
 
@@ -74,17 +75,42 @@ oneViewVal = false;
 
 // Cards component
 
+const months = {
+  "01": "Jua",
+  "02": "Feb",
+  "03": "Mar",
+  "04": "Apr",
+  "05": "May",
+  "06": "Jun",
+  "07": "Jul",
+  "08": "Aug",
+  "09": "Sep",
+  10: "Oct",
+  11: "Nov",
+  12: "Dec",
+};
+
 const card = (page) =>
   page.map((result) => {
-    counter = counter + 1;
     let genreTitle = "";
     let consoles = [];
     let bgDefault;
+    let date = result.released;
 
-    for (let i = 0; i < result.genres.length; i++) {
-      genreTitle += `${result.genres[i].name}, `;
+    counter = counter + 1;
+
+    date = date.split("-");
+    const month = date[1];
+
+    const currentMonth = months[month];
+    const formatDayStr = `${currentMonth} ${date[2]}, ${date[0]}`;
+
+    const genres = result.genres;
+    for (let i = 0; i < genres.length; i++) {
+      genreTitle += `${genres[i].name}, `;
     }
-    for (let i = 0; i < result.parent_platforms.length; i++) {
+    const ppl = result.parent_platforms.length;
+    for (let i = 0; i < ppl; i++) {
       const parentPlatform = result.parent_platforms[i];
       const id = parentPlatform.platform.id;
       switch (id) {
@@ -110,7 +136,7 @@ const card = (page) =>
       }
     }
 
-    const card1 = ` <button class="home__main__card">
+    const card1 = ` <button class="home__main__card" aria-label="game card">
           <div class="home__main__card-img__container">
            <img src="${result.background_image || bgDefault}" alt="${
       result.name
@@ -133,14 +159,14 @@ const card = (page) =>
           </div>
           <div class="home__main__card-description__container">
             <div class="home__main__card-description-title__container">
-              <h4>${result.name}</h4>
+              <h3>${result.name}</h3>
               <span>#${counter}</span>
             </div>
             <div class="home__main__card-description-details__container">
               <div class="description-details--text__container">
                 <div>
                   <p>Release date:</p>
-                  <p>${result.released}</p>
+                  <p>${formatDayStr}</p>
                 </div>
                 <div>
                   <p>Genres:</p>
@@ -154,7 +180,7 @@ const card = (page) =>
           </div>
         </button>`;
 
-    const card2 = `<button class="one-card-view__card">
+    const card2 = `<button class="one-card-view__card" aria-label="game card with description">
     <div class="one-card-view__card-img__container">
     <img src="${result.background_image || bgDefault}" alt="${result.name}"/>
       <svg
@@ -174,7 +200,7 @@ const card = (page) =>
     </div>
     <div class="one-card-view__card-info__container">
       <div class="one-card-view__card-info-title__container">
-        <h4>${result.name}</h4>
+        <h3>${result.name}</h3>
         <span>#${counter}</span>
       </div>
       <div class="one-card-view__card-info-details__container">
@@ -183,7 +209,7 @@ const card = (page) =>
         >
           <div>
             <p>Release date:</p>
-            <p>${result.released}</p>
+            <p>${formatDayStr}</p>
           </div>
           <div>
             <p>Genres:</p>
@@ -213,11 +239,15 @@ const card = (page) =>
 // Display last searches cards
 
 function handleLastSearches() {
+  displayLoading();
+  cardContainer.innerHTML = "";
+  oneViewContainer.innerHTML = "";
+  hideLoading();
   lastSearches.style.color = "#5fe19b";
   homeText.style.color = "#fff";
-
-  if (lastResults.length == 0 || lastResults.length == 1) {
-    console.log("No results found");
+  if (lastResults.length == 0) {
+    notFoundText.style.display = "block";
+    notFoundText.innerHTML = `No searches were made`;
   } else {
     const twoLastResults = lastResults.slice(-2);
     const tl = twoLastResults.length;
@@ -282,15 +312,18 @@ function handleOneView() {
 
   oneViewVal = !oneViewVal;
   threeViewVal = !threeViewVal;
-  counter = 0;
 
+  counter = 0;
   fetchData(+1);
 }
 
 // Fetch games
 
 async function fetchData(pageNum) {
-  homeText.style.color = "#5fe19b";
+  homeText.style.color = `#5fe19b`;
+  lastSearches.style = "#fff";
+  notFoundText.style.display = "none";
+
   displayLoading();
   const getData = await fetch(
     `https://api.rawg.io/api/games?key=3b8dd54671dc4624a07d03548d00e621&page=${pageNum}`
@@ -313,13 +346,12 @@ async function fetchData(pageNum) {
     oneViewContainer.innerHTML += allCards;
     cardContainer.innerHTML = "";
   }
-  gallery.addEventListener("scroll", handleScroll);
 }
 
 // Allows to fetch next page
 
 function handleScroll() {
-  if (gallery.offsetHeight + gallery.scrollTop >= gallery.scrollHeight) {
+  if (gallery.offsetHeight + gallery.scrollTop >= gallery.scrollHeight - 1) {
     pageNum = pageNum + 1;
     fetchData(pageNum);
   }
@@ -328,27 +360,31 @@ function handleScroll() {
 // Fetch game filter by search keyword
 
 function handleChange(e) {
-  const currentValue = e.target.value;
-  currentValueTW = currentValue.toLowerCase();
-  cross.style.visibility = "visible";
+  const inputValue = e.target.value;
   const consoles = { pc: 1, playstation: 2, xbox: 3, nintendo: 7 };
   const platformNames = Object.keys(consoles);
+  gallery.removeEventListener("scroll", handleScroll, true);
+
+  currentValue = inputValue.toLowerCase();
+  cross.style.visibility = "visible";
 
   if (
-    currentValueTW == "" ||
-    currentValueTW.length == 0 ||
-    (currentValueTW == "" && e.keyCode == 13)
+    currentValue == "" ||
+    currentValue.length == 0 ||
+    (currentValue == "" && e.keyCode == 13)
   ) {
     cross.style.visibility = "hidden";
     counter = 0;
     pageNum = 1;
     cardContainer.innerHTML = "";
     optionsContainer.innerHTML = "";
+    displayLoading();
     fetchData(+1);
-  } else if (currentValueTW != "" && platformNames.includes(currentValueTW)) {
-    const id = consoles[currentValueTW];
-    console.log(id);
+    hideLoading();
+  } else if (currentValue != "" && platformNames.includes(currentValue)) {
+    const id = consoles[currentValue];
 
+    displayLoading();
     fetch(
       `https://api.rawg.io/api/games?key=3b8dd54671dc4624a07d03548d00e621&parent_platforms=${id}`
     )
@@ -357,7 +393,6 @@ function handleChange(e) {
         const longData = data.results;
 
         const shortData = longData.slice(0, 5);
-        console.log(shortData);
         const searchResults = [];
         searchResults.push(shortData);
         const l = searchResults.length;
@@ -372,30 +407,37 @@ function handleChange(e) {
           const searchCard = card(item);
           allSearchCards = searchCard.join(" ");
         }
-        if (threeViewVal) {
-          currentDisplay(cardContainer, oneViewContainer);
+        console.log(allSearchCards);
 
+        if (allSearchCards == undefined) {
+          notFoundText.classList.add("not-found-text");
+
+          notFoundText.innerHTML = "No search results";
+        } else if (threeViewVal) {
+          notFoundText.style.display = "none";
+          currentDisplay(cardContainer, oneViewContainer);
+          hideLoading();
+          layer.style.display = "none";
           cardContainer.innerHTML = allSearchCards;
           oneViewContainer.innerHTML = "";
         } else {
+          notFoundText.style.display = "none";
           currentDisplay(oneViewContainer, cardContainer);
-
+          hideLoading();
+          layer.style.display = "none";
           oneViewContainer.innerHTML = allSearchCards;
           cardContainer.innerHTML = "";
         }
-        console.log(lastResults);
-
-        gallery.addEventListener("scroll", handleScroll, false);
       });
-  } else if (currentValueTW.length >= 3 || e.keyCode == 13) {
+  } else if (currentValue.length >= 3 || e.keyCode == 13) {
+    displayLoading();
     fetch(
-      `https://api.rawg.io/api/games?key=3b8dd54671dc4624a07d03548d00e621&search=${currentValueTW}`
+      `https://api.rawg.io/api/games?key=3b8dd54671dc4624a07d03548d00e621&search=${currentValue}`
     )
       .then((res) => res.json())
       .then((data) => {
         const longData = data.results;
         const shortData = longData.slice(0, 5);
-        console.log(shortData);
         const searchResults = [];
         searchResults.push(shortData);
         const l = searchResults.length;
@@ -403,7 +445,7 @@ function handleChange(e) {
 
         for (let i = 0; i < l; i++) {
           let item = searchResults[i];
-          console.log(item);
+
           const firstResult = searchResults[i].slice(0, 1);
           lastResults.push(firstResult);
 
@@ -412,8 +454,8 @@ function handleChange(e) {
           optionsContainer.innerHTML = allOptions;
 
           const searchOption = document.getElementsByClassName("options");
-          const le = searchOption.length;
-          for (let i = 0; i < le; i++) {
+          const sl = searchOption.length;
+          for (let i = 0; i < sl; i++) {
             const element = searchOption[i];
             searchOption[i].addEventListener("click", () => {
               const currentOption = element.value;
@@ -426,19 +468,27 @@ function handleChange(e) {
           const searchCard = card(item);
           allSearchCards = searchCard.join(" ");
         }
-        if (threeViewVal) {
-          currentDisplay(cardContainer, oneViewContainer);
 
+        if (allSearchCards == "") {
+          notFoundText.style.display = "block";
+          cardContainer.innerHTML = "";
+          oneViewContainer.innerHTML = "";
+
+          notFoundText.innerHTML = `No results found`;
+          hideLoading();
+        } else if (threeViewVal) {
+          notFoundText.style.display = "none";
+          currentDisplay(cardContainer, oneViewContainer);
+          hideLoading();
           cardContainer.innerHTML = allSearchCards;
           oneViewContainer.innerHTML = "";
         } else {
+          notFoundText.style.display = "none";
           currentDisplay(oneViewContainer, cardContainer);
-
+          hideLoading();
           oneViewContainer.innerHTML = allSearchCards;
           cardContainer.innerHTML = "";
         }
-
-        gallery.addEventListener("scroll", handleScroll, false);
       });
   }
 
@@ -450,7 +500,7 @@ function handleHomeText() {
   lastSearches.style.color = "#fff";
   cardContainer.innerHTML = "";
   oneViewContainer.innerHTML = "";
-
+  counter = 0;
   fetchData(+1);
 }
 
