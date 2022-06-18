@@ -6,7 +6,7 @@ const logOut = (e) => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
   localStorage.removeItem("picture");
-  window.location.replace("../login/index.html");
+  window.location.replace("../../index.html");
 };
 
 logoutBtn.addEventListener("click", logOut);

@@ -1,4 +1,4 @@
-import { snackbar, showError, showSuccess } from "./utils.js";
+import { snackbar, showError, showSuccess } from "./pages/login/utils.js";
 
 // Form validation
 
@@ -132,7 +132,7 @@ const login = async () => {
   localStorage.setItem("user", content.user.email);
   localStorage.setItem("token", content.accessToken);
   localStorage.setItem("picture", content.user.picture);
-  window.location.replace("../home/index.html");
+  window.location.replace("./pages/home/index.html");
 };
 
 form.addEventListener("submit", function (e) {

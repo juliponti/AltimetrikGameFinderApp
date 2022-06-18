@@ -52,6 +52,10 @@ body {
     background-color: inherit;
   }
 
+  .search-icon {
+    display: none;
+  }
+
   &-input__container {
     position: absolute;
     top: 24px;
@@ -723,7 +727,7 @@ body {
 }
 
 #loading {
-  visibility: hidden;
+  display: none;
   position: absolute;
   top: 53%;
   left: 57%;
@@ -741,7 +745,7 @@ body {
 }
 
 #loading.display {
-  visibility: visible;
+  display: block;
 }
 
 .not-found-text {
@@ -989,5 +993,106 @@ body {
 
   .home__main__card {
     height: auto;
+    margin-left: 16px;
+  }
+
+  #loading {
+    left: 48%;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .home__card__container {
+    grid-template-columns: repeat(1, 288px);
+    grid-template-rows: repeat(auto-fill, 332px);
+  }
+
+  .home__header {
+    @include FlexBox(row-reverse, space-between);
+    height: 50px;
+    padding: 0 19px;
+
+    svg.logo {
+      display: block;
+      width: 137px;
+    }
+
+    &-input__container {
+      visibility: hidden;
+      width: 100%;
+      left: 6px;
+      top: 59px;
+
+      & > img:first-child {
+        display: none;
+      }
+
+      & > img:last-child {
+        left: calc(100% - 49px);
+      }
+    }
+
+    .search-icon {
+      display: block;
+    }
+  }
+
+  .home__main__card {
+    & > div:last-child {
+      & > div:nth-child(2) {
+        @include FlexBox(column, center, flex-start);
+
+        & > div:first-child {
+          width: 100%;
+          margin-top: 0;
+
+          & div {
+            @include FlexBox(row, space-between);
+          }
+        }
+
+        & > div:nth-child(2) {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  .home__main {
+    &__banner-section {
+      padding: 0 16px;
+      height: 100px;
+
+      .banner-text__container {
+        & > h1 {
+          font-size: 1.75rem;
+        }
+
+        & > p {
+          font-size: 0.875rem;
+        }
+      }
+
+      .banner-btns__container {
+        display: none;
+      }
+    }
+  }
+
+  .search-active {
+    visibility: visible;
+  }
+
+  .hamburger-menu {
+    height: 567px;
+
+    &__navbar {
+      height: 379px;
+    }
+  }
+
+  #loading {
+    left: 46%;
+    top: 39%;
   }
 }
