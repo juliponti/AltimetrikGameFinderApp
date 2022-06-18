@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "email": "maryjane@gmail.com",
+      "password": "$2a$10$orLE4DvmAdVNAqdWOZfeQ.WrLK0Vfc1vMc.LUozaFXVIQMTc4B51C",
+      "picture": false,
+      "id": 1
+    },
+    {
+      "email": "altimetrik@gmail.com",
+      "password": "$2a$10$qKFs6aHstRRj6R4j50z44.40I5KTcb53Ez/0PHlHwO4kUG7/l9ljy",
+      "picture": true,
+      "id": 2
+    }
+  ]
+}

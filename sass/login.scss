@@ -1,0 +1,567 @@
+@import "configurations";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Exo", sans-serif;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+body {
+  @include FlexBox(column, space-between);
+  background-image: URL("../../assets/desktop/slider/slide-1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  transition: all 0.3s ease-in-out;
+}
+
+.header {
+  @include FlexBox(row, flex-start);
+  width: 100%;
+  padding: 0 16px;
+  background: none;
+
+  &-logo {
+    width: 25%;
+    min-width: 180px;
+    margin: 45px 0;
+  }
+}
+
+.main {
+  @include FlexBox(row, space-between);
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+
+  .login {
+    &__container {
+      @include FlexBox(row, flex-end, center);
+      width: 100%;
+      height: 100%;
+      max-width: 1500px;
+      padding: 0 21px;
+    }
+
+    &__card {
+      width: 462px;
+      margin-bottom: 50px;
+      padding: 40px 49px;
+      border-radius: 12px;
+      background-color: $black-transparent;
+
+      &__header {
+        color: $white;
+        text-align: center;
+
+        h1 {
+          min-width: 285px;
+          font-size: 1.25rem;
+        }
+
+        h2 {
+          min-width: 329px;
+          margin-top: 11px;
+          font-size: 1rem;
+          font-weight: 400;
+        }
+      }
+
+      &__form {
+        margin-top: 36px;
+        margin-bottom: 32px;
+
+        &--fieldset1 {
+          position: relative;
+          @include FlexBox(column);
+          gap: 17px;
+          border: none;
+
+          input {
+            width: 100%;
+            height: 47px;
+
+            padding: 10.55px 16px;
+
+            border: transparent;
+            border-radius: 4px;
+
+            font-size: 0.938rem;
+            color: $gray-550;
+
+            &::placeholder {
+              color: $gray-400;
+              font-size: 0.938rem;
+              font-family: "Exo", sans-serif;
+              font-weight: 400;
+            }
+            &:first-child:focus {
+              outline: 1px solid $primary-300;
+            }
+
+            &:focus {
+              outline: 1px solid #ffffff1a;
+            }
+
+            &:focus-visible {
+              outline: 2px solid $primary-100;
+            }
+
+            &:disabled {
+              background-color: $gray-55;
+            }
+          }
+
+          .icon__container {
+            position: absolute;
+            right: 11px;
+            bottom: 25px;
+
+            width: 10%;
+            height: 25%;
+            cursor: pointer;
+            .icon {
+              &--active {
+                display: none;
+                position: absolute;
+                top: 13px;
+                left: 15px;
+              }
+
+              &--inactive {
+                position: absolute;
+                top: 13px;
+                left: 15px;
+              }
+            }
+          }
+        }
+
+        &--secondary__container {
+          @include FlexBox(row, space-between);
+          margin-top: 15px;
+          margin-bottom: 23px;
+
+          fieldset {
+            @include FlexBox;
+            position: relative;
+            border: none;
+            color: $white;
+
+            .checkbox__vector {
+              display: none;
+              position: absolute;
+              left: 4px;
+              cursor: pointer;
+            }
+
+            .active {
+              display: block;
+            }
+          }
+        }
+
+        &--checkbox {
+          appearance: none;
+          -webkit-appearance: none;
+
+          width: 20px;
+          height: 20px;
+          margin-right: 16px;
+          border: 1px solid $white;
+          border-radius: 4px;
+          background-color: transparent;
+          cursor: pointer;
+
+          &:focus-visible {
+            outline: 2px solid $primary-100;
+          }
+
+          &_label {
+            font-size: 0.875rem;
+            font-weight: 400;
+          }
+
+          &__link {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: $primary-100;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+
+            &:after {
+              @include Underline($primary-200);
+            }
+
+            &:hover:after {
+              @include hoverUnderline;
+            }
+
+            &:focus-visible {
+              outline: 2px solid $primary-100;
+            }
+          }
+        }
+
+        .checkbox--active {
+          background-color: $primary-300;
+          border-color: $primary-300;
+        }
+
+        &__button {
+          width: 100%;
+          height: 47px;
+          border-radius: 6px;
+          color: $white;
+          background-color: $primary-200;
+          border: none;
+          cursor: pointer;
+
+          font-weight: 700;
+          font-size: 1.125rem;
+
+          &:disabled {
+            opacity: 0.4;
+          }
+
+          &:hover {
+            filter: drop-shadow(0px 3px 7px $button-hover);
+            transition: all 0.3s ease;
+          }
+
+          &:active {
+            filter: drop-shadow(0px 6px 0px $button-active);
+            transition: all 0.3s ease;
+          }
+          &:focus-visible {
+            outline: 2px solid $white;
+          }
+        }
+
+        &--register {
+          &__container {
+            @include FlexBox;
+            gap: 8px;
+
+            p {
+              color: $white;
+              font-size: 0.875rem;
+              font-weight: 400;
+            }
+          }
+
+          &__link {
+            position: relative;
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: $primary-100;
+            text-decoration: none;
+
+            &::after {
+              @include Underline($primary-200);
+            }
+
+            &:hover {
+              &:after {
+                @include hoverUnderline;
+              }
+            }
+            &:focus-visible {
+              outline: 2px solid $primary-100;
+            }
+          }
+        }
+
+        &--decoration__container {
+          position: relative;
+          @include FlexBox;
+
+          height: 70px;
+          p {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: $white;
+            opacity: 0.5;
+
+            &:after {
+              @include Vector(47%);
+              left: 200px;
+            }
+            &:before {
+              @include Vector(47%);
+              right: 200px;
+            }
+          }
+        }
+
+        &--ssmm {
+          &__container {
+            @include FlexBox(column, space-between);
+            height: 190px;
+          }
+
+          @include FlexBox;
+
+          width: 100%;
+          height: 47px;
+
+          border: 2px solid $white;
+          border-radius: 6px;
+
+          font-size: 1.125rem;
+          font-weight: 700;
+          color: $white;
+          text-decoration: none;
+
+          &:hover {
+            filter: drop-shadow(0px 3px 5px $white);
+            transition: all 0.3s ease;
+          }
+          &:focus-visible {
+            outline: 2px solid $primary-100;
+          }
+          div {
+            @include FlexBox(row, flex-start);
+
+            width: 67%;
+
+            img {
+              margin-right: 14px;
+            }
+
+            .login__card__form--ssmm {
+              &__tw {
+                margin-right: 24px;
+              }
+
+              &__google {
+                margin-right: 30px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.dots {
+  font-family: "Verdana", sans-serif;
+  font-weight: 900;
+}
+
+.error {
+  outline: 2px solid $error-color;
+}
+
+.error-message {
+  width: 100%;
+
+  padding: 5px;
+
+  border: 1px solid $error-color;
+  border-radius: 4px;
+
+  color: $white;
+  text-align: center;
+}
+
+.success {
+  outline: 3px solid $primary-300;
+}
+
+.slider__arrow {
+  &__container {
+    position: relative;
+
+    width: 91px;
+    height: 100%;
+
+    border: none;
+    background-color: transparent;
+  }
+
+  &--left {
+    @include Arrows;
+    left: 36%;
+    &:focus-visible {
+      outline: 2px solid $primary-100;
+      border-radius: 31px;
+    }
+  }
+
+  &--right {
+    @include Arrows;
+    right: -5%;
+    &:focus-visible {
+      outline: 2px solid $primary-100;
+      border-radius: 31px;
+    }
+  }
+}
+
+.footer {
+  position: relative;
+
+  width: 100%;
+  height: 100px;
+
+  &__bullets-container {
+    position: absolute;
+    bottom: 40%;
+
+    width: 100%;
+
+    &--svg {
+      width: 100%;
+      margin: auto;
+    }
+  }
+}
+
+.snackbar {
+  visibility: hidden;
+  position: fixed;
+  left: 50%;
+  bottom: 30px;
+
+  min-width: 250px;
+  padding: 16px;
+  margin-left: -125px;
+
+  border-radius: 16px;
+  background-color: $gray-500;
+
+  color: $white;
+  text-align: center;
+
+  z-index: 3;
+}
+
+.show {
+  visibility: visible;
+
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    background-image: URL("../../assets/tablet/slider/slider1-tablet.png");
+  }
+  .header {
+    @include FlexBox(row, center);
+
+    &-logo {
+      width: 40%;
+      margin-top: 45px;
+      margin-bottom: 89px;
+    }
+  }
+  .main {
+    .login {
+      &__container {
+        @include FlexBox(row, center);
+      }
+
+      &__card {
+        margin-bottom: 0px;
+      }
+    }
+  }
+
+  .snackbar {
+    left: 47%;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  body {
+    @include FlexBox(column, flex-start);
+    background-image: URL("../../assets/mobile/slider/slider1-mobile.png");
+  }
+
+  .header-logo {
+    width: 194px;
+    margin-top: 44px;
+    margin-bottom: 13px;
+  }
+
+  .slider__arrow__container,
+  .footer {
+    display: none;
+  }
+
+  .main {
+    .login {
+      &__card {
+        padding: 22px 16px;
+
+        &__header {
+          h2 {
+            width: 260px;
+            min-width: 235px;
+            margin: 11px auto 0px;
+          }
+        }
+
+        &__form {
+          margin-top: 27px;
+
+          &--secondary_container {
+            margin-bottom: 29px;
+          }
+
+          &--decoration__container {
+            p:before {
+              @include Vector(39%);
+              right: 165px;
+            }
+            p:after {
+              @include Vector(39%);
+              left: 165px;
+            }
+          }
+          &--ssmm {
+            div {
+              width: 78%;
+
+              img {
+                margin-right: 25px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

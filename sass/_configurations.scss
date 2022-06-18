@@ -3,8 +3,13 @@
 // Primary
 
 $primary-100: #5fe19b;
-$primary-200: #36b972;
-$primaty-300: #067b3c;
+$primary-200: #4cc986;
+$primary-300: #36b972;
+$primary-350: #0ea152;
+$primary-400: #067b3c;
+
+$button-active: #2bb34f;
+$button-hover: #5fe19bb5;
 
 // Secondary
 
@@ -12,7 +17,7 @@ $secondary-blue-100: #5f81fb;
 $secondary-blue-200: #1245c9;
 $secondary-blue-300: #06207b;
 
-$secondary-pink: #fb5f5f;
+$error-color: #fb5f5f;
 
 $secondary-yellow: #ffdc22;
 
@@ -21,13 +26,23 @@ $secondary-yellow: #ffdc22;
 $white: #ffffff;
 
 $gray-50: #f0f0f0;
+$gray-55: #f1f1f1;
 $gray-100: #e7e7e7;
 $gray-200: #d8d8d8;
 $gray-300: #c4c4c4;
 $gray-400: #939393;
 $gray-500: #515151;
+$gray-550: #3d3d3d;
 $gray-600: #303030;
+$gray-650: #2a2a2a;
 $gray-700: #141414;
+$gray-800: #151515;
+
+$gray-border: #e1e1e4;
+
+$total-black: #000000;
+$black-transparent: rgba(0, 0, 0, 0.5);
+$black-transparent-100: rgba(0, 0, 0, 0.0001);
 
 // mixings
 
@@ -39,7 +54,40 @@ $gray-700: #141414;
 }
 
 @mixin Arrows {
+  position: relative;
+  background-color: transparent;
+  border: none;
+  top: 45%;
+  cursor: pointer;
+}
+
+@mixin Vector($width) {
+  content: "";
   position: absolute;
   top: 50%;
-  width: 30px;
+  height: 2.07px;
+  width: $width;
+  border-top: 1px solid $white;
+}
+
+@mixin Underline($color) {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0px;
+  border: 0px solid $color;
+  width: 0%;
+}
+
+@mixin hoverUnderline {
+  border-width: 1px;
+  width: 100%;
+  transition: all 0.4s ease;
+}
+
+@mixin secondaryBtns {
+  border: transparent;
+  border-radius: 11px;
+  background-color: inherit;
+  cursor: pointer;
 }
