@@ -4,6 +4,9 @@ import {
   optionButton,
   displayLoading,
   hideLoading,
+  months,
+  platformsImg,
+  cardsDisplay,
 } from "./utils.js";
 
 // header
@@ -35,6 +38,7 @@ let oneViewVal;
 
 let lastResults = [];
 let nextPage;
+let favorite;
 
 window.addEventListener("click", () => {
   optionsContainer.innerHTML = "";
@@ -57,7 +61,9 @@ threeCardVwBtn.addEventListener("click", handleThreeView);
 oneCardVwBtn.addEventListener("click", handleOneView);
 
 homeText.addEventListener("click", handleHomeText);
+homeText.addEventListener("keypress", handleHomeText);
 lastSearches.addEventListener("click", handleLastSearches);
+lastSearches.addEventListener("keypress", handleLastSearches);
 
 // adds a profile pic if there is one or the initials if there isn't
 
@@ -74,66 +80,31 @@ oneViewVal = false;
 
 // Cards component
 
-const months = {
-  "01": "Jua",
-  "02": "Feb",
-  "03": "Mar",
-  "04": "Apr",
-  "05": "May",
-  "06": "Jun",
-  "07": "Jul",
-  "08": "Aug",
-  "09": "Sep",
-  10: "Oct",
-  11: "Nov",
-  12: "Dec",
-};
-
 const card = (page) =>
   page.map((result) => {
     let genreTitle = "";
     let consoles = [];
     let date = result.released;
-    const bgDefault = "../../assets/desktop/home/card/bg-default.jpg";
 
-    counter = counter + 1;
+    const bgDefault = "../../assets/desktop/home/card/bg-default.jpg";
+    const genres = result.genres;
+    const parentPlatforms = result.parent_platforms;
 
     date = date.split("-");
     const month = date[1];
-
     const currentMonth = months[month];
     const formatDayStr = `${currentMonth} ${date[2]}, ${date[0]}`;
 
-    const genres = result.genres;
-    for (let i = 0; i < genres.length; i++) {
-      genreTitle += `${genres[i].name}, `;
-    }
-    const ppl = result.parent_platforms.length;
-    for (let i = 0; i < ppl; i++) {
-      const parentPlatform = result.parent_platforms[i];
-      const id = parentPlatform.platform.id;
-      switch (id) {
-        case 1:
-          const pc = `<img src="../../assets/desktop/home/card/windows-icon.svg" alt="windows logo"/>`;
-          consoles.push(pc);
-          break;
-        case 2:
-          const ps = `<img src="../../assets/desktop/home/card/ps-icon.svg" alt="playstation logo"/>`;
-          consoles.push(ps);
-          break;
-        case 3:
-          const xbox = `<img src="../../assets/desktop/home/card/xbox-icon.svg" alt="xbox logo"/>`;
-          consoles.push(xbox);
-          break;
-        case 7:
-          const nintendo = `<img src="../../assets/desktop/home/card/nintendo.svg" alt="nintendo logo"/>`;
-          consoles.push(nintendo);
-          break;
-        default:
-          " ";
-          break;
-      }
-    }
+    counter = counter + 1;
+
+    genres.forEach((genre) => {
+      genreTitle += `${genre.name}, `;
+    });
+
+    parentPlatforms.forEach((platform) => {
+      const id = platform.platform.id;
+      consoles.push(platformsImg[id]);
+    });
 
     return `<button class=${
       threeViewVal ? "home__main__card" : "one-card-view__card "
@@ -148,9 +119,10 @@ const card = (page) =>
               viewBox="0 0 22 21"
               fill="white"
               xmlns="http://www.w3.org/2000/svg"
-              id="favorite"
+              
               >
               <path
+                id="favorite"
                 fill-rule="evenodd"
                 clip-rule="evenodd"
                 d="M6.33301 3.33342C4.47967 3.33342 2.99967 4.81742 2.99967 6.62275C2.99967 8.65475 4.17567 10.8228 5.99434 12.9468C7.52234 14.7294 9.37834 16.3374 10.9997 17.6348C12.621 16.3374 14.477 14.7281 16.005 12.9468C17.8237 10.8228 18.9997 8.65342 18.9997 6.62275C18.9997 4.81742 17.5197 3.33342 15.6663 3.33342C13.813 3.33342 12.333 4.81742 12.333 6.62275C12.333 6.97638 12.1925 7.31552 11.9425 7.56556C11.6924 7.81561 11.3533 7.95609 10.9997 7.95609C10.6461 7.95609 10.3069 7.81561 10.0569 7.56556C9.80682 7.31552 9.66634 6.97638 9.66634 6.62275C9.66634 4.81742 8.18634 3.33342 6.33301 3.33342ZM10.9997 2.87875C10.4351 2.18642 9.72327 1.62865 8.91602 1.24601C8.10876 0.863371 7.22636 0.665487 6.33301 0.666754C3.03167 0.666754 0.333008 3.32009 0.333008 6.62275C0.333008 9.62409 2.02234 12.4094 3.96901 14.6814C5.94367 16.9868 8.36501 18.9721 10.181 20.3854C10.4151 20.5675 10.7031 20.6663 10.9997 20.6663C11.2962 20.6663 11.5843 20.5675 11.8183 20.3854C13.6343 18.9721 16.0557 16.9854 18.0303 14.6814C19.977 12.4094 21.6663 9.62409 21.6663 6.62275C21.6663 3.32009 18.9677 0.666754 15.6663 0.666754C13.7863 0.666754 12.101 1.52809 10.9997 2.87875Z"
@@ -175,7 +147,7 @@ const card = (page) =>
                 </div>
               </div>
               <div>
-             ${consoles.join("")}
+             ${consoles}
               </div>
             </div>
             <div>
@@ -184,48 +156,6 @@ const card = (page) =>
           </div>
         </button>`;
   });
-
-function threeCardVwDisplay() {
-  cardContainer.classList.contains("one-card-view__card__container") &&
-    cardContainer.classList.remove("one-card-view__card__container");
-
-  !cardContainer.classList.contains("home__card__container") &&
-    cardContainer.classList.add("home__card__container");
-
-  const children = [...cardContainer.children];
-
-  children.map(
-    (el) =>
-      el.classList.contains("one-card-view__card") &&
-      el.classList.remove("one-card-view__card")
-  );
-
-  children.map(
-    (el) =>
-      !el.classList.contains("home__main__card") &&
-      el.classList.add("home__main__card")
-  );
-}
-
-function oneCardViewDisplay() {
-  cardContainer.classList.contains("home__card__container") &&
-    cardContainer.classList.remove("home__card__container");
-  !cardContainer.classList.contains("one-card-view__card__container") &&
-    cardContainer.classList.add("one-card-view__card__container");
-
-  const children = [...cardContainer.children];
-  children.map(
-    (el) =>
-      el.classList.contains("home__main__card") &&
-      el.classList.remove("home__main__card")
-  );
-
-  children.map(
-    (el) =>
-      !el.classList.contains("one-card-view__card") &&
-      el.classList.add("one-card-view__card")
-  );
-}
 
 // Display last searches cards
 
@@ -250,9 +180,19 @@ function handleLastSearches() {
     }
 
     if (threeViewVal) {
-      threeCardVwDisplay();
+      cardsDisplay(
+        "one-card-view__card__container",
+        "home__card__container",
+        "one-card-view__card",
+        "home__main__card"
+      );
     } else {
-      oneCardViewDisplay();
+      cardsDisplay(
+        "home__card__container",
+        "one-card-view__card__container",
+        "home__main__card",
+        "one-card-view__card"
+      );
     }
 
     cardContainer.innerHTML = allLastCards;
@@ -278,7 +218,12 @@ function handleThreeView() {
   oneViewVal = !oneViewVal;
   threeViewVal = !threeViewVal;
 
-  threeCardVwDisplay();
+  cardsDisplay(
+    "one-card-view__card__container",
+    "home__card__container",
+    "one-card-view__card",
+    "home__main__card"
+  );
 }
 
 function handleOneView() {
@@ -298,7 +243,12 @@ function handleOneView() {
   oneViewVal = !oneViewVal;
   threeViewVal = !threeViewVal;
 
-  oneCardViewDisplay();
+  cardsDisplay(
+    "home__card__container",
+    "one-card-view__card__container",
+    "home__main__card",
+    "one-card-view__card"
+  );
 }
 
 const gamesUrl = `https://api.rawg.io/api/games?key=3b8dd54671dc4624a07d03548d00e621&page=1`;
@@ -316,7 +266,6 @@ async function fetchData(url) {
   const results = dataToJson.results;
   hideLoading();
   nextPage = dataToJson.next;
-  console.log(nextPage);
 
   const currentCard = card(results);
   const allCards = currentCard.join(" ");
@@ -351,7 +300,7 @@ function handleChange(e) {
     cardContainer.innerHTML = "";
     optionsContainer.innerHTML = "";
     displayLoading();
-    fetchData(+1);
+    fetchData(gamesUrl);
     hideLoading();
   } else if (currentValue && platformNames.includes(currentValue)) {
     const id = consoles[currentValue];
@@ -386,13 +335,23 @@ function handleChange(e) {
           notFoundText.innerHTML = "No search results";
         } else if (threeViewVal) {
           notFoundText.style.display = "none";
-          threeCardVwDisplay();
+          cardsDisplay(
+            "one-card-view__card__container",
+            "home__card__container",
+            "one-card-view__card",
+            "home__main__card"
+          );
           hideLoading();
           layer.style.display = "none";
           cardContainer.innerHTML = allSearchCards;
         } else {
           notFoundText.style.display = "none";
-          oneCardViewDisplay();
+          cardsDisplay(
+            "home__card__container",
+            "one-card-view__card__container",
+            "home__main__card",
+            "one-card-view__card"
+          );
           hideLoading();
           cardContainer.innerHTML = allSearchCards;
         }
@@ -453,14 +412,24 @@ function handleChange(e) {
         } else if (threeViewVal) {
           notFoundText.style.display = "none";
 
-          threeCardVwDisplay();
+          cardsDisplay(
+            "one-card-view__card__container",
+            "home__card__container",
+            "one-card-view__card",
+            "home__main__card"
+          );
           hideLoading();
 
           cardContainer.innerHTML = allSearchCards;
         } else {
           notFoundText.style.display = "none";
 
-          oneCardViewDisplay();
+          cardsDisplay(
+            "home__card__container",
+            "one-card-view__card__container",
+            "home__main__card",
+            "one-card-view__card"
+          );
           hideLoading();
 
           cardContainer.innerHTML = allSearchCards;
@@ -478,9 +447,19 @@ function handleHomeText() {
   counter = 0;
 
   if (threeViewVal) {
-    threeCardVwDisplay();
+    cardsDisplay(
+      "one-card-view__card__container",
+      "home__card__container",
+      "one-card-view__card",
+      "home__main__card"
+    );
   } else {
-    oneCardViewDisplay();
+    cardsDisplay(
+      "home__card__container",
+      "one-card-view__card__container",
+      "home__main__card",
+      "one-card-view__card"
+    );
   }
   fetchData(gamesUrl);
 }

@@ -360,6 +360,7 @@ body {
 .home__main__card {
   @include FlexBox(column, flex-start);
   width: 98%;
+  height: 314px;
 
   margin-left: 8px;
   margin-top: 8px;
@@ -439,7 +440,7 @@ body {
         @include FlexBox(column, space-between, flex-start);
         gap: 10px;
 
-        width: 66%;
+        width: 62%;
         height: 62%;
 
         margin-top: 9px;
@@ -460,15 +461,17 @@ body {
           }
 
           p:nth-child(2) {
-            margin-left: 25px;
+            margin-left: 5px;
             color: $white;
             font-weight: 400;
           }
         }
 
         & > div:nth-child(2) {
+          margin-bottom: 20px;
+
           p:nth-child(2) {
-            margin-left: 63px;
+            margin-left: 44px;
           }
         }
       }
@@ -476,8 +479,8 @@ body {
       & > div:nth-child(2) {
         @include FlexBox(row, center);
 
-        width: 29%;
-        margin-top: 10px;
+        width: fit-content;
+        margin-top: 17px;
 
         img {
           width: fit-content;

@@ -498,6 +498,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   width: 98%;
+  height: 314px;
   margin-left: 8px;
   margin-top: 8px;
   text-align: left;
@@ -607,7 +608,7 @@ body {
       -ms-flex-align: start;
           align-items: flex-start;
   gap: 10px;
-  width: 66%;
+  width: 62%;
   height: 62%;
   margin-top: 9px;
   color: #ffffff;
@@ -640,13 +641,17 @@ body {
 }
 
 .home__main__card > div:last-child > div:nth-child(2) div:first-child > div p:nth-child(2) {
-  margin-left: 25px;
+  margin-left: 5px;
   color: #ffffff;
   font-weight: 400;
 }
 
+.home__main__card > div:last-child > div:nth-child(2) div:first-child > div:nth-child(2) {
+  margin-bottom: 20px;
+}
+
 .home__main__card > div:last-child > div:nth-child(2) div:first-child > div:nth-child(2) p:nth-child(2) {
-  margin-left: 63px;
+  margin-left: 44px;
 }
 
 .home__main__card > div:last-child > div:nth-child(2) > div:nth-child(2) {
@@ -663,8 +668,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 29%;
-  margin-top: 10px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-top: 17px;
 }
 
 .home__main__card > div:last-child > div:nth-child(2) > div:nth-child(2) img {
