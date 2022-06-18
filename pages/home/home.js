@@ -304,7 +304,7 @@ function handleChange(e) {
     cardContainer.innerHTML = "";
     optionsContainer.innerHTML = "";
     displayLoading();
-    fetchData(gamesUrl);
+    load();
     hideLoading();
   } else if (currentValue && platformNames.includes(currentValue)) {
     const id = consoles[currentValue];
@@ -465,7 +465,7 @@ function handleHomeText() {
       "one-card-view__card"
     );
   }
-  fetchData(gamesUrl);
+  load();
 }
 
 async function load() {
