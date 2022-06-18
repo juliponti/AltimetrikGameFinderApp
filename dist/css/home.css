@@ -46,6 +46,16 @@ body {
           box-shadow: 1px -3px 36px rgba(0, 0, 0, 0.5);
 }
 
+.home__header svg.logo {
+  display: block;
+}
+
+.home__header button.hamburger {
+  display: none;
+  border: none;
+  background-color: inherit;
+}
+
 .home__header-input__container {
   position: absolute;
   top: 24px;
@@ -540,6 +550,15 @@ body {
   cursor: pointer;
 }
 
+.home__main__card > div:first-child svg path {
+  pointer-events: none;
+}
+
+.home__main__card > div:first-child svg .liked {
+  -webkit-animation: liked 0.2s ease;
+          animation: liked 0.2s ease;
+}
+
 .home__main__card > div:last-child {
   width: 100%;
   min-height: 136px;
@@ -717,7 +736,7 @@ body {
   width: 99%;
   height: 98%;
   margin-left: 3px;
-  margin-top: 8px;
+  margin-top: 28px;
   text-align: left;
   border: none;
   border-radius: 12px;
@@ -1050,6 +1069,249 @@ body {
   to {
     bottom: 0;
     opacity: 0;
+  }
+}
+
+@-webkit-keyframes liked {
+  0% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes liked {
+  0% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+.hamburger-menu {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #2a2a2a;
+  z-index: 3;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+}
+
+.hamburger-menu__user__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 73px;
+  padding: 0 21px;
+  border-bottom: 1px solid #515151;
+}
+
+.hamburger-menu__user__container > button {
+  position: absolute;
+  right: 19px;
+  top: 23px;
+  border: none;
+  background-color: inherit;
+}
+
+.hamburger-menu__user__container > button:focus-visible {
+  outline: 2px solid #5fe19b;
+  outline-offset: 5px;
+  border-radius: 5px;
+}
+
+.hamburger-menu__user-img__container {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid #ffffff;
+  background-image: url("/assets/tablet/home/menu/Custom.png");
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hamburger-menu__user-details {
+  color: #ffffff;
+  margin-left: 12px;
+}
+
+.hamburger-menu__user-details p:first-child {
+  font-size: 1.125rem;
+  font-weight: 800;
+}
+
+.hamburger-menu__user-details p:last-child {
+  font-size: 0.875rem;
+}
+
+.hamburger-menu__navbar {
+  height: 846px;
+  border-bottom: 1px solid #515151;
+}
+
+.hamburger-menu__navbar > ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  padding: 16px 11px;
+  height: 200px;
+  list-style: none;
+}
+
+.hamburger-menu__navbar > ul > li:first-child a {
+  color: #5fe19b;
+}
+
+.hamburger-menu__navbar > ul li a {
+  width: 100%;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.hamburger-menu__navbar > ul li a:focus-visible {
+  outline: 2px solid #5fe19b;
+  outline-offset: 5px;
+}
+
+.hamburger-menu__darkmode__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 56px;
+  padding: 0 11px;
+  border-bottom: 1px solid #515151;
+}
+
+.hamburger-menu__darkmode__container > p {
+  font-size: 0.938rem;
+  color: #ffffff;
+}
+
+.hamburger-menu__darkmode__container button {
+  border: none;
+  background-color: inherit;
+  margin-left: 17px;
+}
+
+.hamburger-menu__darkmode__container button:focus-visible {
+  outline: 2px solid #5fe19b;
+  outline-offset: 5px;
+  border-radius: 5px;
+}
+
+.hamburger-menu__logout__container {
+  padding: 10px 11px;
+}
+
+.hamburger-menu__logout__container > button {
+  font-size: 0.938rem;
+  color: #ffffff;
+  border: none;
+  background-color: inherit;
+}
+
+.hamburger-menu__logout__container > button:focus-visible {
+  outline: 2px solid #5fe19b;
+  outline-offset: 5px;
+}
+
+.menu-active {
+  visibility: visible;
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.menu-disable {
+  visibility: hidden;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+  .home__header svg.logo {
+    display: none;
+  }
+  .home__header button.hamburger {
+    display: block;
+  }
+  .home__header-input__container {
+    left: 28%;
+    width: 53%;
+  }
+  .home__header-user__container {
+    display: none;
+  }
+  .home__main aside {
+    display: none;
+  }
+  .home__main__gallery__container {
+    width: 100%;
+    margin-left: 0;
+  }
+  .home__main__banner-section .banner-view-btns__container {
+    margin-top: 0;
+  }
+  .home__card__container {
+    -ms-grid-columns: (364px)[2];
+        grid-template-columns: repeat(2, 364px);
+    -ms-grid-rows: (314px)[auto-fill];
+        grid-template-rows: repeat(auto-fill, 314px);
+  }
+  .home__main__card {
+    height: auto;
   }
 }
 /*# sourceMappingURL=home.css.map */

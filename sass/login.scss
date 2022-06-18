@@ -110,6 +110,10 @@ body {
               outline: 1px solid #ffffff1a;
             }
 
+            &:focus-visible {
+              outline: 2px solid $primary-100;
+            }
+
             &:disabled {
               background-color: $gray-55;
             }
@@ -176,6 +180,10 @@ body {
           background-color: transparent;
           cursor: pointer;
 
+          &:focus-visible {
+            outline: 2px solid $primary-100;
+          }
+
           &_label {
             font-size: 0.875rem;
             font-weight: 400;
@@ -195,6 +203,10 @@ body {
 
             &:hover:after {
               @include hoverUnderline;
+            }
+
+            &:focus-visible {
+              outline: 2px solid $primary-100;
             }
           }
         }
@@ -229,6 +241,9 @@ body {
             filter: drop-shadow(0px 6px 0px $button-active);
             transition: all 0.3s ease;
           }
+          &:focus-visible {
+            outline: 2px solid $white;
+          }
         }
 
         &--register {
@@ -258,6 +273,9 @@ body {
               &:after {
                 @include hoverUnderline;
               }
+            }
+            &:focus-visible {
+              outline: 2px solid $primary-100;
             }
           }
         }
@@ -306,6 +324,9 @@ body {
           &:hover {
             filter: drop-shadow(0px 3px 5px $white);
             transition: all 0.3s ease;
+          }
+          &:focus-visible {
+            outline: 2px solid $primary-100;
           }
           div {
             @include FlexBox(row, flex-start);
@@ -371,11 +392,19 @@ body {
   &--left {
     @include Arrows;
     left: 36%;
+    &:focus-visible {
+      outline: 2px solid $primary-100;
+      border-radius: 31px;
+    }
   }
 
   &--right {
     @include Arrows;
     right: -5%;
+    &:focus-visible {
+      outline: 2px solid $primary-100;
+      border-radius: 31px;
+    }
   }
 }
 
@@ -468,6 +497,10 @@ body {
         margin-bottom: 0px;
       }
     }
+  }
+
+  .snackbar {
+    left: 47%;
   }
 }
 

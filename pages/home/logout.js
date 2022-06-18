@@ -1,4 +1,5 @@
 const logoutBtn = document.getElementById("logout-btn");
+const menuLogoutBtn = document.getElementById("menu-logout-btn");
 
 const logOut = (e) => {
   e.preventDefault();
@@ -9,3 +10,4 @@ const logOut = (e) => {
 };
 
 logoutBtn.addEventListener("click", logOut);
+menuLogoutBtn.addEventListener("click", logOut);

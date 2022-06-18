@@ -42,6 +42,16 @@ body {
   );
   box-shadow: 1px -3px 36px $black-transparent;
 
+  svg.logo {
+    display: block;
+  }
+
+  button.hamburger {
+    display: none;
+    border: none;
+    background-color: inherit;
+  }
+
   &-input__container {
     position: absolute;
     top: 24px;
@@ -398,11 +408,20 @@ body {
       border-top-left-radius: 12px;
       border-top-right-radius: 12px;
     }
+
     svg {
       position: absolute;
       right: 12px;
       top: 12px;
       cursor: pointer;
+
+      path {
+        pointer-events: none;
+      }
+
+      .liked {
+        animation: liked 0.2s ease;
+      }
     }
   }
 
@@ -515,7 +534,7 @@ body {
   height: 98%;
 
   margin-left: 3px;
-  margin-top: 8px;
+  margin-top: 28px;
 
   text-align: left;
 
@@ -751,6 +770,7 @@ body {
     opacity: 1;
   }
 }
+
 @keyframes fadeout {
   from {
     bottom: 30px;
@@ -759,5 +779,215 @@ body {
   to {
     bottom: 0;
     opacity: 0;
+  }
+}
+
+@keyframes liked {
+  0% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// tablet mobile
+
+.hamburger-menu {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+  background-color: $gray-650;
+
+  z-index: 3;
+  transform: translateX(-100%);
+
+  &__user__container {
+    @include FlexBox(row, flex-start);
+
+    height: 73px;
+
+    padding: 0 21px;
+    border-bottom: 1px solid $gray-500;
+
+    & > button {
+      position: absolute;
+      right: 19px;
+      top: 23px;
+
+      border: none;
+      background-color: inherit;
+
+      &:focus-visible {
+        outline: 2px solid $primary-100;
+        outline-offset: 5px;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  &__user-img__container {
+    position: relative;
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+    border: 1px solid $white;
+
+    background-image: url("/assets/tablet/home/menu/Custom.png");
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  &__user-details {
+    color: $white;
+    margin-left: 12px;
+
+    p:first-child {
+      font-size: 1.125rem;
+      font-weight: 800;
+    }
+
+    p:last-child {
+      font-size: 0.875rem;
+    }
+  }
+
+  &__navbar {
+    height: 846px;
+    border-bottom: 1px solid $gray-500;
+
+    & > ul {
+      @include FlexBox(column, space-between, flex-start);
+      padding: 16px 11px;
+      height: 200px;
+      list-style: none;
+
+      & > li:first-child {
+        a {
+          color: $primary-100;
+        }
+      }
+      li {
+        a {
+          width: 100%;
+          text-decoration: none;
+          color: $white;
+
+          &:focus-visible {
+            outline: 2px solid $primary-100;
+            outline-offset: 5px;
+          }
+        }
+      }
+    }
+  }
+
+  &__darkmode__container {
+    @include FlexBox(row, flex-start);
+    height: 56px;
+    padding: 0 11px;
+
+    border-bottom: 1px solid $gray-500;
+
+    & > p {
+      font-size: 0.938rem;
+      color: $white;
+    }
+
+    button {
+      border: none;
+      background-color: inherit;
+      margin-left: 17px;
+
+      &:focus-visible {
+        outline: 2px solid $primary-100;
+        outline-offset: 5px;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  &__logout__container {
+    padding: 10px 11px;
+
+    & > button {
+      font-size: 0.938rem;
+      color: $white;
+
+      border: none;
+      background-color: inherit;
+
+      &:focus-visible {
+        outline: 2px solid $primary-100;
+        outline-offset: 5px;
+      }
+    }
+  }
+}
+
+.menu-active {
+  visibility: visible;
+  transform: translateX(0%);
+  transition: all 0.3s ease;
+}
+
+.menu-disable {
+  visibility: hidden;
+  transform: translateX(-100%);
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+  .home__header {
+    svg.logo {
+      display: none;
+    }
+
+    button.hamburger {
+      display: block;
+    }
+
+    &-input__container {
+      left: 28%;
+      width: 53%;
+    }
+
+    &-user__container {
+      display: none;
+    }
+  }
+  .home__main {
+    aside {
+      display: none;
+    }
+
+    &__gallery__container {
+      width: 100%;
+
+      margin-left: 0;
+    }
+
+    &__banner-section {
+      .banner-view-btns__container {
+        margin-top: 0;
+      }
+    }
+  }
+
+  .home__card__container {
+    grid-template-columns: repeat(2, 364px);
+    grid-template-rows: repeat(auto-fill, 314px);
+  }
+
+  .home__main__card {
+    height: auto;
   }
 }
