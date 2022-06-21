@@ -314,7 +314,7 @@ body {
 }
 
 .home__main aside {
-  position: fixed;
+  position: absolute;
   left: 20px;
   top: 226px;
   width: 260px;
@@ -1116,6 +1116,7 @@ body {
   z-index: 3;
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
+  overflow: hidden;
 }
 
 .hamburger-menu__user__container {

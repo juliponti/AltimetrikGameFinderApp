@@ -241,7 +241,7 @@ body {
   }
 
   aside {
-    position: fixed;
+    position: absolute;
     left: 20px;
     top: 226px;
 
@@ -811,6 +811,7 @@ body {
 
   z-index: 3;
   transform: translateX(-100%);
+  overflow: hidden;
 
   &__user__container {
     @include FlexBox(row, flex-start);

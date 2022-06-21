@@ -128,7 +128,6 @@ const login = async () => {
     inputPsw.value = "";
   }
   const content = await rawResponse.json();
-  console.log(content);
   localStorage.setItem("user", content.user.email);
   localStorage.setItem("token", content.accessToken);
   localStorage.setItem("picture", content.user.picture);

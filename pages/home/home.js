@@ -155,19 +155,17 @@ function handleLastSearches() {
   hideLoading();
   lastSearches.style.color = "#5fe19b";
   homeText.style.color = "#fff";
-  if (lastResults.length == 0) {
+  if (lastResults.length == 0 || !lastResults) {
     notFoundText.style.display = "block";
     notFoundText.innerHTML = `No searches were made`;
   } else {
     const twoLastResults = lastResults.slice(-2);
-    const tl = twoLastResults.length;
     let allLastCards = "";
 
-    for (let i = 0; i < tl; i++) {
-      const element = twoLastResults[i];
-      const lastCards = card(element);
+    twoLastResults.forEach((res) => {
+      const lastCards = card(res);
       allLastCards += lastCards;
-    }
+    });
 
     if (threeViewVal) {
       cardsDisplay(
@@ -240,6 +238,8 @@ function handleOneView() {
     "one-card-view__card"
   );
 }
+
+// Like cards
 
 function handleFavorite(e) {
   const heart = e.target;
@@ -321,7 +321,6 @@ function handleChange(e) {
         searchResults.push(longData);
         const l = searchResults.length;
         let allSearchCards;
-        console.log(data);
 
         for (let i = 0; i < l; i++) {
           let item = searchResults[i];
@@ -443,6 +442,8 @@ function handleChange(e) {
 
   lastSearches.style.color = "#fff";
 }
+
+// Home Page
 
 function handleHomeText() {
   homeText.style.color = "#5fe19b";
