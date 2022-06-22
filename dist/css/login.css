@@ -1,3 +1,45 @@
+:root .theme {
+  --header-color: rgba(255, 255, 255, 0.3);
+  --logo-color: #3d3d3d;
+  --bg-color: #f0f0f0;
+  --text-color: #515151;
+  --primary-color: #36b972;
+  --login-color: #f0f0f0;
+  --card-color: #ffffff;
+  --switch-color: #e1e1e4;
+  --inactive-vw-bg-color: #d8d8d8;
+  --inactive-vw-lines-color: #c4c4c4;
+  --ssmm-color: #36b972;
+  --footer-gradient1: #ffffff;
+  --footer-gradient2: #f0f0f0;
+  --overlayer: #f0f0f0;
+  --hamburger-menu-bg: #ffffff;
+  --hamburger-menu-lines: #e1e1e4;
+  --bg-img: url(../../assets/desktop/slider/lightMode/slide-light-1.png);
+  --controllers: #ffffff;
+}
+
+:root .theme--dark {
+  --header-color: transparent;
+  --logo-color: #ffffff;
+  --bg-color: #151515;
+  --text-color: #ffffff;
+  --primary-color: #5fe19b;
+  --login-color: rgba(0, 0, 0, 0.5);
+  --card-color: #303030;
+  --switch-color: #e1e1e4;
+  --inactive-vw-bg-color: #303030;
+  --inactive-vw-lines-color: #515151;
+  --ssmm-color: #ffffff;
+  --footer-gradient1: #ffffff;
+  --footer-gradient2: #f0f0f0;
+  --overlayer: rgba(0, 0, 0, 0.5);
+  --hamburger-menu-bg: #2a2a2a;
+  --hamburger-menu-lines: #515151;
+  --bg-img: url(../../assets/desktop/slider/slide-1.png);
+  --controllers: #515151;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -26,9 +68,10 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-image: URL("../../assets/desktop/slider/slide-1.png");
+  background-image: var(--bg-img);
   background-repeat: no-repeat;
   background-size: cover;
+  background-color: var(--bg-color);
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
@@ -41,21 +84,88 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
+  height: 115px;
   padding: 0 16px;
   background: none;
+  background-color: var(--header-color);
 }
 
 .header-logo {
   width: 25%;
   min-width: 180px;
   margin: 45px 0;
+}
+
+.header-logo path {
+  fill: var(--logo-color);
+}
+
+.header-theme__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  margin-right: 42px;
+}
+
+.header-theme__container span {
+  color: var(--text-color);
+  font-size: 1.125rem;
+}
+
+.header-theme__container button {
+  margin-top: 4px;
+  margin-left: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.header-theme__container button.theme-active svg > circle {
+  -webkit-transform: translateX(0);
+          transform: translateX(0);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.header-theme__container button.theme-active svg .off {
+  display: none;
+}
+
+.header-theme__container button.theme-disable svg > circle {
+  -webkit-transform: translateX(-20px);
+          transform: translateX(-20px);
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.header-theme__container button.theme-disable svg > rect {
+  fill: var(--switch-color);
+}
+
+.header-theme__container button.theme-disable svg .on {
+  display: none;
+}
+
+.header-theme__container button.theme-disable svg .off {
+  display: block;
 }
 
 .main {
@@ -99,14 +209,13 @@ body {
 
 .main .login__card {
   width: 462px;
-  margin-bottom: 50px;
   padding: 40px 49px;
   border-radius: 12px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--login-color);
 }
 
 .main .login__card__header {
-  color: #ffffff;
+  color: var(--text-color);
   text-align: center;
 }
 
@@ -185,15 +294,15 @@ body {
 }
 
 .main .login__card__form--fieldset1 input:first-child:focus {
-  outline: 1px solid #36b972;
+  outline: 1px solid var(--primary-color);
 }
 
 .main .login__card__form--fieldset1 input:focus {
-  outline: 1px solid #ffffff1a;
+  outline: 1px solid var(--primary-color);
 }
 
 .main .login__card__form--fieldset1 input:focus-visible {
-  outline: 2px solid #5fe19b;
+  outline: 2px solid var(--primary-color);
 }
 
 .main .login__card__form--fieldset1 input:disabled {
@@ -256,7 +365,7 @@ body {
           align-items: center;
   position: relative;
   border: none;
-  color: #ffffff;
+  color: var(--text-color);
 }
 
 .main .login__card__form--secondary__container fieldset .checkbox__vector {
@@ -277,14 +386,14 @@ body {
   width: 20px;
   height: 20px;
   margin-right: 16px;
-  border: 1px solid #ffffff;
+  border: 1px solid var(--text-color);
   border-radius: 4px;
   background-color: transparent;
   cursor: pointer;
 }
 
 .main .login__card__form--checkbox:focus-visible {
-  outline: 2px solid #5fe19b;
+  outline: 2px solid var(--primary-color);
 }
 
 .main .login__card__form--checkbox_label {
@@ -295,7 +404,7 @@ body {
 .main .login__card__form--checkbox__link {
   font-size: 0.875rem;
   font-weight: 400;
-  color: #5fe19b;
+  color: var(--primary-color);
   text-decoration: none;
   cursor: pointer;
   position: relative;
@@ -318,7 +427,7 @@ body {
 }
 
 .main .login__card__form--checkbox__link:focus-visible {
-  outline: 2px solid #5fe19b;
+  outline: 2px solid var(--primary-color);
 }
 
 .main .login__card__form .checkbox--active {
@@ -378,7 +487,7 @@ body {
 }
 
 .main .login__card__form--register__container p {
-  color: #ffffff;
+  color: var(--text-color);
   font-size: 0.875rem;
   font-weight: 400;
 }
@@ -387,7 +496,7 @@ body {
   position: relative;
   font-size: 0.875rem;
   font-weight: 400;
-  color: #5fe19b;
+  color: var(--primary-color);
   text-decoration: none;
 }
 
@@ -408,7 +517,7 @@ body {
 }
 
 .main .login__card__form--register__link:focus-visible {
-  outline: 2px solid #5fe19b;
+  outline: 2px solid var(--primary-color);
 }
 
 .main .login__card__form--decoration__container {
@@ -432,7 +541,7 @@ body {
 .main .login__card__form--decoration__container p {
   font-size: 0.875rem;
   font-weight: 400;
-  color: #ffffff;
+  color: var(--text-color);
   opacity: 0.5;
 }
 
@@ -442,7 +551,7 @@ body {
   top: 50%;
   height: 2.07px;
   width: 47%;
-  border-top: 1px solid #ffffff;
+  border-top: 1px solid var(--text-color);
   left: 200px;
 }
 
@@ -452,7 +561,7 @@ body {
   top: 50%;
   height: 2.07px;
   width: 47%;
-  border-top: 1px solid #ffffff;
+  border-top: 1px solid var(--text-color);
   right: 200px;
 }
 
@@ -472,11 +581,11 @@ body {
           align-items: center;
   width: 100%;
   height: 47px;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--ssmm-color);
   border-radius: 6px;
   font-size: 1.125rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--ssmm-color);
   text-decoration: none;
 }
 
@@ -498,14 +607,14 @@ body {
 }
 
 .main .login__card__form--ssmm:hover {
-  -webkit-filter: drop-shadow(0px 3px 5px #ffffff);
-          filter: drop-shadow(0px 3px 5px #ffffff);
+  -webkit-filter: drop-shadow(0px 3px 5px var(--ssmm));
+          filter: drop-shadow(0px 3px 5px var(--ssmm));
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
 .main .login__card__form--ssmm:focus-visible {
-  outline: 2px solid #5fe19b;
+  outline: 2px solid var(--primary-color);
 }
 
 .main .login__card__form--ssmm div {
@@ -525,8 +634,12 @@ body {
   width: 67%;
 }
 
-.main .login__card__form--ssmm div img {
+.main .login__card__form--ssmm div svg {
   margin-right: 14px;
+}
+
+.main .login__card__form--ssmm div svg path {
+  fill: var(--ssmm-color);
 }
 
 .main .login__card__form--ssmm div .login__card__form--ssmm__tw {
@@ -565,6 +678,14 @@ body {
   height: 100%;
   border: none;
   background-color: transparent;
+}
+
+.slider__arrow__container > button > svg > circle {
+  fill: var(--controllers);
+}
+
+.slider__arrow__container > button > svg > path {
+  fill: var(--logo-color);
 }
 
 .slider__arrow--left {
@@ -610,6 +731,14 @@ body {
 .footer__bullets-container--svg {
   width: 100%;
   margin: auto;
+}
+
+.footer__bullets-container--svg rect {
+  fill: var(--controllers);
+}
+
+.footer__bullets-container--svg circle {
+  fill: var(--logo-color);
 }
 
 .snackbar {
@@ -770,7 +899,7 @@ body {
     top: 50%;
     height: 2.07px;
     width: 39%;
-    border-top: 1px solid #ffffff;
+    border-top: 1px solid var(--text-color);
     right: 165px;
   }
   .main .login__card__form--decoration__container p:after {
@@ -779,7 +908,7 @@ body {
     top: 50%;
     height: 2.07px;
     width: 39%;
-    border-top: 1px solid #ffffff;
+    border-top: 1px solid var(--text-color);
     left: 165px;
   }
   .main .login__card__form--ssmm div {

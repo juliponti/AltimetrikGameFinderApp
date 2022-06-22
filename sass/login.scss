@@ -15,23 +15,80 @@ body {
 
 body {
   @include FlexBox(column, space-between);
-  background-image: URL("../../assets/desktop/slider/slide-1.png");
+  background-image: var(--bg-img);
   background-repeat: no-repeat;
   background-size: cover;
-
+  background-color: var(--bg-color);
   transition: all 0.3s ease-in-out;
 }
 
 .header {
-  @include FlexBox(row, flex-start);
+  @include FlexBox(row, space-between);
   width: 100%;
+  height: 115px;
   padding: 0 16px;
   background: none;
+  background-color: var(--header-color);
 
   &-logo {
     width: 25%;
     min-width: 180px;
     margin: 45px 0;
+    & path {
+      fill: var(--logo-color);
+    }
+  }
+
+  &-theme__container {
+    @include FlexBox;
+    height: 100%;
+    margin-right: 42px;
+
+    & span {
+      color: var(--text-color);
+      font-size: 1.125rem;
+    }
+
+    & button {
+      margin-top: 4px;
+      margin-left: 10px;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+
+    & button.theme-active {
+      & svg {
+        & > circle {
+          transform: translateX(0);
+          transition: all 0.3s ease;
+        }
+        .off {
+          display: none;
+        }
+      }
+    }
+
+    & button.theme-disable {
+      & svg {
+        & > circle {
+          transform: translateX(-20px);
+          transition: all 0.3s ease;
+        }
+
+        & > rect {
+          fill: var(--switch-color);
+        }
+
+        .on {
+          display: none;
+        }
+
+        .off {
+          display: block;
+        }
+      }
+    }
   }
 }
 
@@ -52,13 +109,12 @@ body {
 
     &__card {
       width: 462px;
-      margin-bottom: 50px;
       padding: 40px 49px;
       border-radius: 12px;
-      background-color: $black-transparent;
+      background-color: var(--login-color);
 
       &__header {
-        color: $white;
+        color: var(--text-color);
         text-align: center;
 
         h1 {
@@ -103,15 +159,15 @@ body {
               font-weight: 400;
             }
             &:first-child:focus {
-              outline: 1px solid $primary-300;
+              outline: 1px solid var(--primary-color);
             }
 
             &:focus {
-              outline: 1px solid #ffffff1a;
+              outline: 1px solid var(--primary-color);
             }
 
             &:focus-visible {
-              outline: 2px solid $primary-100;
+              outline: 2px solid var(--primary-color);
             }
 
             &:disabled {
@@ -153,7 +209,7 @@ body {
             @include FlexBox;
             position: relative;
             border: none;
-            color: $white;
+            color: var(--text-color);
 
             .checkbox__vector {
               display: none;
@@ -175,13 +231,13 @@ body {
           width: 20px;
           height: 20px;
           margin-right: 16px;
-          border: 1px solid $white;
+          border: 1px solid var(--text-color);
           border-radius: 4px;
           background-color: transparent;
           cursor: pointer;
 
           &:focus-visible {
-            outline: 2px solid $primary-100;
+            outline: 2px solid var(--primary-color);
           }
 
           &_label {
@@ -192,7 +248,7 @@ body {
           &__link {
             font-size: 0.875rem;
             font-weight: 400;
-            color: $primary-100;
+            color: var(--primary-color);
             text-decoration: none;
             cursor: pointer;
             position: relative;
@@ -206,7 +262,7 @@ body {
             }
 
             &:focus-visible {
-              outline: 2px solid $primary-100;
+              outline: 2px solid var(--primary-color);
             }
           }
         }
@@ -252,7 +308,7 @@ body {
             gap: 8px;
 
             p {
-              color: $white;
+              color: var(--text-color);
               font-size: 0.875rem;
               font-weight: 400;
             }
@@ -262,7 +318,7 @@ body {
             position: relative;
             font-size: 0.875rem;
             font-weight: 400;
-            color: $primary-100;
+            color: var(--primary-color);
             text-decoration: none;
 
             &::after {
@@ -275,7 +331,7 @@ body {
               }
             }
             &:focus-visible {
-              outline: 2px solid $primary-100;
+              outline: 2px solid var(--primary-color);
             }
           }
         }
@@ -288,7 +344,7 @@ body {
           p {
             font-size: 0.875rem;
             font-weight: 400;
-            color: $white;
+            color: var(--text-color);
             opacity: 0.5;
 
             &:after {
@@ -313,28 +369,31 @@ body {
           width: 100%;
           height: 47px;
 
-          border: 2px solid $white;
+          border: 2px solid var(--ssmm-color);
           border-radius: 6px;
 
           font-size: 1.125rem;
           font-weight: 700;
-          color: $white;
+          color: var(--ssmm-color);
           text-decoration: none;
 
           &:hover {
-            filter: drop-shadow(0px 3px 5px $white);
+            filter: drop-shadow(0px 3px 5px var(--ssmm));
             transition: all 0.3s ease;
           }
           &:focus-visible {
-            outline: 2px solid $primary-100;
+            outline: 2px solid var(--primary-color);
           }
           div {
             @include FlexBox(row, flex-start);
 
             width: 67%;
 
-            img {
+            & svg {
               margin-right: 14px;
+              & path {
+                fill: var(--ssmm-color);
+              }
             }
 
             .login__card__form--ssmm {
@@ -387,6 +446,17 @@ body {
 
     border: none;
     background-color: transparent;
+
+    & > button {
+      & > svg {
+        & > circle {
+          fill: var(--controllers);
+        }
+        & > path {
+          fill: var(--logo-color);
+        }
+      }
+    }
   }
 
   &--left {
@@ -423,6 +493,14 @@ body {
     &--svg {
       width: 100%;
       margin: auto;
+
+      & rect {
+        fill: var(--controllers);
+      }
+
+      & circle {
+        fill: var(--logo-color);
+      }
     }
   }
 }

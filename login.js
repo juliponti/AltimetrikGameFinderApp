@@ -1,4 +1,4 @@
-import { snackbar, showError, showSuccess } from "./pages/login/utils.js";
+import { snackbar, showError, showSuccess } from "./utils.js";
 
 // Form validation
 

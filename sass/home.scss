@@ -21,7 +21,7 @@ body {
   width: 100vw;
   height: 100vh;
 
-  background-color: $total-black;
+  background-color: var(--overlayer);
   opacity: 0.4;
 
   z-index: 2;
@@ -40,7 +40,7 @@ body {
     $primary-300 50%,
     $primary-350 100%
   );
-  box-shadow: 1px -3px 36px $black-transparent;
+  box-shadow: 1px -3px 36px rgba(0, 0, 0, 0.5);
 
   svg.logo {
     display: block;
@@ -124,7 +124,7 @@ body {
       }
 
       &:focus-visible {
-        outline: 1px solid #fff;
+        outline: 1px solid $white;
         outline-offset: 5px;
         border-radius: 3px;
       }
@@ -148,7 +148,7 @@ body {
   width: 100%;
   min-height: 90vh;
 
-  background-color: $gray-800;
+  background-color: var(--bg-color);
 
   &__banner-section {
     @include FlexBox(row, space-between);
@@ -164,7 +164,7 @@ body {
       &-text__container {
         min-width: 285px;
 
-        color: $white;
+        color: var(--text-color);
 
         h1 {
           font-size: 3rem;
@@ -193,7 +193,7 @@ body {
         margin-top: 16px;
 
         span {
-          color: $white;
+          color: var(--text-color);
           font-size: 0.938rem;
 
           margin-left: 16px;
@@ -204,7 +204,7 @@ body {
           @include secondaryBtns;
 
           &:focus-visible {
-            outline: 1px solid $primary-100;
+            outline: 1px solid var(--primary-color);
           }
         }
       }
@@ -220,7 +220,7 @@ body {
           @include secondaryBtns;
 
           &:focus-visible {
-            outline: 1px solid $primary-100;
+            outline: 1px solid var(--primary-color);
           }
 
           img {
@@ -260,18 +260,18 @@ body {
         list-style: none;
 
         li {
-          color: $white;
+          color: var(--text-color);
           font-size: 1.125rem;
 
           outline: 1px solid transparent;
           cursor: pointer;
 
           &:hover {
-            color: $primary-100;
+            color: var(--primary-color);
             transition: all 0.3s ease;
           }
           &:focus-visible {
-            outline: 4px solid $primary-100;
+            outline: 4px solid var(--primary-color);
             outline-offset: 5px;
             border-radius: 3px;
           }
@@ -319,7 +319,7 @@ body {
       }
 
       .navbar__secondary-title {
-        color: $white;
+        color: var(--text-color);
         font-size: 1.375rem;
         font-weight: 700;
 
@@ -368,7 +368,7 @@ body {
 }
 
 #home-text {
-  color: $primary-100;
+  color: var(--primary-color);
 }
 
 .home__main__card {
@@ -383,7 +383,7 @@ body {
 
   border-radius: 12px;
   border: none;
-  background-color: $gray-600;
+  background-color: var($card-color);
 
   overflow: scroll;
   -ms-overflow-style: none;
@@ -393,7 +393,7 @@ body {
   }
 
   &:focus-visible {
-    outline: 4px solid $primary-100;
+    outline: 4px solid var(--primary-color);
   }
 
   & > div:first-child {
@@ -440,13 +440,13 @@ body {
       font-weight: 700;
 
       h3 {
-        color: $white;
+        color: var(--text-color);
         font-size: 1.5rem;
         cursor: pointer;
       }
 
       span {
-        color: $primary-300;
+        color: var(--primary-color);
         font-size: 1.125rem;
 
         margin-top: 2px;
@@ -468,7 +468,7 @@ body {
 
         margin-top: 9px;
 
-        color: $white;
+        color: var * (--text-color);
 
         & > div {
           @include FlexBox(row, flex-start, flex-start);
@@ -485,7 +485,7 @@ body {
 
           p:nth-child(2) {
             margin-left: 5px;
-            color: $white;
+            color: var(--text-color);
             font-weight: 400;
           }
         }
@@ -544,12 +544,12 @@ body {
 
   border: none;
   border-radius: 12px;
-  background-color: $gray-600;
+  background-color: var(--card-color);
 
   animation: fadein 0.5s;
 
   &:focus-visible {
-    outline: 4px solid $primary-100;
+    outline: 4px solid var(--primary-color);
   }
 
   & > div:nth-child(1) {
@@ -597,12 +597,12 @@ body {
       font-weight: 700;
 
       h3 {
-        color: $white;
+        color: var(--text-color);
         font-size: 2rem;
       }
 
       span {
-        color: $primary-300;
+        color: var(--primary-color);
         font-size: 1.5rem;
 
         margin-top: 8px;
@@ -626,7 +626,7 @@ body {
 
           margin-top: 9px;
 
-          color: $white;
+          color: var(--text-color);
 
           div {
             @include FlexBox(row, flex-start, flex-start);
@@ -642,7 +642,7 @@ body {
             }
 
             p:nth-child(2) {
-              color: $white;
+              color: var(--text-color);
               font-weight: 400;
               margin-left: 11px;
             }
@@ -669,7 +669,7 @@ body {
       margin: 19px 0;
 
       p {
-        color: $white;
+        color: var(--text-color);
         font-size: 0.875rem;
       }
     }
@@ -685,8 +685,8 @@ body {
 
   background: linear-gradient(
     180deg,
-    $black-transparent-100 0%,
-    $total-black 100%
+    var(--footer-gradient1) 0%,
+    var(--footer-gradient2) 100%
   );
 }
 
@@ -698,7 +698,7 @@ body {
 
   background-color: $white;
   border: 1px solid transparent;
-  border-bottom: 0.5px solid $gray-border;
+  border-bottom: 0.5px solid $gray-250;
 
   color: $gray-550;
   font-size: 0.938rem;
@@ -708,7 +708,7 @@ body {
   animation: fadein 0.5s;
 
   &:hover {
-    background-color: $primary-100;
+    background-color: var(--primary-color);
   }
   &:first-child {
     border-top-right-radius: 4px;
@@ -722,7 +722,7 @@ body {
   }
 
   &:focus-visible {
-    outline: $primary-100 auto;
+    outline: var(--primary-color) auto;
   }
 }
 
@@ -738,7 +738,7 @@ body {
   margin: auto;
 
   border: 5px solid $gray-55;
-  border-top: 6px solid $primary-300;
+  border-top: 6px solid var(--primary-color);
   border-radius: 100%;
 
   animation: spin 1s infinite linear;
@@ -749,7 +749,7 @@ body {
 }
 
 .not-found-text {
-  color: $white;
+  color: var(--text-color);
   font-size: 2rem;
   text-align: center;
   animation: fadein 0.5s;
@@ -807,7 +807,7 @@ body {
 
   width: 100%;
   height: 100%;
-  background-color: $gray-650;
+  background-color: var(--hamburger-menu-bg);
 
   z-index: 3;
   transform: translateX(-100%);
@@ -819,7 +819,7 @@ body {
     height: 73px;
 
     padding: 0 21px;
-    border-bottom: 1px solid $gray-500;
+    border-bottom: 1px solid var(--hamburger-menu-lines);
 
     & > button {
       position: absolute;
@@ -830,7 +830,7 @@ body {
       background-color: inherit;
 
       &:focus-visible {
-        outline: 2px solid $primary-100;
+        outline: 2px solid var(--primary-color);
         outline-offset: 5px;
         border-radius: 5px;
       }
@@ -852,7 +852,7 @@ body {
   }
 
   &__user-details {
-    color: $white;
+    color: var(--text-color);
     margin-left: 12px;
 
     p:first-child {
@@ -867,7 +867,7 @@ body {
 
   &__navbar {
     height: 846px;
-    border-bottom: 1px solid $gray-500;
+    border-bottom: 1px solid var(--hamburger-menu-lines);
 
     & > ul {
       @include FlexBox(column, space-between, flex-start);
@@ -877,17 +877,17 @@ body {
 
       & > li:first-child {
         a {
-          color: $primary-100;
+          color: var(--primary-color);
         }
       }
       li {
         a {
           width: 100%;
           text-decoration: none;
-          color: $white;
+          color: var(--text-color);
 
           &:focus-visible {
-            outline: 2px solid $primary-100;
+            outline: 2px solid var(--primary-color);
             outline-offset: 5px;
           }
         }
@@ -900,11 +900,11 @@ body {
     height: 56px;
     padding: 0 11px;
 
-    border-bottom: 1px solid $gray-500;
+    border-bottom: 1px solid var(--hamburger-menu-lines);
 
     & > p {
       font-size: 0.938rem;
-      color: $white;
+      color: var(--text-color);
     }
 
     button {
@@ -913,7 +913,7 @@ body {
       margin-left: 17px;
 
       &:focus-visible {
-        outline: 2px solid $primary-100;
+        outline: 2px solid var(--primary-color);
         outline-offset: 5px;
         border-radius: 5px;
       }
@@ -925,13 +925,13 @@ body {
 
     & > button {
       font-size: 0.938rem;
-      color: $white;
+      color: var(--text-color);
 
       border: none;
       background-color: inherit;
 
       &:focus-visible {
-        outline: 2px solid $primary-100;
+        outline: 2px solid var(--primary-color);
         outline-offset: 5px;
       }
     }
