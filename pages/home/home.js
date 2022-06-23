@@ -18,6 +18,8 @@ const userImg = document.getElementById("user-img-container");
 //  banner
 const optionsContainer = document.getElementById("options-cont");
 const threeCardVwBtn = document.getElementById("three-card-view-btn");
+const threeVwIcon = document.getElementById("three-vw-icon");
+const oneVwIcon = document.getElementById("one-vw-icon");
 const oneCardVwBtn = document.getElementById("one-card-view-btn");
 
 // primary-section
@@ -191,14 +193,11 @@ function handleLastSearches() {
 // Card View Displays
 
 function handleThreeView() {
-  const iconActive = img(
-    "../../assets/desktop/home/banner/three-view-active.svg"
-  );
-  const iconDisable = img(
-    "../../assets/desktop/home/banner/one-view-disable.svg"
-  );
-  threeCardVwBtn.innerHTML = iconActive;
-  oneCardVwBtn.innerHTML = iconDisable;
+  threeVwIcon.classList.add("active");
+  threeVwIcon.classList.remove("inactive");
+
+  oneVwIcon.classList.add("inactive");
+  oneVwIcon.classList.remove("active");
 
   oneCardVwBtn.disabled = false;
   threeCardVwBtn.disabled = true;
@@ -215,17 +214,13 @@ function handleThreeView() {
 }
 
 function handleOneView() {
-  const iconActive = img(
-    "../../assets/desktop/home/banner/one-view-active.svg"
-  );
-  const iconDisable = img(
-    "../../assets/desktop/home/banner/three-view-disable.svg"
-  );
+  oneVwIcon.classList.add("active");
+  oneVwIcon.classList.remove("inactive");
 
-  oneCardVwBtn.innerHTML = iconActive;
-  threeCardVwBtn.innerHTML = iconDisable;
+  threeVwIcon.classList.add("inactive");
+  threeVwIcon.classList.remove("active");
 
-  oneCardVwBtn.disabled = true;
+  threeCardVwBtn.disabled = true;
   threeCardVwBtn.disabled = false;
 
   oneViewVal = !oneViewVal;

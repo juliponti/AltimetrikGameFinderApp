@@ -39,6 +39,7 @@ $gray-650: #2a2a2a;
 $gray-700: #141414;
 $gray-800: #151515;
 
+$box-shadow: rgba(106, 106, 106, 0.25);
 $white-transparent: rgba(255, 255, 255, 0.3);
 $black-transparent: rgba(0, 0, 0, 0.5);
 $black-transparent-100: rgba(0, 0, 0, 0.0001);
@@ -50,42 +51,53 @@ $total-black: #000000;
   .theme {
     --header-color: #{$white-transparent};
     --logo-color: #{$gray-550};
-    --bg-color: #{$gray-50};
     --text-color: #{$gray-500};
     --primary-color: #{$primary-300};
+    --bg-color: #{$gray-50};
+    --bg-img: url(../../assets/desktop/slider/lightMode/slide-light-1.png);
+
     --login-color: #{$gray-50};
     --card-color: #{$white};
+    --box-shadow-color: #{$box-shadow};
+    --ssmm-color: #{$primary-300};
+
     --switch-color: #{$gray-250};
+    --active-vw-bg-color: #{$gray-400};
+    --active-vw-lines-color: #{$gray-500};
     --inactive-vw-bg-color: #{$gray-200};
     --inactive-vw-lines-color: #{$gray-300};
-    --ssmm-color: #{$primary-300};
-    --footer-gradient1: #{$white};
+    --controllers: #{$white};
+
+    --footer-gradient1: #{$white-transparent};
     --footer-gradient2: #{$gray-50};
-    --overlayer: #{$gray-50};
+
     --hamburger-menu-bg: #{$white};
     --hamburger-menu-lines: #{$gray-250};
-    --bg-img: url(../../assets/desktop/slider/lightMode/slide-light-1.png);
-    --controllers: #{$white};
 
     &--dark {
       --header-color: #{transparent};
       --logo-color: #{$white};
-      --bg-color: #{$gray-800};
       --text-color: #{$white};
       --primary-color: #{$primary-100};
+      --bg-color: #{$gray-800};
+      --bg-img: url(../../assets/desktop/slider/slide-1.png);
+
       --login-color: #{$black-transparent};
       --card-color: #{$gray-600};
+      --ssmm-color: #{$white};
+
       --switch-color: #{$gray-250};
       --inactive-vw-bg-color: #{$gray-600};
       --inactive-vw-lines-color: #{$gray-500};
-      --ssmm-color: #{$white};
-      --footer-gradient1: #{$white};
-      --footer-gradient2: #{$gray-50};
-      --overlayer: #{$black-transparent};
+      --active-vw-bg-color: #{$gray-500};
+      --active-vw-lines-color: #{$white};
+      --controllers: #{$gray-500};
+
+      --footer-gradient1: #{$black-transparent-100};
+      --footer-gradient2: #{$total-black};
+
       --hamburger-menu-bg: #{$gray-650};
       --hamburger-menu-lines: #{$gray-500};
-      --bg-img: url(../../assets/desktop/slider/slide-1.png);
-      --controllers: #{$gray-500};
     }
   }
 }

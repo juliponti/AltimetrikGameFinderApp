@@ -19,7 +19,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-color: var(--bg-color);
-  transition: all 0.3s ease-in-out;
+  transition: all 0.3s;
 }
 
 .header {
@@ -52,9 +52,7 @@ body {
     & button {
       margin-top: 4px;
       margin-left: 10px;
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
+      @include secondaryBtns;
     }
 
     & button.theme-active {
@@ -322,7 +320,7 @@ body {
             text-decoration: none;
 
             &::after {
-              @include Underline($primary-200);
+              @include Underline(var(--primary-color));
             }
 
             &:hover {
@@ -378,7 +376,7 @@ body {
           text-decoration: none;
 
           &:hover {
-            filter: drop-shadow(0px 3px 5px var(--ssmm));
+            filter: drop-shadow(0px 3px 5px var(--ssmm-color));
             transition: all 0.3s ease;
           }
           &:focus-visible {
@@ -429,12 +427,12 @@ body {
   border: 1px solid $error-color;
   border-radius: 4px;
 
-  color: $white;
+  color: var(--text-color);
   text-align: center;
 }
 
 .success {
-  outline: 3px solid $primary-300;
+  outline: 3px solid var(--primary-color);
 }
 
 .slider__arrow {
