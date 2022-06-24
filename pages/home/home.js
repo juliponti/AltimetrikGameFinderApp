@@ -82,7 +82,29 @@ if (localStorage.getItem("picture") == "true") {
 threeViewVal = true;
 oneViewVal = false;
 
+var gameData;
+
 // Cards component
+
+function getDescription(gameData) {
+  const promises = [];
+
+  gameData.forEach((game) => {
+    const gameId = game.id;
+    const gameFetch = fetch(
+      `https://api.rawg.io/api/games/${gameId}?key=3b8dd54671dc4624a07d03548d00e621&`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        const completeGameData = Object.assign(game, data);
+
+        return completeGameData;
+      });
+    promises.push(gameFetch);
+  });
+
+  return Promise.all(promises);
+}
 
 const card = (page) =>
   page.map((result) => {
@@ -111,7 +133,7 @@ const card = (page) =>
     });
 
     return `<button class=${
-      threeViewVal ? "home__main__card" : "one-card-view__card "
+      threeViewVal ? "home__main__card" : "one-card-view__card"
     } aria-label="game card">
           <div>
                  <img src="${result.background_image || bgDefault}" alt="${
@@ -125,17 +147,20 @@ const card = (page) =>
          <div>
                  <div>
                    <h3>${result.name}</h3>
-                   <span>#${counter}</span>
+                   <span class="id">#${counter}</span>
                  </div>
                  <div>
                    <div>
                      <div>
                         <p>Release date:</p>
-                        <p>${formatDayStr}</p>
+                        <p>${formatDayStr || "No date avaiable"}</p>
                      </div>
                      <div>
                         <p>Genres:</p>
-                        <p>${genreTitle.substring(0, genreTitle.length - 2)}</p>
+                        <p>${
+                          genreTitle.substring(0, genreTitle.length - 2) ||
+                          "no specific gender"
+                        }</p>
                      </div>
                    </div>
                    <div>
@@ -143,7 +168,7 @@ const card = (page) =>
                    </div>
                  </div>
                  <div>
-                    <p> Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem consectetur quis in deserunt minus id laudantium fugiat optio reiciendis! Est deserunt accusamus necessitatibus perspiciatis minima maiores voluptate voluptates iure porro! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem consectetur quis in deserunt minus id laudantium fugiat optio reiciendis! Est deserunt accusamus necessitatibus perspiciatis minima maiores voluptate voluptates iure porro!  </p>
+                    <p>${result.description || "No description available"}</p>
                  </div>
           </div>
     </button>`;
@@ -263,15 +288,17 @@ async function fetchData(url) {
   const getData = await fetch(url);
   const dataToJson = await getData.json();
   const results = dataToJson.results;
-  hideLoading();
-  nextPage = dataToJson.next;
+  gameData = results;
+  getDescription(gameData).then((data) => {
+    hideLoading();
+    nextPage = dataToJson.next;
 
-  const currentCard = card(results);
-  const allCards = currentCard.join(" ");
+    const currentCard = card(data);
+    const allCards = currentCard.join(" ");
 
-  cardContainer.innerHTML += allCards;
+    cardContainer.innerHTML += allCards;
+  });
 }
-
 // Allows to fetch next page
 
 function handleScroll() {
@@ -312,47 +339,38 @@ function handleChange(e) {
       .then((data) => {
         const longData = data.results;
         nextPage = data.next;
-        const searchResults = [];
-        searchResults.push(longData);
-        const l = searchResults.length;
         let allSearchCards;
-
-        for (let i = 0; i < l; i++) {
-          let item = searchResults[i];
-
-          const firstResult = item.slice(0, 1);
-          lastResults.push(firstResult);
-
-          const searchCard = card(item);
+        getDescription(longData).then((data) => {
+          const searchCard = card(data);
           allSearchCards = searchCard.join(" ");
-        }
 
-        if (!allSearchCards) {
-          notFoundText.classList.add("not-found-text");
-          cardContainer.innerHTML = "";
-          notFoundText.innerHTML = "No search results";
-        } else if (threeViewVal) {
-          notFoundText.style.display = "none";
-          cardsDisplay(
-            "one-card-view__card__container",
-            "home__card__container",
-            "one-card-view__card",
-            "home__main__card"
-          );
-          hideLoading();
-          layer.style.display = "none";
-          cardContainer.innerHTML = allSearchCards;
-        } else {
-          notFoundText.style.display = "none";
-          cardsDisplay(
-            "home__card__container",
-            "one-card-view__card__container",
-            "home__main__card",
-            "one-card-view__card"
-          );
-          hideLoading();
-          cardContainer.innerHTML = allSearchCards;
-        }
+          if (!allSearchCards) {
+            notFoundText.classList.add("not-found-text");
+            cardContainer.innerHTML = "";
+            notFoundText.innerHTML = "No search results";
+          } else if (threeViewVal) {
+            notFoundText.style.display = "none";
+            cardsDisplay(
+              "one-card-view__card__container",
+              "home__card__container",
+              "one-card-view__card",
+              "home__main__card"
+            );
+            hideLoading();
+            layer.style.display = "none";
+            cardContainer.innerHTML = allSearchCards;
+          } else {
+            notFoundText.style.display = "none";
+            cardsDisplay(
+              "home__card__container",
+              "one-card-view__card__container",
+              "home__main__card",
+              "one-card-view__card"
+            );
+            hideLoading();
+            cardContainer.innerHTML = allSearchCards;
+          }
+        });
       });
   } else if (currentValue.length >= 3 || e.keyCode === 13) {
     displayLoading();
@@ -371,67 +389,68 @@ function handleChange(e) {
         const l = searchResults.length;
         let allSearchCards;
 
-        for (let i = 0; i < l; i++) {
-          let item = searchResults[i];
+        getDescription(longData).then((data) => {
+          for (let i = 0; i < l; i++) {
+            let item = searchResults[i];
+            const firstResult = searchResults[i].slice(0, 1);
+            lastResults.push(firstResult);
 
-          const firstResult = searchResults[i].slice(0, 1);
-          lastResults.push(firstResult);
+            const options = optionButton(item);
+            const allOptions = options.join("");
+            optionsContainer.innerHTML = allOptions;
 
-          const options = optionButton(item);
-          const allOptions = options.join("");
-          optionsContainer.innerHTML = allOptions;
-
-          const searchOption = document.getElementsByClassName("options");
-          const sl = searchOption.length;
-          for (let i = 0; i < sl; i++) {
-            const element = searchOption[i];
-            searchOption[i].addEventListener("click", () => {
-              const currentOption = element.value;
-              input.value = currentOption;
-              cross.style.visibility = "hidden";
-              handleChange(e);
-            });
+            const searchOption = document.getElementsByClassName("options");
+            const sl = searchOption.length;
+            for (let i = 0; i < sl; i++) {
+              const element = searchOption[i];
+              searchOption[i].addEventListener("click", () => {
+                const currentOption = element.value;
+                input.value = currentOption;
+                cross.style.visibility = "hidden";
+                handleChange(e);
+              });
+            }
           }
-        }
 
-        for (let i = 0; i < allSearchResults.length; i++) {
-          const item = allSearchResults[i];
+          for (let i = 0; i < allSearchResults.length; i++) {
+            const item = allSearchResults[i];
 
-          const searchCard = card(item);
-          allSearchCards = searchCard.join(" ");
-        }
+            const searchCard = card(item);
+            allSearchCards = searchCard.join(" ");
+          }
 
-        if (allSearchCards == "") {
-          notFoundText.style.display = "block";
-          cardContainer.innerHTML = "";
+          if (allSearchCards == "") {
+            notFoundText.style.display = "block";
+            cardContainer.innerHTML = "";
 
-          notFoundText.innerHTML = `No results found`;
-          hideLoading();
-        } else if (threeViewVal) {
-          notFoundText.style.display = "none";
+            notFoundText.innerHTML = `No results found`;
+            hideLoading();
+          } else if (threeViewVal) {
+            notFoundText.style.display = "none";
 
-          cardsDisplay(
-            "one-card-view__card__container",
-            "home__card__container",
-            "one-card-view__card",
-            "home__main__card"
-          );
-          hideLoading();
+            cardsDisplay(
+              "one-card-view__card__container",
+              "home__card__container",
+              "one-card-view__card",
+              "home__main__card"
+            );
+            hideLoading();
 
-          cardContainer.innerHTML = allSearchCards;
-        } else {
-          notFoundText.style.display = "none";
+            cardContainer.innerHTML = allSearchCards;
+          } else {
+            notFoundText.style.display = "none";
 
-          cardsDisplay(
-            "home__card__container",
-            "one-card-view__card__container",
-            "home__main__card",
-            "one-card-view__card"
-          );
-          hideLoading();
+            cardsDisplay(
+              "home__card__container",
+              "one-card-view__card__container",
+              "home__main__card",
+              "one-card-view__card"
+            );
+            hideLoading();
 
-          cardContainer.innerHTML = allSearchCards;
-        }
+            cardContainer.innerHTML = allSearchCards;
+          }
+        });
       });
   }
 
@@ -468,9 +487,13 @@ async function load() {
   await fetchData(gamesUrl);
 
   const favorite = document.getElementsByClassName("favorite");
+  //const id = document.getElementsByClassName("id");
   Array.from(favorite).forEach((heart) =>
     heart.addEventListener("click", handleFavorite)
   );
+  // Array.from(id).forEach((title) =>
+  //   title.addEventListener("click", handleModal)
+  // );
 }
 
 load();

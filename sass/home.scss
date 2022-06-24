@@ -721,9 +721,14 @@ body {
       width: 100%;
       margin: 19px 0;
 
-      p {
+      p,
+      h3,
+      li,
+      ul,
+      div {
         color: var(--text-color);
         font-size: 0.875rem;
+        list-style: none;
       }
     }
   }

@@ -1029,9 +1029,14 @@ body {
   margin: 19px 0;
 }
 
-.one-card-view__card > div:nth-child(2) > div:nth-child(3) p {
+.one-card-view__card > div:nth-child(2) > div:nth-child(3) p,
+.one-card-view__card > div:nth-child(2) > div:nth-child(3) h3,
+.one-card-view__card > div:nth-child(2) > div:nth-child(3) li,
+.one-card-view__card > div:nth-child(2) > div:nth-child(3) ul,
+.one-card-view__card > div:nth-child(2) > div:nth-child(3) div {
   color: var(--text-color);
   font-size: 0.875rem;
+  list-style: none;
 }
 
 .home__footer {
