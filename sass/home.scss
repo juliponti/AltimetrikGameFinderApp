@@ -415,10 +415,6 @@ body {
   margin: 0 auto;
 }
 
-#home-text {
-  color: var(--primary-color);
-}
-
 .home__main__card {
   @include FlexBox(column, flex-start);
   width: 98%;
@@ -569,18 +565,6 @@ body {
       display: none;
     }
   }
-}
-
-.one-card-view__card__container {
-  position: relative;
-  grid-template-columns: repeat(1, 707px);
-  grid-template-rows: repeat(auto-fill, 550px);
-  gap: 15px 13px;
-
-  width: 697px;
-  height: 200%;
-
-  margin: 0 auto;
 }
 
 .one-card-view__card {
@@ -749,6 +733,10 @@ body {
   transition: all 0.3s;
 }
 
+#home-text {
+  color: var(--primary-color);
+}
+
 .options {
   width: 95%;
   height: 41px;
@@ -854,6 +842,222 @@ body {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+// modal
+
+.modal {
+  position: absolute;
+  top: 11%;
+  left: 13%;
+
+  @include FlexBox(row, center, flex-end);
+
+  width: 1076px;
+  height: 793px;
+
+  padding: 27px;
+
+  border: none;
+  border-radius: 24px;
+  background-color: var(--bg-color);
+
+  background: linear-gradient(
+      180deg,
+      var(--modal-bg-1) 0%,
+      var(--modal-bg-2) 84.4%
+    ),
+    URL("https://via.placeholder.com/1076x793");
+
+  & > div:first-child {
+    width: 123%;
+  }
+
+  &-cross {
+    position: absolute;
+    top: 13px;
+    right: 31px;
+
+    cursor: pointer;
+
+    & > path {
+      fill: $white;
+    }
+  }
+
+  &-platforms__container {
+    @include FlexBox(row, flex-start, center);
+    width: 100%;
+    gap: 16px;
+
+    & > svg {
+      width: 39px;
+      height: 32px;
+    }
+  }
+
+  &-title {
+    margin-top: 19px;
+
+    color: $white;
+    font-weight: 800;
+    font-size: 3rem;
+  }
+
+  &-chips__container {
+    @include FlexBox(row, flex-start, center);
+    gap: 9px;
+
+    width: 100%;
+    margin-top: 5px;
+
+    & div {
+      @include FlexBox;
+
+      height: 28px;
+
+      padding: 0 15px;
+
+      font-size: 1rem;
+
+      background-color: $white;
+      border-radius: 72px;
+
+      & p {
+        color: $gray-500;
+      }
+
+      & > span {
+        margin-right: 6px;
+
+        color: $primary-300;
+        font-weight: 800;
+      }
+    }
+  }
+
+  &-description {
+    padding-right: 50px;
+    margin-top: 23px;
+    margin-bottom: 28px;
+
+    color: var(--text-color);
+    font-size: 1rem;
+
+    &::-moz-selection {
+      /* Code for Firefox */
+
+      background: $primary-300;
+    }
+
+    &::selection {
+      background: $primary-300;
+    }
+  }
+
+  &-primary-btns__container {
+    @include FlexBox(row, flex-start, center);
+    gap: 22px;
+
+    width: 100%;
+
+    & > button {
+      position: relative;
+
+      width: 229px;
+      height: 47px;
+
+      @include secondaryBtns;
+      border-radius: 6px;
+
+      font-weight: 700;
+      font-size: 1.125rem;
+
+      & > svg {
+        position: absolute;
+        top: 12px;
+        right: 28px;
+      }
+
+      &:first-child {
+        padding: 0 38px;
+
+        background-color: $primary-200;
+
+        color: $white;
+        text-align: left;
+      }
+
+      &:nth-child(2) {
+        border: 2px solid $primary-200;
+
+        color: $primary-200;
+      }
+    }
+  }
+
+  &-info__container {
+    @include FlexBox(row, flex-start, center);
+    height: 293px; // erase later(?)
+
+    & > div {
+      @include FlexBox(column, flex-start, flex-start);
+      height: 100%;
+
+      padding-top: 22px;
+
+      width: 40%;
+      gap: 25px;
+
+      & > div {
+        font-size: 1rem;
+
+        & > p:first-child {
+          color: $gray-400;
+          font-weight: 500;
+        }
+
+        & > p:nth-child(2),
+        a {
+          margin-top: 5px;
+          color: var(--text-color);
+        }
+      }
+    }
+
+    & > div:last-child {
+      & > div:last-child {
+        @include FlexBox(row, flex-start);
+        gap: 19px;
+
+        width: 100%;
+
+        margin-top: 20px;
+
+        & > svg {
+          width: 28px;
+          height: 26px;
+
+          & path {
+            fill: $primary-300;
+          }
+        }
+      }
+    }
+  }
+
+  &-captures__container {
+    @include FlexBox(column, flex-end);
+    gap: 17px;
+    height: 100%;
+
+    & > div {
+      @include FlexBox;
+      flex-flow: wrap;
+      gap: 16px 21px;
+      margin-bottom: 20px;
+    }
   }
 }
 

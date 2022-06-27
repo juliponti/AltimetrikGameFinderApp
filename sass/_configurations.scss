@@ -74,6 +74,9 @@ $total-black: #000000;
     --hamburger-menu-bg: #{$white};
     --hamburger-menu-lines: #{$gray-250};
 
+    --modal-bg-1: #{$white};
+    --modal-bg-2: #{$gray-50};
+
     &--dark {
       --header-color: #{transparent};
       --logo-color: #{$white};
@@ -98,6 +101,9 @@ $total-black: #000000;
 
       --hamburger-menu-bg: #{$gray-650};
       --hamburger-menu-lines: #{$gray-500};
+
+      --modal-bg-1: #{rgba(48, 48, 48, 0.0001)};
+      --modal-bg-2: #{$gray-600};
     }
   }
 }
