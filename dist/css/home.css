@@ -815,10 +815,9 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 99%;
+  width: 60%;
   height: 98%;
-  margin-left: 3px;
-  margin-top: 28px;
+  margin: 11px auto 23px;
   text-align: left;
   border: none;
   border-radius: 12px;
@@ -1200,6 +1199,7 @@ body {
 }
 
 .modal {
+  display: none;
   position: absolute;
   top: 11%;
   left: 13%;
@@ -1224,20 +1224,26 @@ body {
   background-color: var(--bg-color);
   background: -webkit-gradient(linear, left top, left bottom, from(var(--modal-bg-1)), color-stop(84.4%, var(--modal-bg-2))), URL("https://via.placeholder.com/1076x793");
   background: linear-gradient(180deg, var(--modal-bg-1) 0%, var(--modal-bg-2) 84.4%), URL("https://via.placeholder.com/1076x793");
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .modal > div:first-child {
   width: 123%;
 }
 
-.modal-cross {
+.modal-cross-btn {
+  border: transparent;
+  border-radius: 11px;
+  background-color: inherit;
+  cursor: pointer;
   position: absolute;
   top: 13px;
   right: 31px;
   cursor: pointer;
 }
 
-.modal-cross > path {
+.modal-cross-btn > svg > path {
   fill: #ffffff;
 }
 
@@ -1322,11 +1328,19 @@ body {
 }
 
 .modal-description {
+  height: 90px;
   padding-right: 50px;
   margin-top: 23px;
   margin-bottom: 28px;
   color: var(--text-color);
   font-size: 1rem;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.modal-description::-webkit-scrollbar {
+  display: none;
 }
 
 .modal-description::-moz-selection {
@@ -1401,7 +1415,6 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 293px;
 }
 
 .modal-info__container > div {
@@ -1420,7 +1433,7 @@ body {
           align-items: flex-start;
   height: 100%;
   padding-top: 22px;
-  width: 40%;
+  width: 44%;
   gap: 25px;
 }
 

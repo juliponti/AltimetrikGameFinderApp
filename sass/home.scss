@@ -569,11 +569,10 @@ body {
 
 .one-card-view__card {
   @include FlexBox(column, flex-start);
-  width: 99%;
+  width: 60%;
   height: 98%;
 
-  margin-left: 3px;
-  margin-top: 28px;
+  margin: 11px auto 23px;
 
   text-align: left;
 
@@ -848,6 +847,7 @@ body {
 // modal
 
 .modal {
+  display: none;
   position: absolute;
   top: 11%;
   left: 13%;
@@ -870,18 +870,21 @@ body {
     ),
     URL("https://via.placeholder.com/1076x793");
 
+  transition: all 0.3s ease;
+
   & > div:first-child {
     width: 123%;
   }
 
-  &-cross {
+  &-cross-btn {
+    @include secondaryBtns;
     position: absolute;
     top: 13px;
     right: 31px;
 
     cursor: pointer;
 
-    & > path {
+    & > svg > path {
       fill: $white;
     }
   }
@@ -938,12 +941,20 @@ body {
   }
 
   &-description {
+    height: 90px;
     padding-right: 50px;
     margin-top: 23px;
     margin-bottom: 28px;
 
     color: var(--text-color);
     font-size: 1rem;
+
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &::-moz-selection {
       /* Code for Firefox */
@@ -999,7 +1010,6 @@ body {
 
   &-info__container {
     @include FlexBox(row, flex-start, center);
-    height: 293px; // erase later(?)
 
     & > div {
       @include FlexBox(column, flex-start, flex-start);
@@ -1007,7 +1017,7 @@ body {
 
       padding-top: 22px;
 
-      width: 40%;
+      width: 44%;
       gap: 25px;
 
       & > div {
