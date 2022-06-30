@@ -635,6 +635,7 @@ body {
       h3 {
         color: var(--text-color);
         font-size: 2rem;
+        cursor: pointer;
       }
 
       span {
@@ -783,7 +784,7 @@ body {
 
   margin: auto;
 
-  border: 5px solid $gray-55;
+  border: 5px solid var(--text-color);
   border-top: 6px solid var(--primary-color);
   border-radius: 100%;
 
@@ -846,8 +847,25 @@ body {
 
 // modal
 
-.modal {
+.modal__container[aria-hidden="true"] {
   display: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: $black-transparent;
+  animation: fade-in 200ms both;
+}
+
+.modal {
+  &[aria-hidden="true"] {
+    display: none;
+  }
+
   position: absolute;
   top: 11%;
   left: 13%;
@@ -870,7 +888,7 @@ body {
     ),
     URL("https://via.placeholder.com/1076x793");
 
-  transition: all 0.3s ease;
+  animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
 
   & > div:first-child {
     width: 123%;
@@ -956,14 +974,16 @@ body {
       display: none;
     }
 
-    &::-moz-selection {
-      /* Code for Firefox */
+    & > p {
+      &::-moz-selection {
+        /* Code for Firefox */
 
-      background: $primary-300;
-    }
+        background: $primary-300;
+      }
 
-    &::selection {
-      background: $primary-300;
+      &::selection {
+        background: $primary-300;
+      }
     }
   }
 
@@ -1028,10 +1048,15 @@ body {
           font-weight: 500;
         }
 
-        & > p:nth-child(2),
-        a {
+        & > p:nth-child(2) {
           margin-top: 5px;
           color: var(--text-color);
+        }
+
+        & > a {
+          color: var(--text-color);
+          cursor: pointer;
+          text-decoration: underline;
         }
       }
     }
@@ -1067,7 +1092,24 @@ body {
       flex-flow: wrap;
       gap: 16px 21px;
       margin-bottom: 20px;
+
+      & > img {
+        width: 184px;
+        height: 104px;
+      }
     }
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(10%);
   }
 }
 

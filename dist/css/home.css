@@ -890,6 +890,7 @@ body {
 .one-card-view__card > div:nth-child(2) > div:nth-child(1) h3 {
   color: var(--text-color);
   font-size: 2rem;
+  cursor: pointer;
 }
 
 .one-card-view__card > div:nth-child(2) > div:nth-child(1) span {
@@ -1083,7 +1084,7 @@ body {
   width: 2rem;
   height: 2rem;
   margin: auto;
-  border: 5px solid #f1f1f1;
+  border: 5px solid var(--text-color);
   border-top: 6px solid var(--primary-color);
   border-radius: 100%;
   -webkit-animation: spin 1s infinite linear;
@@ -1198,8 +1199,22 @@ body {
   }
 }
 
-.modal {
+.modal__container[aria-hidden="true"] {
   display: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-animation: fade-in 200ms both;
+          animation: fade-in 200ms both;
+}
+
+.modal {
   position: absolute;
   top: 11%;
   left: 13%;
@@ -1224,8 +1239,12 @@ body {
   background-color: var(--bg-color);
   background: -webkit-gradient(linear, left top, left bottom, from(var(--modal-bg-1)), color-stop(84.4%, var(--modal-bg-2))), URL("https://via.placeholder.com/1076x793");
   background: linear-gradient(180deg, var(--modal-bg-1) 0%, var(--modal-bg-2) 84.4%), URL("https://via.placeholder.com/1076x793");
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+  -webkit-animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
+          animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
+}
+
+.modal[aria-hidden="true"] {
+  display: none;
 }
 
 .modal > div:first-child {
@@ -1343,12 +1362,12 @@ body {
   display: none;
 }
 
-.modal-description::-moz-selection {
+.modal-description > p::-moz-selection {
   /* Code for Firefox */
   background: #36b972;
 }
 
-.modal-description::selection {
+.modal-description > p::selection {
   background: #36b972;
 }
 
@@ -1446,10 +1465,15 @@ body {
   font-weight: 500;
 }
 
-.modal-info__container > div > div > p:nth-child(2),
-.modal-info__container > div > div a {
+.modal-info__container > div > div > p:nth-child(2) {
   margin-top: 5px;
   color: var(--text-color);
+}
+
+.modal-info__container > div > div > a {
+  color: var(--text-color);
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .modal-info__container > div:last-child > div:last-child {
@@ -1516,6 +1540,37 @@ body {
       flex-flow: wrap;
   gap: 16px 21px;
   margin-bottom: 20px;
+}
+
+.modal-captures__container > div > img {
+  width: 184px;
+  height: 104px;
+}
+
+@-webkit-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slide-up {
+  from {
+    -webkit-transform: translateY(10%);
+            transform: translateY(10%);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    -webkit-transform: translateY(10%);
+            transform: translateY(10%);
+  }
 }
 
 .hamburger-menu {

@@ -348,7 +348,16 @@
         </div>
       </section>
       <!-- Modal -->
-      <dialog id="modal"></dialog>
+      <div
+        id="data-a11y-dialog"
+        class="modal__container"
+        aria-hidden="true"
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <div class="modal-overlay" data-a11y-dialog-hide></div>
+        <div role="document" id="modal" class="modal"></div>
+      </div>
     </main>
     <!-- Footer -->
     <footer class="home__footer"></footer>

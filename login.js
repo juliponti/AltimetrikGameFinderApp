@@ -124,8 +124,6 @@ const login = async () => {
   if (!rawResponse.ok) {
     const message = await rawResponse.json();
     snackbar(message);
-    inputEmail.value = "";
-    inputPsw.value = "";
   }
   const content = await rawResponse.json();
   localStorage.setItem("user", content.user.email);
@@ -143,8 +141,6 @@ form.addEventListener("submit", function (e) {
   let isFormValid = isEmailValid && isPasswordValid;
 
   if (isFormValid) {
-    login().catch((error) => {
-      snackbar(error);
-    });
+    login();
   }
 });
