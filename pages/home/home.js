@@ -9,7 +9,7 @@ import {
 } from "./utils.js";
 
 import A11yDialog from "../../node_modules/a11y-dialog/dist/a11y-dialog.esm.js";
-
+const apiKey = "key=4d05faf97f714c34975ad9634c84fb4d";
 // header
 const input = document.getElementById("home-input");
 const cross = document.getElementById("cross");
@@ -27,7 +27,7 @@ const oneCardVwBtn = document.getElementById("one-card-view-btn");
 const gallery = document.getElementById("gallery");
 const cardContainer = document.getElementById("cards-container");
 const notFoundText = document.getElementById("not-found");
-const gamesUrl = `https://api.rawg.io/api/games?key=c170612ac7ff49d28baad0215a82865c&page=1`;
+const gamesUrl = `https://api.rawg.io/api/games?${apiKey}&page=1`;
 
 //modal
 const modalContainer = document.getElementById("data-a11y-dialog");
@@ -40,7 +40,6 @@ const homeText = document.getElementById("home-text");
 const menuHomeText = document.getElementById("menu-home-text");
 
 let counter = 0;
-let pageNum = 1;
 let currentValue;
 
 let threeViewVal;
@@ -49,6 +48,22 @@ let oneViewVal;
 let lastResults = [];
 let nextPage;
 let modalBg;
+
+let observer = new IntersectionObserver(
+  (entry) => {
+    console.log(entry);
+    entry.forEach((entry) => {
+      if (entry.isIntersecting && !isLoading) {
+        getGames(nextPage);
+        isLoading = true;
+      }
+    });
+  },
+  {
+    rootMargin: "0px 0px 0px 0px",
+    threshhold: 1.0,
+  }
+);
 
 window.addEventListener("click", () => {
   optionsContainer.innerHTML = "";
@@ -66,7 +81,6 @@ cross.addEventListener("click", () => {
   cross.style.visibility = "hidden";
 });
 
-gallery.addEventListener("scroll", handleScroll);
 threeCardVwBtn.addEventListener("click", handleThreeView);
 oneCardVwBtn.addEventListener("click", handleOneView);
 
@@ -91,8 +105,8 @@ oneViewVal = false;
 
 let gameData;
 let closeBtn;
-let movies = [];
-let isLoading = true;
+let movies;
+let isLoading = false;
 
 // Cards component
 
@@ -104,7 +118,7 @@ function getDescription(gameData) {
     const gameId = game.id;
 
     const gameFetch = fetch(
-      `https://api.rawg.io/api/games/${gameId}?key=c170612ac7ff49d28baad0215a82865c&`
+      `https://api.rawg.io/api/games/${gameId}?${apiKey}&`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -203,8 +217,7 @@ const modal = (currentGame) =>
     const platforms = result.platforms;
     const parentPlatforms = result.parent_platforms;
     const screenshot = result.short_screenshots;
-    const movie = result[0];
-    const clip = movie.data;
+    const clip = movies?.data;
 
     date = date.split("-");
     const month = date[1];
@@ -391,15 +404,16 @@ const modal = (currentGame) =>
  <!-- Right Side-->
  <div class="modal-captures__container">
    <video
-     poster="${movie.preview || shortScreenshots[0]}"
+     poster="${movies?.preview || shortScreenshots[0]}"
      width="392"
      height="217"
      controls
     
    >
-     <source src="${clip["480"] || ""}" type="video/mp4" />
+     <source src="${clip ? clip["480"] : ""}" type="video/mp4" />
      Your browser does not support the video tag
    </video>
+   
    <div>
      <img src="${shortScreenshots[2]}" />
      <img src="${shortScreenshots[3]}" />
@@ -492,6 +506,12 @@ function handleOneView() {
     "home__main__card",
     "one-card-view__card"
   );
+
+  const cardsOnScreen = document.querySelectorAll(
+    ".cards-container  .one-card-view__card"
+  );
+  lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
+  observer.observe(lastCardOnScreen);
 }
 
 // Like cards
@@ -513,16 +533,17 @@ function handleFavorite(e) {
 }
 
 let allData = [];
+let lastCardOnScreen;
+
 // Fetch games
 
-async function fetchData(url) {
+async function getGames(url) {
   homeText.style.color = `#5fe19b`;
   lastSearches.style = "#fff";
   notFoundText.style.display = "none";
 
   displayLoading();
   const getData = await fetch(url);
-
   const dataToJson = await getData.json();
   const results = dataToJson.results;
   gameData = results;
@@ -550,63 +571,71 @@ async function fetchData(url) {
     );
 
     isLoading = false;
+
+    const cardsOnScreen = document.querySelectorAll(
+      ".cards-container  .home__main__card"
+    );
+
+    lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
+    observer.observe(lastCardOnScreen);
   });
 }
 
 // modal
 
+function getTrailer(gameId) {
+  const trailers = fetch(
+    `https://api.rawg.io/api/games/${gameId}/movies?${apiKey}&`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      const clips = data.results;
+
+      return clips;
+    });
+
+  return trailers;
+}
+
 function handleModal(e) {
-  gameData.forEach((game) => {
-    const gameId = game.id;
-
-    fetch(
-      `https://api.rawg.io/api/games/${gameId}/movies?key=c170612ac7ff49d28baad0215a82865c&`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        const clips = data.results;
-
-        clips.length >= 1 &&
-          clips.forEach((clip) => {
-            movies.push(clip);
-          });
-      });
-  });
-
+  displayLoading();
   getDescription(allData).then((data) => {
     const currentName = e.target.innerHTML;
 
-    let currentGame = data.filter((item) => {
+    const currentGame = data.filter((item) => {
       if (item.name === currentName) {
         return item;
       }
     });
 
-    const activeModal = modal(currentGame);
-    modalDoc.innerHTML = activeModal;
-    modalDoc.style.background = modalBg;
-    dialog.show();
+    if (currentGame) {
+      const gameId = currentGame[0].id;
+      const trailer = getTrailer(gameId);
+      trailer.then((data) => {
+        if (data) {
+          movies = data[0];
+        }
+
+        const activeModal = modal(currentGame);
+        modalDoc.innerHTML = activeModal;
+        modalDoc.style.background = modalBg;
+        dialog.show();
+        hideLoading();
+      });
+    }
   });
 }
 
 dialog.on("show", () => {
   closeBtn = document.getElementsByClassName("modal-cross-btn")[0];
-  closeBtn.addEventListener("click", () => {
+
+  closeBtn?.addEventListener("click", () => {
+    dialog.hide();
+  });
+  window.addEventListener("click", () => {
     dialog.hide();
   });
 });
-
-// Allows to fetch next page
-
-function handleScroll() {
-  if (
-    gallery.offsetHeight + gallery.scrollTop >= gallery.scrollHeight - 1 &&
-    !isLoading
-  ) {
-    fetchData(nextPage);
-    isLoading = true;
-  }
-}
 
 // Fetch game filter by search keyword
 
@@ -614,32 +643,29 @@ function handleChange(e) {
   const inputValue = e.target.value;
   const consoles = { pc: 1, playstation: 2, xbox: 3, nintendo: 7 };
   const platformNames = Object.keys(consoles);
-  gallery.removeEventListener("scroll", handleScroll, true);
 
   currentValue = inputValue.toLowerCase();
   cross.style.visibility = "visible";
 
   if (!currentValue || (!currentValue && e.keyCode === 13)) {
-    cross.style.visibility = "hidden";
     counter = 0;
-    pageNum = 1;
+    cross.style.visibility = "hidden";
     cardContainer.innerHTML = "";
     optionsContainer.innerHTML = "";
     displayLoading();
-    fetchData(gamesUrl);
+    getGames(gamesUrl);
     hideLoading();
   } else if (currentValue && platformNames.includes(currentValue)) {
     const id = consoles[currentValue];
-
     displayLoading();
-    fetch(
-      `https://api.rawg.io/api/games?key=c170612ac7ff49d28baad0215a82865c&parent_platforms=${id}`
-    )
+
+    fetch(`https://api.rawg.io/api/games?${apiKey}&parent_platforms=${id}`)
       .then((res) => res.json())
       .then((data) => {
         const longData = data.results;
         nextPage = data.next;
         let allSearchCards;
+
         getDescription(longData).then((data) => {
           const searchCard = card(data);
           allSearchCards = searchCard.join(" ");
@@ -656,6 +682,12 @@ function handleChange(e) {
               "one-card-view__card",
               "home__main__card"
             );
+
+            const cardsOnScreen = document.querySelectorAll(
+              ".cards-container  .home__main__card"
+            );
+            lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
+
             hideLoading();
             layer.style.display = "none";
             cardContainer.innerHTML = allSearchCards;
@@ -667,6 +699,12 @@ function handleChange(e) {
               "home__main__card",
               "one-card-view__card"
             );
+
+            const cardsOnScreen = document.querySelectorAll(
+              ".cards-container  .one-card-view__card"
+            );
+            lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
+
             hideLoading();
             cardContainer.innerHTML = allSearchCards;
           }
@@ -674,9 +712,8 @@ function handleChange(e) {
       });
   } else if (currentValue.length >= 3 || e.keyCode === 13) {
     displayLoading();
-    fetch(
-      `https://api.rawg.io/api/games?key=c170612ac7ff49d28baad0215a82865c&search=${currentValue}`
-    )
+
+    fetch(`https://api.rawg.io/api/games?${apiKey}&search=${currentValue}`)
       .then((res) => res.json())
       .then((data) => {
         const longData = data.results;
@@ -689,33 +726,34 @@ function handleChange(e) {
         const l = searchResults.length;
         let allSearchCards;
 
-        getDescription(longData).then((data) => {
-          for (let i = 0; i < l; i++) {
-            let item = searchResults[i];
-            const firstResult = searchResults[i].slice(0, 1);
-            lastResults.push(firstResult);
+        for (let i = 0; i < l; i++) {
+          let item = searchResults[i];
+          const firstResult = searchResults[i].slice(0, 1);
+          lastResults.push(firstResult);
 
-            const options = optionButton(item);
-            const allOptions = options.join("");
-            optionsContainer.innerHTML = allOptions;
+          const options = optionButton(item);
+          const allOptions = options.join("");
+          optionsContainer.innerHTML = allOptions;
 
-            const searchOption = document.getElementsByClassName("options");
-            const sl = searchOption.length;
-            for (let i = 0; i < sl; i++) {
-              const element = searchOption[i];
-              searchOption[i].addEventListener("click", () => {
-                const currentOption = element.value;
-                input.value = currentOption;
-                cross.style.visibility = "hidden";
-                handleChange(e);
-              });
-            }
+          const searchOption = document.getElementsByClassName("options");
+          const sl = searchOption.length;
+
+          for (let i = 0; i < sl; i++) {
+            const element = searchOption[i];
+            searchOption[i].addEventListener("click", () => {
+              const currentOption = element.value;
+              input.value = currentOption;
+              cross.style.visibility = "hidden";
+              handleChange(e);
+            });
           }
+        }
 
+        getDescription(longData).then((data) => {
           const searchCard = card(data);
           allSearchCards = searchCard.join(" ");
 
-          if (allSearchCards == "") {
+          if (!allSearchCards) {
             notFoundText.style.display = "block";
             cardContainer.innerHTML = "";
 
@@ -732,6 +770,12 @@ function handleChange(e) {
             );
             hideLoading();
 
+            const cardsOnScreen = document.querySelectorAll(
+              ".cards-container  .home__main__card"
+            );
+            lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
+            observer.observe(lastCardOnScreen);
+
             cardContainer.innerHTML = allSearchCards;
           } else {
             notFoundText.style.display = "none";
@@ -743,6 +787,11 @@ function handleChange(e) {
               "one-card-view__card"
             );
             hideLoading();
+
+            const cardsOnScreen = document.querySelectorAll(
+              ".cards-container  .one-card-view__card"
+            );
+            lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
 
             cardContainer.innerHTML = allSearchCards;
           }
@@ -777,7 +826,7 @@ function handleHomeText() {
     );
   }
   allData = [];
-  fetchData(gamesUrl);
+  getGames(gamesUrl);
 }
 
-fetchData(gamesUrl);
+getGames(gamesUrl);

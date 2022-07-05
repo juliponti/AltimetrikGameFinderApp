@@ -21,6 +21,7 @@
   --hamburger-menu-lines: #e1e1e4;
   --modal-bg-1: #ffffff;
   --modal-bg-2: #f0f0f0;
+  --chip-color: #36b972;
 }
 
 :root .theme--dark {
@@ -45,6 +46,7 @@
   --hamburger-menu-lines: #515151;
   --modal-bg-1: rgba(48, 48, 48, 0.0001);
   --modal-bg-2: #303030;
+  --chip-color: #ffffff;
 }
 
 * {
@@ -1212,6 +1214,7 @@ body {
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-animation: fade-in 200ms both;
           animation: fade-in 200ms both;
+  z-index: 1;
 }
 
 .modal {
@@ -1237,10 +1240,11 @@ body {
   border: none;
   border-radius: 24px;
   background-color: var(--bg-color);
-  background: -webkit-gradient(linear, left top, left bottom, from(var(--modal-bg-1)), color-stop(84.4%, var(--modal-bg-2))), URL("https://via.placeholder.com/1076x793");
-  background: linear-gradient(180deg, var(--modal-bg-1) 0%, var(--modal-bg-2) 84.4%), URL("https://via.placeholder.com/1076x793");
+  background: -webkit-gradient(linear, left top, left bottom, from(var(--modal-bg-1)), color-stop(84.4%, var(--modal-bg-2)));
+  background: linear-gradient(180deg, var(--modal-bg-1) 0%, var(--modal-bg-2) 84.4%);
   -webkit-animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
           animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
+  z-index: 2;
 }
 
 .modal[aria-hidden="true"] {
@@ -1289,9 +1293,13 @@ body {
   height: 32px;
 }
 
+.modal-platforms__container > svg > path {
+  fill: var(--text-color);
+}
+
 .modal-title {
   margin-top: 19px;
-  color: #ffffff;
+  color: var(--text-color);
   font-weight: 800;
   font-size: 3rem;
 }
@@ -1313,6 +1321,14 @@ body {
   gap: 9px;
   width: 100%;
   margin-top: 5px;
+}
+
+.modal-chips__container > div:first-child {
+  background-color: var(--chip-color);
+}
+
+.modal-chips__container > div:first-child > p {
+  color: var(--bg-color);
 }
 
 .modal-chips__container div {

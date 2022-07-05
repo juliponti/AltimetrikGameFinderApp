@@ -19,16 +19,20 @@ function handleClick() {
   const eye = document.getElementsByClassName("icon--inactive")[0];
   const crossEye = document.getElementsByClassName("icon--active")[0];
 
-  if (inputPsw.value != "" && inputPsw.type === "password") {
-    inputPsw.type = "text";
-    eye.style.display = "none";
-    crossEye.style.display = "block";
-    inputPsw.classList.remove("dots");
-  } else if (inputPsw.value != "" && inputPsw.type === "text") {
-    inputPsw.type = "password";
-    inputPsw.classList.add("dots");
-    eye.style.display = "block";
-    crossEye.style.display = "none";
+  if (!inputPsw.value) {
+    if (inputPsw.type === "password") {
+      inputPsw.type = "text";
+      eye.style.display = "none";
+      crossEye.style.display = "block";
+      inputPsw.classList.remove("dots");
+    }
+
+    if (inputPsw.type === "text") {
+      inputPsw.type = "password";
+      inputPsw.classList.add("dots");
+      eye.style.display = "block";
+      crossEye.style.display = "none";
+    }
   }
 }
 

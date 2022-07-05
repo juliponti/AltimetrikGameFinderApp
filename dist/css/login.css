@@ -21,6 +21,7 @@
   --hamburger-menu-lines: #e1e1e4;
   --modal-bg-1: #ffffff;
   --modal-bg-2: #f0f0f0;
+  --chip-color: #36b972;
 }
 
 :root .theme--dark {
@@ -45,6 +46,7 @@
   --hamburger-menu-lines: #515151;
   --modal-bg-1: rgba(48, 48, 48, 0.0001);
   --modal-bg-2: #303030;
+  --chip-color: #ffffff;
 }
 
 * {

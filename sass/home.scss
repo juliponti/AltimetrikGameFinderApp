@@ -859,6 +859,7 @@ body {
   right: 0;
   background-color: $black-transparent;
   animation: fade-in 200ms both;
+  z-index: 1;
 }
 
 .modal {
@@ -882,13 +883,13 @@ body {
   background-color: var(--bg-color);
 
   background: linear-gradient(
-      180deg,
-      var(--modal-bg-1) 0%,
-      var(--modal-bg-2) 84.4%
-    ),
-    URL("https://via.placeholder.com/1076x793");
+    180deg,
+    var(--modal-bg-1) 0%,
+    var(--modal-bg-2) 84.4%
+  );
 
   animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
+  z-index: 2;
 
   & > div:first-child {
     width: 123%;
@@ -915,13 +916,17 @@ body {
     & > svg {
       width: 39px;
       height: 32px;
+
+      & > path {
+        fill: var(--text-color);
+      }
     }
   }
 
   &-title {
     margin-top: 19px;
 
-    color: $white;
+    color: var(--text-color);
     font-weight: 800;
     font-size: 3rem;
   }
@@ -932,7 +937,12 @@ body {
 
     width: 100%;
     margin-top: 5px;
-
+    & > div:first-child {
+      background-color: var(--chip-color);
+      & > p {
+        color: var(--bg-color);
+      }
+    }
     & div {
       @include FlexBox;
 
