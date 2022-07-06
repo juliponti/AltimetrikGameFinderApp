@@ -10,6 +10,8 @@ import {
 
 import A11yDialog from "../../node_modules/a11y-dialog/dist/a11y-dialog.esm.js";
 const apiKey = "key=4d05faf97f714c34975ad9634c84fb4d";
+const body = document.getElementsByTagName("body")[0];
+
 // header
 const input = document.getElementById("home-input");
 const cross = document.getElementById("cross");
@@ -51,10 +53,9 @@ let modalBg;
 
 let observer = new IntersectionObserver(
   (entry) => {
-    console.log(entry);
     entry.forEach((entry) => {
       if (entry.isIntersecting && !isLoading) {
-        getGames(nextPage);
+        onLoad(nextPage);
         isLoading = true;
       }
     });
@@ -106,7 +107,11 @@ oneViewVal = false;
 let gameData;
 let closeBtn;
 let movies;
+let favorite;
+let title;
+let searchData;
 let isLoading = false;
+const bgDefault = "../../assets/desktop/home/card/bg-default.jpg";
 
 // Cards component
 
@@ -139,7 +144,6 @@ const card = (page) =>
     let consoles = [];
     let date = result.released;
 
-    const bgDefault = "../../assets/desktop/home/card/bg-default.jpg";
     const genres = result.genres;
     const parentPlatforms = result.parent_platforms;
 
@@ -219,8 +223,8 @@ const modal = (currentGame) =>
     const screenshot = result.short_screenshots;
     const clip = movies?.data;
 
-    date = date.split("-");
-    const month = date[1];
+    const newDate = date?.split("-");
+    const month = newDate[1];
     const currentMonth = months[month];
     const formatDayStr = `${currentMonth} ${date[2]}, ${date[0]}`;
 
@@ -255,7 +259,7 @@ const modal = (currentGame) =>
     180deg,
     var(--modal-bg-1) 0%,
     var(--modal-bg-2) 84.4%
-  ), url("${result.background_image}")`;
+  ), url("${result.background_image || bgDefault}")`;
 
     return `<div>
     <button
@@ -335,7 +339,9 @@ const modal = (currentGame) =>
        </div>
        <div>
          <p>Website</p>
-         <a href=${result.website}" target="_blank">${result.website}</a>
+         <a href=${result.website}" target="_blank">${
+      result.website || "No website avaiable"
+    }</a>
        </div>
      </div>
      <div>
@@ -407,7 +413,7 @@ const modal = (currentGame) =>
      poster="${movies?.preview || shortScreenshots[0]}"
      width="392"
      height="217"
-     controls
+     ${clip ? "controls" : ""}
     
    >
      <source src="${clip ? clip["480"] : ""}" type="video/mp4" />
@@ -415,10 +421,10 @@ const modal = (currentGame) =>
    </video>
    
    <div>
-     <img src="${shortScreenshots[2]}" />
-     <img src="${shortScreenshots[3]}" />
-     <img src="${shortScreenshots[4]}" />
-     <img src="${shortScreenshots[5]}" />
+     <img src="${shortScreenshots[2] || bgDefault}" />
+     <img src="${shortScreenshots[3] || bgDefault}" />
+     <img src="${shortScreenshots[4] || bgDefault}" />
+     <img src="${shortScreenshots[5] || bgDefault}" />
    </div>
  </div>`;
   });
@@ -506,17 +512,11 @@ function handleOneView() {
     "home__main__card",
     "one-card-view__card"
   );
-
-  const cardsOnScreen = document.querySelectorAll(
-    ".cards-container  .one-card-view__card"
-  );
-  lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
-  observer.observe(lastCardOnScreen);
 }
 
 // Like cards
 
-function handleFavorite(e) {
+function addFavorite(e) {
   const heart = e.target;
 
   const currentHeart = heart.children[0];
@@ -538,47 +538,60 @@ let lastCardOnScreen;
 // Fetch games
 
 async function getGames(url) {
+  const getData = await fetch(url);
+  const dataToJson = await getData.json();
+
+  return dataToJson;
+}
+
+function onLoad(gamesUrl) {
   homeText.style.color = `#5fe19b`;
   lastSearches.style = "#fff";
   notFoundText.style.display = "none";
-
   displayLoading();
-  const getData = await fetch(url);
-  const dataToJson = await getData.json();
-  const results = dataToJson.results;
-  gameData = results;
 
-  gameData.forEach((game) => allData.push(game));
+  getGames(gamesUrl).then((data) => {
+    gameData = data.results;
+    nextPage = data.next;
 
-  getDescription(gameData).then((data) => {
-    hideLoading();
-    nextPage = dataToJson.next;
+    gameData.forEach((game) => allData.push(game));
 
-    const currentCard = card(data);
-    const allCards = currentCard.join(" ");
+    getDescription(gameData).then((data) => {
+      hideLoading();
+      // nextPage = data.next;
 
-    cardContainer.innerHTML += allCards;
+      const currentCard = card(data);
+      const allCards = currentCard.join(" ");
 
-    const title = document.getElementsByClassName("title");
-    const favorite = document.getElementsByClassName("favorite");
+      cardContainer.innerHTML += allCards;
 
-    Array.from(title).forEach((title) =>
-      title.addEventListener("click", handleModal)
-    );
+      handleModal(displayModal);
+      handleFavorite();
 
-    Array.from(favorite).forEach((heart) =>
-      heart.addEventListener("click", handleFavorite)
-    );
+      isLoading = false;
 
-    isLoading = false;
+      const cardsOnScreen = document.querySelectorAll(
+        ".cards-container  .home__main__card"
+      );
 
-    const cardsOnScreen = document.querySelectorAll(
-      ".cards-container  .home__main__card"
-    );
-
-    lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
-    observer.observe(lastCardOnScreen);
+      lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
+      observer.observe(lastCardOnScreen);
+    });
   });
+}
+
+function handleModal(fn) {
+  title = document.getElementsByClassName("title");
+
+  Array.from(title).forEach((title) => title.addEventListener("click", fn));
+}
+
+function handleFavorite() {
+  favorite = document.getElementsByClassName("favorite");
+
+  Array.from(favorite).forEach((heart) =>
+    heart.addEventListener("click", addFavorite)
+  );
 }
 
 // modal
@@ -597,9 +610,18 @@ function getTrailer(gameId) {
   return trailers;
 }
 
-function handleModal(e) {
+function displayModal(e) {
   displayLoading();
-  getDescription(allData).then((data) => {
+  getModalInfo(allData, e);
+}
+
+function searchModal(e) {
+  displayLoading();
+  getModalInfo(searchData, e);
+}
+
+function getModalInfo(gameData, e) {
+  getDescription(gameData).then((data) => {
     const currentName = e.target.innerHTML;
 
     const currentGame = data.filter((item) => {
@@ -608,7 +630,7 @@ function handleModal(e) {
       }
     });
 
-    if (currentGame) {
+    if (currentGame.length > 0) {
       const gameId = currentGame[0].id;
       const trailer = getTrailer(gameId);
       trailer.then((data) => {
@@ -632,9 +654,17 @@ dialog.on("show", () => {
   closeBtn?.addEventListener("click", () => {
     dialog.hide();
   });
-  window.addEventListener("click", () => {
+  body.addEventListener("click", () => {
     dialog.hide();
-  });
+  }),
+    true;
+});
+
+dialog.on("close", () => {
+  body.addEventListener("click", () => {
+    dialog.hide();
+  }),
+    false;
 });
 
 // Fetch game filter by search keyword
@@ -653,150 +683,143 @@ function handleChange(e) {
     cardContainer.innerHTML = "";
     optionsContainer.innerHTML = "";
     displayLoading();
-    getGames(gamesUrl);
+    onLoad(gamesUrl);
     hideLoading();
   } else if (currentValue && platformNames.includes(currentValue)) {
     const id = consoles[currentValue];
+    const platformsUrl = `https://api.rawg.io/api/games?${apiKey}&parent_platforms=${id}`;
     displayLoading();
 
-    fetch(`https://api.rawg.io/api/games?${apiKey}&parent_platforms=${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const longData = data.results;
-        nextPage = data.next;
-        let allSearchCards;
+    getGames(platformsUrl).then((data) => {
+      const longData = data.results;
+      nextPage = data.next;
+      let allSearchCards;
 
-        getDescription(longData).then((data) => {
-          const searchCard = card(data);
-          allSearchCards = searchCard.join(" ");
+      getDescription(longData).then((data) => {
+        searchData = data;
+        const searchCard = card(data);
+        allSearchCards = searchCard.join(" ");
 
-          if (!allSearchCards) {
-            notFoundText.classList.add("not-found-text");
-            cardContainer.innerHTML = "";
-            notFoundText.innerHTML = "No search results";
-          } else if (threeViewVal) {
-            notFoundText.style.display = "none";
-            cardsDisplay(
-              "one-card-view__card__container",
-              "home__card__container",
-              "one-card-view__card",
-              "home__main__card"
-            );
+        if (!allSearchCards) {
+          notFoundText.classList.add("not-found-text");
+          cardContainer.innerHTML = "";
+          notFoundText.innerHTML = "No search results";
+        } else if (threeViewVal) {
+          notFoundText.style.display = "none";
+          cardsDisplay(
+            "one-card-view__card__container",
+            "home__card__container",
+            "one-card-view__card",
+            "home__main__card"
+          );
 
-            const cardsOnScreen = document.querySelectorAll(
-              ".cards-container  .home__main__card"
-            );
-            lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
+          hideLoading();
+          layer.style.display = "none";
+          cardContainer.innerHTML = allSearchCards;
+          handleModal(searchModal);
+        } else {
+          notFoundText.style.display = "none";
+          cardsDisplay(
+            "home__card__container",
+            "one-card-view__card__container",
+            "home__main__card",
+            "one-card-view__card"
+          );
 
-            hideLoading();
-            layer.style.display = "none";
-            cardContainer.innerHTML = allSearchCards;
-          } else {
-            notFoundText.style.display = "none";
-            cardsDisplay(
-              "home__card__container",
-              "one-card-view__card__container",
-              "home__main__card",
-              "one-card-view__card"
-            );
-
-            const cardsOnScreen = document.querySelectorAll(
-              ".cards-container  .one-card-view__card"
-            );
-            lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
-
-            hideLoading();
-            cardContainer.innerHTML = allSearchCards;
-          }
-        });
-      });
-  } else if (currentValue.length >= 3 || e.keyCode === 13) {
-    displayLoading();
-
-    fetch(`https://api.rawg.io/api/games?${apiKey}&search=${currentValue}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const longData = data.results;
-        const shortData = longData.slice(0, 4);
-        const searchResults = [];
-        const allSearchResults = [];
-        searchResults.push(shortData);
-        allSearchResults.push(longData);
-        nextPage = data.next;
-        const l = searchResults.length;
-        let allSearchCards;
-
-        for (let i = 0; i < l; i++) {
-          let item = searchResults[i];
-          const firstResult = searchResults[i].slice(0, 1);
-          lastResults.push(firstResult);
-
-          const options = optionButton(item);
-          const allOptions = options.join("");
-          optionsContainer.innerHTML = allOptions;
-
-          const searchOption = document.getElementsByClassName("options");
-          const sl = searchOption.length;
-
-          for (let i = 0; i < sl; i++) {
-            const element = searchOption[i];
-            searchOption[i].addEventListener("click", () => {
-              const currentOption = element.value;
-              input.value = currentOption;
-              cross.style.visibility = "hidden";
-              handleChange(e);
-            });
-          }
+          hideLoading();
+          cardContainer.innerHTML = allSearchCards;
+          handleModal(searchModal);
         }
 
-        getDescription(longData).then((data) => {
-          const searchCard = card(data);
-          allSearchCards = searchCard.join(" ");
-
-          if (!allSearchCards) {
-            notFoundText.style.display = "block";
-            cardContainer.innerHTML = "";
-
-            notFoundText.innerHTML = `No results found`;
-            hideLoading();
-          } else if (threeViewVal) {
-            notFoundText.style.display = "none";
-
-            cardsDisplay(
-              "one-card-view__card__container",
-              "home__card__container",
-              "one-card-view__card",
-              "home__main__card"
-            );
-            hideLoading();
-
-            const cardsOnScreen = document.querySelectorAll(
-              ".cards-container  .home__main__card"
-            );
-            lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
-            observer.observe(lastCardOnScreen);
-
-            cardContainer.innerHTML = allSearchCards;
-          } else {
-            notFoundText.style.display = "none";
-
-            cardsDisplay(
-              "home__card__container",
-              "one-card-view__card__container",
-              "home__main__card",
-              "one-card-view__card"
-            );
-            hideLoading();
-
-            const cardsOnScreen = document.querySelectorAll(
-              ".cards-container  .one-card-view__card"
-            );
-            lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
-
-            cardContainer.innerHTML = allSearchCards;
-          }
-        });
+        handleFavorite();
       });
+    });
+  } else if (currentValue.length >= 3 || e.keyCode === 13) {
+    displayLoading();
+    const searchUrl = `https://api.rawg.io/api/games?${apiKey}&search=${currentValue}`;
+
+    getGames(searchUrl).then((data) => {
+      const longData = data.results;
+      const shortData = longData.slice(0, 4);
+      const searchResults = [];
+      const allSearchResults = [];
+
+      searchResults.push(shortData);
+      allSearchResults.push(longData);
+      nextPage = data.next;
+      const l = searchResults.length;
+      let allSearchCards;
+
+      for (let i = 0; i < l; i++) {
+        let item = searchResults[i];
+        const firstResult = searchResults[i].slice(0, 1);
+        lastResults.push(firstResult);
+
+        const options = optionButton(item);
+        const allOptions = options.join("");
+        optionsContainer.innerHTML = allOptions;
+
+        const searchOption = document.getElementsByClassName("options");
+        const sl = searchOption.length;
+
+        for (let i = 0; i < sl; i++) {
+          const element = searchOption[i];
+          searchOption[i].addEventListener("click", () => {
+            const currentOption = element.value;
+            input.value = currentOption;
+            cross.style.visibility = "hidden";
+            handleChange(e);
+          });
+        }
+      }
+
+      getDescription(longData).then((data) => {
+        searchData = data;
+        const searchCard = card(data);
+        allSearchCards = searchCard.join(" ");
+
+        if (!allSearchCards) {
+          notFoundText.style.display = "block";
+          cardContainer.innerHTML = "";
+
+          notFoundText.innerHTML = `No results found`;
+          hideLoading();
+        } else if (threeViewVal) {
+          notFoundText.style.display = "none";
+
+          cardsDisplay(
+            "one-card-view__card__container",
+            "home__card__container",
+            "one-card-view__card",
+            "home__main__card"
+          );
+          hideLoading();
+
+          cardContainer.innerHTML = allSearchCards;
+          handleModal(searchModal);
+        } else {
+          notFoundText.style.display = "none";
+
+          cardsDisplay(
+            "home__card__container",
+            "one-card-view__card__container",
+            "home__main__card",
+            "one-card-view__card"
+          );
+          hideLoading();
+
+          const cardsOnScreen = document.querySelectorAll(
+            ".cards-container  .one-card-view__card"
+          );
+          lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
+
+          cardContainer.innerHTML = allSearchCards;
+          handleModal(searchModal);
+        }
+
+        handleFavorite();
+      });
+    });
   }
 
   lastSearches.style.color = "#fff";
@@ -826,7 +849,9 @@ function handleHomeText() {
     );
   }
   allData = [];
-  getGames(gamesUrl);
+  onLoad(gamesUrl);
 }
 
-getGames(gamesUrl);
+window.addEventListener("load", () => {
+  onLoad(gamesUrl);
+});

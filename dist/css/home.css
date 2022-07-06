@@ -1091,6 +1091,7 @@ body {
   border-radius: 100%;
   -webkit-animation: spin 1s infinite linear;
           animation: spin 1s infinite linear;
+  z-index: 2;
 }
 
 #loading.display {
@@ -1474,6 +1475,7 @@ body {
 
 .modal-info__container > div > div {
   font-size: 1rem;
+  max-width: 250px;
 }
 
 .modal-info__container > div > div > p:first-child {
@@ -1490,6 +1492,7 @@ body {
   color: var(--text-color);
   cursor: pointer;
   text-decoration: underline;
+  word-break: break-word;
 }
 
 .modal-info__container > div:last-child > div:last-child {
