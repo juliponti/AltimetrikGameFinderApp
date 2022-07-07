@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "json:server": "json-server --watch db.json",
     "json:server-auth": "json-server-auth --watch db.json",
-    "dev": "lite-server"
+    "dev": "lite-server",
+    "sass": "sass --watch ./sass/main:./dist/css",
+    "start": "concurrently  \"npm run json:server-auth\" \"sass\" \"npm run dev\""
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,6 @@
     "lite-server": "^2.6.1"
   },
   "dependencies": {
-    "a11y-dialog": "^7.5.0"
+    "concurrently": "^7.2.2"
   }
 }

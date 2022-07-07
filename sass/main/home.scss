@@ -1,5 +1,5 @@
-@import "configurations";
-@import "./partials/animations.scss";
+@import "../configurations";
+@import "../partials/animations.scss";
 
 * {
   box-sizing: border-box;
@@ -816,7 +816,7 @@ body {
 }
 
 // modal
-@import "./partials/modal.scss";
+@import "../partials/modal.scss";
 
 // responsive
-@import "./partials/home-responsive.scss";
+@import "../partials/home-responsive.scss";

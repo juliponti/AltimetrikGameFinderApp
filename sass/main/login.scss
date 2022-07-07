@@ -1,5 +1,5 @@
-@import "configurations";
-@import "./partials/animations.scss";
+@import "../configurations";
+@import "../partials/animations.scss";
 
 * {
   margin: 0;
@@ -538,4 +538,4 @@ body {
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-@import "./partials/login-responsive.scss";
+@import "../partials/login-responsive.scss";
