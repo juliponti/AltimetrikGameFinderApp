@@ -1,0 +1,265 @@
+@import "../configurations";
+@import "./animations.scss";
+
+.modal-root {
+  position: fixed;
+  overflow: hidden;
+  background-color: $black-transparent;
+  left: 0;
+  top: 0;
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+  transition: opacity 0.15s ease-out, width 0s linear 0.15s,
+    height 0s linear 0.15s;
+  z-index: 1;
+
+  &.visible {
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.15s ease-out;
+  }
+}
+
+.modal {
+  position: relative;
+  top: 50%;
+  left: 13%;
+
+  @include FlexBox(row, center, flex-end);
+
+  max-width: 1076px;
+  height: 793px;
+
+  padding: 27px;
+
+  border: none;
+  border-radius: 24px;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  transform: translateY(-50%);
+  z-index: 2;
+
+  & > div:first-child {
+    width: 123%;
+  }
+
+  &-cross-btn {
+    @include secondaryBtns;
+    position: absolute;
+    top: 13px;
+    right: 31px;
+
+    cursor: pointer;
+
+    & > svg > path {
+      fill: $white;
+    }
+  }
+
+  &-platforms__container {
+    @include FlexBox(row, flex-start, center);
+    width: 100%;
+    gap: 16px;
+
+    & > svg {
+      width: 39px;
+      height: 32px;
+
+      & > path {
+        fill: var(--text-color);
+      }
+    }
+  }
+
+  &-title {
+    margin-top: 19px;
+
+    color: var(--text-color);
+    font-weight: 800;
+    font-size: 3rem;
+  }
+
+  &-chips__container {
+    @include FlexBox(row, flex-start, center);
+    gap: 9px;
+
+    width: 100%;
+    margin-top: 5px;
+    & > div:first-child {
+      background-color: var(--chip-color);
+      & > p {
+        color: var(--bg-color);
+      }
+    }
+    & div {
+      @include FlexBox;
+
+      height: 28px;
+
+      padding: 0 15px;
+
+      font-size: 1rem;
+
+      background-color: $white;
+      border-radius: 72px;
+
+      & p {
+        color: $gray-500;
+      }
+
+      & > span {
+        margin-right: 6px;
+
+        color: $primary-300;
+        font-weight: 800;
+      }
+    }
+  }
+
+  &-description {
+    height: 90px;
+    padding-right: 50px;
+    margin-top: 23px;
+    margin-bottom: 28px;
+
+    color: var(--text-color);
+    font-size: 1rem;
+
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    & > p {
+      &::-moz-selection {
+        /* Code for Firefox */
+
+        background: $primary-300;
+      }
+
+      &::selection {
+        background: $primary-300;
+      }
+    }
+  }
+
+  &-primary-btns__container {
+    @include FlexBox(row, flex-start, center);
+    gap: 22px;
+
+    width: 100%;
+
+    & > button {
+      position: relative;
+
+      width: 229px;
+      height: 47px;
+
+      @include secondaryBtns;
+      border-radius: 6px;
+
+      font-weight: 700;
+      font-size: 1.125rem;
+
+      & > svg {
+        position: absolute;
+        top: 12px;
+        right: 28px;
+      }
+
+      &:first-child {
+        padding: 0 38px;
+
+        background-color: $primary-200;
+
+        color: $white;
+        text-align: left;
+      }
+
+      &:nth-child(2) {
+        border: 2px solid $primary-200;
+
+        color: $primary-200;
+      }
+    }
+  }
+
+  &-info__container {
+    @include FlexBox(row, flex-start, center);
+
+    & > div {
+      @include FlexBox(column, flex-start, flex-start);
+      height: 100%;
+
+      padding-top: 22px;
+
+      width: 44%;
+      gap: 25px;
+
+      & > div {
+        font-size: 1rem;
+        max-width: 250px;
+
+        & > p:first-child {
+          color: $gray-400;
+          font-weight: 500;
+        }
+
+        & > p:nth-child(2) {
+          margin-top: 5px;
+          color: var(--text-color);
+        }
+
+        & > a {
+          color: var(--text-color);
+          cursor: pointer;
+          text-decoration: underline;
+          word-break: break-word;
+        }
+      }
+    }
+
+    & > div:last-child {
+      & > div:last-child {
+        @include FlexBox(row, flex-start);
+        gap: 19px;
+
+        width: 100%;
+
+        margin-top: 20px;
+
+        & > svg {
+          width: 28px;
+          height: 26px;
+
+          & path {
+            fill: $primary-300;
+          }
+        }
+      }
+    }
+  }
+
+  &-captures__container {
+    @include FlexBox(column, flex-end);
+    gap: 17px;
+    height: 100%;
+
+    & > div {
+      @include FlexBox;
+      flex-flow: wrap;
+      gap: 16px 21px;
+      margin-bottom: 20px;
+
+      & > img {
+        width: 184px;
+        height: 104px;
+      }
+    }
+  }
+}

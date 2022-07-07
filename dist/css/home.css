@@ -19,7 +19,7 @@
   --footer-gradient2: #f0f0f0;
   --hamburger-menu-bg: #ffffff;
   --hamburger-menu-lines: #e1e1e4;
-  --modal-bg-1: #ffffff;
+  --modal-bg-1: rgba(255, 255, 255, 0.3);
   --modal-bg-2: #f0f0f0;
   --chip-color: #36b972;
 }
@@ -47,6 +47,128 @@
   --modal-bg-1: rgba(48, 48, 48, 0.0001);
   --modal-bg-2: #303030;
   --chip-color: #ffffff;
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes liked {
+  0% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes liked {
+  0% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8);
+  }
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@-webkit-keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes slide-up {
+  from {
+    -webkit-transform: translateY(10%);
+            transform: translateY(10%);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    -webkit-transform: translateY(10%);
+            transform: translateY(10%);
+  }
 }
 
 * {
@@ -1106,15 +1228,55 @@ body {
           animation: fadein 0.5s;
 }
 
-@-webkit-keyframes spin {
-  from {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
-  }
-  to {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
+:root .theme {
+  --header-color: rgba(255, 255, 255, 0.3);
+  --logo-color: #3d3d3d;
+  --text-color: #515151;
+  --primary-color: #36b972;
+  --bg-color: #f0f0f0;
+  --bg-img: url(../../assets/desktop/slider/lightMode/slide-light-1.png);
+  --login-color: #f0f0f0;
+  --card-color: #ffffff;
+  --box-shadow-color: rgba(106, 106, 106, 0.25);
+  --ssmm-color: #36b972;
+  --switch-color: #e1e1e4;
+  --active-vw-bg-color: #939393;
+  --active-vw-lines-color: #515151;
+  --inactive-vw-bg-color: #d8d8d8;
+  --inactive-vw-lines-color: #c4c4c4;
+  --controllers: #ffffff;
+  --footer-gradient1: rgba(255, 255, 255, 0.3);
+  --footer-gradient2: #f0f0f0;
+  --hamburger-menu-bg: #ffffff;
+  --hamburger-menu-lines: #e1e1e4;
+  --modal-bg-1: rgba(255, 255, 255, 0.3);
+  --modal-bg-2: #f0f0f0;
+  --chip-color: #36b972;
+}
+
+:root .theme--dark {
+  --header-color: transparent;
+  --logo-color: #ffffff;
+  --text-color: #ffffff;
+  --primary-color: #5fe19b;
+  --bg-color: #151515;
+  --bg-img: url(../../assets/desktop/slider/slide-1.png);
+  --login-color: rgba(0, 0, 0, 0.5);
+  --card-color: #303030;
+  --ssmm-color: #ffffff;
+  --switch-color: #e1e1e4;
+  --inactive-vw-bg-color: #303030;
+  --inactive-vw-lines-color: #515151;
+  --active-vw-bg-color: #515151;
+  --active-vw-lines-color: #ffffff;
+  --controllers: #515151;
+  --footer-gradient1: rgba(0, 0, 0, 0.0001);
+  --footer-gradient2: #000000;
+  --hamburger-menu-bg: #2a2a2a;
+  --hamburger-menu-lines: #515151;
+  --modal-bg-1: rgba(48, 48, 48, 0.0001);
+  --modal-bg-2: #303030;
+  --chip-color: #ffffff;
 }
 
 @keyframes spin {
@@ -1125,17 +1287,6 @@ body {
   to {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg);
-  }
-}
-
-@-webkit-keyframes fadein {
-  from {
-    bottom: 0;
-    opacity: 0;
-  }
-  to {
-    bottom: 30px;
-    opacity: 1;
   }
 }
 
@@ -1150,17 +1301,6 @@ body {
   }
 }
 
-@-webkit-keyframes fadeout {
-  from {
-    bottom: 30px;
-    opacity: 1;
-  }
-  to {
-    bottom: 0;
-    opacity: 0;
-  }
-}
-
 @keyframes fadeout {
   from {
     bottom: 30px;
@@ -1169,21 +1309,6 @@ body {
   to {
     bottom: 0;
     opacity: 0;
-  }
-}
-
-@-webkit-keyframes liked {
-  0% {
-    -webkit-transform: scale(0.8);
-            transform: scale(0.8);
-  }
-  50% {
-    -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
   }
 }
 
@@ -1202,25 +1327,44 @@ body {
   }
 }
 
-.modal__container[aria-hidden="true"] {
-  display: none;
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
 }
 
-.modal-overlay {
+@keyframes slide-up {
+  from {
+    -webkit-transform: translateY(10%);
+            transform: translateY(10%);
+  }
+}
+
+.modal-root {
   position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  overflow: hidden;
   background-color: rgba(0, 0, 0, 0.5);
-  -webkit-animation: fade-in 200ms both;
-          animation: fade-in 200ms both;
+  left: 0;
+  top: 0;
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+  -webkit-transition: opacity 0.15s ease-out, width 0s linear 0.15s, height 0s linear 0.15s;
+  transition: opacity 0.15s ease-out, width 0s linear 0.15s, height 0s linear 0.15s;
   z-index: 1;
 }
 
+.modal-root.visible {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  -webkit-transition: opacity 0.15s ease-out;
+  transition: opacity 0.15s ease-out;
+}
+
 .modal {
-  position: absolute;
-  top: 11%;
+  position: relative;
+  top: 50%;
   left: 13%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1235,21 +1379,16 @@ body {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  width: 1076px;
+  max-width: 1076px;
   height: 793px;
   padding: 27px;
   border: none;
   border-radius: 24px;
-  background-color: var(--bg-color);
-  background: -webkit-gradient(linear, left top, left bottom, from(var(--modal-bg-1)), color-stop(84.4%, var(--modal-bg-2)));
-  background: linear-gradient(180deg, var(--modal-bg-1) 0%, var(--modal-bg-2) 84.4%);
-  -webkit-animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
-          animation: fade-in 400ms 200ms both, slide-up 400ms 200ms both;
+  background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
   z-index: 2;
-}
-
-.modal[aria-hidden="true"] {
-  display: none;
 }
 
 .modal > div:first-child {
@@ -1566,30 +1705,55 @@ body {
   height: 104px;
 }
 
-@-webkit-keyframes fade-in {
-  from {
-    opacity: 0;
-  }
+:root .theme {
+  --header-color: rgba(255, 255, 255, 0.3);
+  --logo-color: #3d3d3d;
+  --text-color: #515151;
+  --primary-color: #36b972;
+  --bg-color: #f0f0f0;
+  --bg-img: url(../../assets/desktop/slider/lightMode/slide-light-1.png);
+  --login-color: #f0f0f0;
+  --card-color: #ffffff;
+  --box-shadow-color: rgba(106, 106, 106, 0.25);
+  --ssmm-color: #36b972;
+  --switch-color: #e1e1e4;
+  --active-vw-bg-color: #939393;
+  --active-vw-lines-color: #515151;
+  --inactive-vw-bg-color: #d8d8d8;
+  --inactive-vw-lines-color: #c4c4c4;
+  --controllers: #ffffff;
+  --footer-gradient1: rgba(255, 255, 255, 0.3);
+  --footer-gradient2: #f0f0f0;
+  --hamburger-menu-bg: #ffffff;
+  --hamburger-menu-lines: #e1e1e4;
+  --modal-bg-1: rgba(255, 255, 255, 0.3);
+  --modal-bg-2: #f0f0f0;
+  --chip-color: #36b972;
 }
 
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes slide-up {
-  from {
-    -webkit-transform: translateY(10%);
-            transform: translateY(10%);
-  }
-}
-
-@keyframes slide-up {
-  from {
-    -webkit-transform: translateY(10%);
-            transform: translateY(10%);
-  }
+:root .theme--dark {
+  --header-color: transparent;
+  --logo-color: #ffffff;
+  --text-color: #ffffff;
+  --primary-color: #5fe19b;
+  --bg-color: #151515;
+  --bg-img: url(../../assets/desktop/slider/slide-1.png);
+  --login-color: rgba(0, 0, 0, 0.5);
+  --card-color: #303030;
+  --ssmm-color: #ffffff;
+  --switch-color: #e1e1e4;
+  --inactive-vw-bg-color: #303030;
+  --inactive-vw-lines-color: #515151;
+  --active-vw-bg-color: #515151;
+  --active-vw-lines-color: #ffffff;
+  --controllers: #515151;
+  --footer-gradient1: rgba(0, 0, 0, 0.0001);
+  --footer-gradient2: #000000;
+  --hamburger-menu-bg: #2a2a2a;
+  --hamburger-menu-lines: #515151;
+  --modal-bg-1: rgba(48, 48, 48, 0.0001);
+  --modal-bg-2: #303030;
+  --chip-color: #ffffff;
 }
 
 .hamburger-menu {
@@ -1630,6 +1794,7 @@ body {
   top: 23px;
   border: none;
   background-color: inherit;
+  cursor: pointer;
 }
 
 .hamburger-menu__user__container > button > svg > path {
@@ -1781,6 +1946,7 @@ body {
   }
   .home__header button.hamburger {
     display: block;
+    cursor: pointer;
   }
   .home__header-input__container {
     left: 28%;
@@ -1811,6 +1977,99 @@ body {
   }
   #loading {
     left: 48%;
+  }
+  .hamburger-menu__darkmode__container {
+    display: none;
+  }
+  .one-card-view__card {
+    width: 91%;
+  }
+  .modal {
+    top: 50%;
+    left: 24px;
+    width: 720px;
+    height: 97%;
+    background-position: top;
+  }
+  .modal-root {
+    z-index: 2;
+  }
+  .modal-title {
+    margin-top: 0;
+  }
+  .modal-platforms__container {
+    height: 59px;
+  }
+  .modal-chips__container {
+    margin-top: 8px;
+  }
+  .modal-description {
+    margin-top: 16px;
+    margin-bottom: 19px;
+  }
+  .modal-primary-btns__container {
+    gap: 28px;
+    margin-bottom: 30px;
+  }
+  .modal-primary-btns__container > button {
+    width: 319px;
+  }
+  .modal-primary-btns__container > button > svg {
+    right: 47px;
+  }
+  .modal-primary-btns__container > button:first-child {
+    padding: 0 78px;
+  }
+  .modal-info__container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: fleex-end;
+        -ms-flex-pack: fleex-end;
+            justify-content: fleex-end;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 50%;
+    height: 500px;
+  }
+  .modal-info__container > div {
+    padding-top: 8px;
+    width: 100%;
+    gap: 18px;
+  }
+  .modal-info__container > div:last-child > div:last-child {
+    position: absolute;
+    bottom: 54px;
+    left: 377px;
+    width: auto;
+    gap: 17px;
+  }
+  .modal-info__container > div:last-child > div:last-child > svg {
+    width: 28px;
+    height: 26px;
+  }
+  .modal-info__container > div:last-child > div:last-child > svg path {
+    fill: #36b972;
+  }
+  .modal-captures__container {
+    position: absolute;
+    right: -8px;
+    bottom: 113px;
+    width: 382px;
+    height: auto;
+  }
+  .modal-captures__container > video {
+    width: 324px;
+    height: 180px;
+  }
+  .modal-captures__container > div > img {
+    width: 152px;
+    height: 86px;
   }
 }
 
@@ -1915,6 +2174,35 @@ body {
   }
   .hamburger-menu__navbar {
     height: 379px;
+  }
+  .hamburger-menu__darkmode__container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .hamburger-menu__darkmode__container .theme-active svg > circle {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+  .hamburger-menu__darkmode__container .theme-active svg .off {
+    display: none;
+  }
+  .hamburger-menu__darkmode__container .theme-disable svg > circle {
+    -webkit-transform: translateX(-20px);
+            transform: translateX(-20px);
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+  }
+  .hamburger-menu__darkmode__container .theme-disable svg > rect {
+    fill: var(--switch-color);
+  }
+  .hamburger-menu__darkmode__container .theme-disable svg path.on {
+    display: none;
+  }
+  .hamburger-menu__darkmode__container .theme-disable svg path.off {
+    display: block;
   }
   #loading {
     left: 46%;

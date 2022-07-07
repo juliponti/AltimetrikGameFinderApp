@@ -8,9 +8,7 @@ import {
   cardsDisplay,
 } from "./utils.js";
 
-import A11yDialog from "../../node_modules/a11y-dialog/dist/a11y-dialog.esm.js";
 const apiKey = "key=4d05faf97f714c34975ad9634c84fb4d";
-const body = document.getElementsByTagName("body")[0];
 
 // header
 const input = document.getElementById("home-input");
@@ -32,9 +30,9 @@ const notFoundText = document.getElementById("not-found");
 const gamesUrl = `https://api.rawg.io/api/games?${apiKey}&page=1`;
 
 //modal
-const modalContainer = document.getElementById("data-a11y-dialog");
-const dialog = new A11yDialog(modalContainer);
+const modalRoot = document.getElementById("modal-root");
 const modalDoc = document.getElementById("modal");
+const closeBtn = document.querySelector(".modal-cross-btn");
 
 // aside
 const lastSearches = document.getElementById("last-searches");
@@ -91,6 +89,13 @@ menuHomeText.addEventListener("click", handleHomeText);
 lastSearches.addEventListener("click", handleLastSearches);
 lastSearches.addEventListener("keypress", handleLastSearches);
 
+closeBtn?.addEventListener("click", () => {
+  modalRoot.classList.remove("visible");
+});
+modalRoot.addEventListener("click", () => {
+  modalRoot.classList.remove("visible");
+});
+
 // adds a profile pic if there is one or the initials if there isn't
 
 if (localStorage.getItem("picture") == "true") {
@@ -105,7 +110,6 @@ threeViewVal = true;
 oneViewVal = false;
 
 let gameData;
-let closeBtn;
 let movies;
 let favorite;
 let title;
@@ -256,37 +260,23 @@ const modal = (currentGame) =>
     });
 
     modalBg = `linear-gradient(
-    180deg,
-    var(--modal-bg-1) 0%,
-    var(--modal-bg-2) 84.4%
-  ), url("${result.background_image || bgDefault}")`;
+      180deg,
+      var(--modal-bg-1) 0%,
+      var(--modal-bg-2) 84.4%
+    ), url("${result.background_image || bgDefault}")`;
 
     return `<div>
-    <button
-            class="modal-cross-btn"
-            type="button"
-            data-a11y-dialog-hide
-            aria-label="Close dialog"
-          >
-            <svg
-              width="43"
-              height="69"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M5.29303 5.29296C5.48056 5.10549 5.73487 5.00017 6.00003 5.00017C6.26519 5.00017 6.5195 5.10549 6.70703 5.29296L12 10.586L17.293 5.29296C17.3853 5.19745 17.4956 5.12127 17.6176 5.06886C17.7396 5.01645 17.8709 4.98886 18.0036 4.98771C18.1364 4.98655 18.2681 5.01186 18.391 5.06214C18.5139 5.11242 18.6255 5.18667 18.7194 5.28056C18.8133 5.37446 18.8876 5.48611 18.9379 5.60901C18.9881 5.7319 19.0134 5.86358 19.0123 5.99636C19.0111 6.12914 18.9835 6.26036 18.9311 6.38236C18.8787 6.50437 18.8025 6.61471 18.707 6.70696L13.414 12L18.707 17.293C18.8892 17.4816 18.99 17.7342 18.9877 17.9964C18.9854 18.2586 18.8803 18.5094 18.6948 18.6948C18.5094 18.8802 18.2586 18.9854 17.9964 18.9876C17.7342 18.9899 17.4816 18.8891 17.293 18.707L12 13.414L6.70703 18.707C6.51843 18.8891 6.26583 18.9899 6.00363 18.9876C5.74143 18.9854 5.49062 18.8802 5.30521 18.6948C5.1198 18.5094 5.01463 18.2586 5.01236 17.9964C5.01008 17.7342 5.11087 17.4816 5.29303 17.293L10.586 12L5.29303 6.70696C5.10556 6.51943 5.00024 6.26512 5.00024 5.99996C5.00024 5.73479 5.10556 5.48049 5.29303 5.29296Z"
-                fill="#515151"
-              />
-            </svg>
-          </button>
+    <button class="modal-cross-btn">
+      <svg width="43" height="69" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29303 5.29296C5.48056 5.10549 5.73487 5.00017 6.00003 5.00017C6.26519 5.00017 6.5195 5.10549 6.70703 5.29296L12 10.586L17.293 5.29296C17.3853 5.19745 17.4956 5.12127 17.6176 5.06886C17.7396 5.01645 17.8709 4.98886 18.0036 4.98771C18.1364 4.98655 18.2681 5.01186 18.391 5.06214C18.5139 5.11242 18.6255 5.18667 18.7194 5.28056C18.8133 5.37446 18.8876 5.48611 18.9379 5.60901C18.9881 5.7319 19.0134 5.86358 19.0123 5.99636C19.0111 6.12914 18.9835 6.26036 18.9311 6.38236C18.8787 6.50437 18.8025 6.61471 18.707 6.70696L13.414 12L18.707 17.293C18.8892 17.4816 18.99 17.7342 18.9877 17.9964C18.9854 18.2586 18.8803 18.5094 18.6948 18.6948C18.5094 18.8802 18.2586 18.9854 17.9964 18.9876C17.7342 18.9899 17.4816 18.8891 17.293 18.707L12 13.414L6.70703 18.707C6.51843 18.8891 6.26583 18.9899 6.00363 18.9876C5.74143 18.9854 5.49062 18.8802 5.30521 18.6948C5.1198 18.5094 5.01463 18.2586 5.01236 17.9964C5.01008 17.7342 5.11087 17.4816 5.29303 17.293L10.586 12L5.29303 6.70696C5.10556 6.51943 5.00024 6.26512 5.00024 5.99996C5.00024 5.73479 5.10556 5.48049 5.29303 5.29296Z"
+                fill="#515151"/>
+      </svg>
+    </button>
+    <div>
     <div class="modal-platforms__container">
      ${consoles.join("")}
-   </div>
-   <h1 class="modal-title">${result.name}</h1>
+    </div>
+    <h1 class="modal-title">${result.name}</h1>
    <div class="modal-chips__container">
      <div><p>${formatDayStr || "No date avaiable"}</p></div>
      <div>
@@ -323,7 +313,8 @@ const modal = (currentGame) =>
      </button>
      <button>Purchase</button>
    </div>
-   <div class="modal-info__container">
+   </div> 
+    <div class="modal-info__container">
      <div>
        <div>
          <p>Platforms</p>
@@ -466,7 +457,6 @@ function handleLastSearches() {
     }
 
     cardContainer.innerHTML = allLastCards;
-    gallery.addEventListener("scroll", handleScroll, false);
   }
 }
 
@@ -582,13 +572,11 @@ function onLoad(gamesUrl) {
 
 function handleModal(fn) {
   title = document.getElementsByClassName("title");
-
   Array.from(title).forEach((title) => title.addEventListener("click", fn));
 }
 
 function handleFavorite() {
   favorite = document.getElementsByClassName("favorite");
-
   Array.from(favorite).forEach((heart) =>
     heart.addEventListener("click", addFavorite)
   );
@@ -640,32 +628,13 @@ function getModalInfo(gameData, e) {
 
         const activeModal = modal(currentGame);
         modalDoc.innerHTML = activeModal;
-        modalDoc.style.background = modalBg;
-        dialog.show();
+        modalDoc.style.backgroundImage = modalBg;
+        modalRoot.classList.add("visible");
         hideLoading();
       });
     }
   });
 }
-
-dialog.on("show", () => {
-  closeBtn = document.getElementsByClassName("modal-cross-btn")[0];
-
-  closeBtn?.addEventListener("click", () => {
-    dialog.hide();
-  });
-  body.addEventListener("click", () => {
-    dialog.hide();
-  }),
-    true;
-});
-
-dialog.on("close", () => {
-  body.addEventListener("click", () => {
-    dialog.hide();
-  }),
-    false;
-});
 
 // Fetch game filter by search keyword
 

@@ -41,6 +41,7 @@ $gray-800: #151515;
 
 $box-shadow: rgba(106, 106, 106, 0.25);
 $white-transparent: rgba(255, 255, 255, 0.3);
+$white-transparent-100: rgba(255, 255, 255, 0.0001);
 $black-transparent: rgba(0, 0, 0, 0.5);
 $black-transparent-100: rgba(0, 0, 0, 0.0001);
 $total-black: #000000;
@@ -74,7 +75,7 @@ $total-black: #000000;
     --hamburger-menu-bg: #{$white};
     --hamburger-menu-lines: #{$gray-250};
 
-    --modal-bg-1: #{$white};
+    --modal-bg-1: #{$white-transparent};
     --modal-bg-2: #{$gray-50};
     --chip-color: #{$primary-300};
 
