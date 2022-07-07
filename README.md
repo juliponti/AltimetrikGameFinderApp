@@ -2,6 +2,9 @@
 
 This is an app developed for the Bootcamp: Become a Frontend Developer with Altimetrik
 
+![Alt text](./assets/screenshots/Screenshot1.png?raw=true "Login")
+![Alt text](./assets/screenshots/Screenshot2.png?raw=true "Home")
+
 ### How to run the app
 
 1. Install dependencies
