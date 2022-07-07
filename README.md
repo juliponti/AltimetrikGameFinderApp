@@ -1,6 +1,6 @@
 ## Altimetrik Game Finder
 
-This is an app developed for the Bootcamp: Become a Frontend Developer with Altimetrik. 
+This is an app developed for the Bootcamp: Become a Frontend Developer with Altimetrik.
 
 ## Table of contents
 
@@ -18,19 +18,19 @@ This is an app developed for the Bootcamp: Become a Frontend Developer with Alti
 
 Users should be able to:
 
-* Use the slider 
-* Log in with the given credentials
-* Search games by its name and platform avaiable (xbox, playstation, pc, nintendo)
-* Click the game title to obtain more information about it
-* Switch the view of the games
-* Switch themes
-* Obtein the first game of the last to searches clicking in "last searches"
-* Log out
+- Use the slider
+- Log in with the given credentials
+- Search games by its name and platform avaiable (xbox, playstation, pc, nintendo)
+- Click the game title to obtain more information about it
+- Switch the view of the games
+- Switch themes
+- Obtein the first game of the last to searches clicking in "last searches"
+- Log out
 
 ### Screenshot
 
-![Login](./assets/screenshots/Screenshot1.png?raw=true "Login")
-![Home](./assets/screenshots/Screenshot2.png?raw=true "Home")
+![Login](./assets/screenshots/screenshot1.png?raw=true "Login")
+![Home](./assets/screenshots/screenshot2.png?raw=true "Home")
 
 ### How to run the app
 
@@ -62,7 +62,6 @@ npm start
 
 4. Enjoy 🚀
 
-
 ## My process
 
 ### Built with
@@ -70,7 +69,6 @@ npm start
 - Semantic HTML5 markup
 - SASS / CSS
 - Javascript
-
 
 ## Author
 
