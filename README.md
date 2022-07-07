@@ -29,8 +29,8 @@ Users should be able to:
 
 ### Screenshot
 
-![Login](./assets/screenshots/screenshot1.png?raw=true "Login")
-![Home](./assets/screenshots/screenshot2.png?raw=true "Home")
+![Login](./assets/screenshots/Screenshot1.png?raw=true "Login")
+![Home](./assets/screenshots/Screenshot2.png?raw=true "Home")
 
 ### How to run the app
 
