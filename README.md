@@ -10,19 +10,13 @@ This is an app developed for the Bootcamp: Become a Frontend Developer with Alti
 npm install
 ```
 
-2. Run json-server & json-server-auth
+2. Bring up the server
 
 ```
-npm run json:server-auth
+npm start
 ```
 
-3. Run development server
-
-```
-npm run dev
-```
-
-4. Login with these accepted users:
+3. Login with these accepted users:
 
 ```
 {
@@ -36,4 +30,4 @@ npm run dev
 
 ```
 
-5. Enjoy 🚀
+4. Enjoy 🚀
