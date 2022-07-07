@@ -208,6 +208,13 @@ body {
 }
 
 .header {
+  width: 100%;
+  height: 115px;
+  background: none;
+  background-color: var(--header-color);
+}
+
+.header > div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -222,10 +229,10 @@ body {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  height: 115px;
+  max-width: 1440px;
+  margin: 0 auto;
+  height: 100%;
   padding: 0 16px;
-  background: none;
-  background-color: var(--header-color);
 }
 
 .header-logo {
@@ -315,6 +322,7 @@ body {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
+  max-width: 1440px;
   height: 100%;
   margin: 0 auto;
 }

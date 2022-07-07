@@ -160,22 +160,24 @@
 
 @media screen and (max-width: 768px) {
   .home__header {
-    svg.logo {
-      display: none;
-    }
+    & > div {
+      svg.logo {
+        display: none;
+      }
 
-    button.hamburger {
-      display: block;
-      cursor: pointer;
-    }
+      button.hamburger {
+        display: block;
+        cursor: pointer;
+      }
 
-    &-input__container {
-      left: 28%;
-      width: 53%;
-    }
+      &-input__container {
+        left: 28%;
+        width: 53%;
+      }
 
-    &-user__container {
-      display: none;
+      &-user__container {
+        display: none;
+      }
     }
   }
   .home__main {

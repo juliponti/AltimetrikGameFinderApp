@@ -234,18 +234,18 @@
 }
 
 @media screen and (max-width: 768px) {
-  .home__header svg.logo {
+  .home__header > div svg.logo {
     display: none;
   }
-  .home__header button.hamburger {
+  .home__header > div button.hamburger {
     display: block;
     cursor: pointer;
   }
-  .home__header-input__container {
+  .home__header > div-input__container {
     left: 28%;
     width: 53%;
   }
-  .home__header-user__container {
+  .home__header > div-user__container {
     display: none;
   }
   .home__main aside {
