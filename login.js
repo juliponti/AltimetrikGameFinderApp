@@ -5,11 +5,17 @@ import { snackbar, showError, showSuccess } from "./utils.js";
 const inputEmail = document.getElementById("input-email");
 const inputPsw = document.getElementById("input-psw");
 const form = document.getElementById("form");
+const loginBtn = document.getElementById("login-btn");
 const pswIcon = document.getElementsByClassName("psw-eye");
 const iconContainer = document.getElementsByClassName("icon__container")[0];
 
 const checkbox = document.getElementById("checkbox");
 const tick = document.getElementsByClassName("checkbox__vector")[0];
+
+const redirections = document.getElementsByTagName("a");
+Array.from(redirections).forEach((a) =>
+  a.addEventListener("click", handleRedirect)
+);
 
 // password view
 
@@ -18,16 +24,13 @@ iconContainer.addEventListener("click", handleClick);
 function handleClick() {
   const eye = document.getElementsByClassName("icon--inactive")[0];
   const crossEye = document.getElementsByClassName("icon--active")[0];
-
-  if (!inputPsw.value) {
+  if (inputPsw.value) {
     if (inputPsw.type === "password") {
       inputPsw.type = "text";
       eye.style.display = "none";
       crossEye.style.display = "block";
       inputPsw.classList.remove("dots");
-    }
-
-    if (inputPsw.type === "text") {
+    } else if (inputPsw.type === "text") {
       inputPsw.type = "password";
       inputPsw.classList.add("dots");
       eye.style.display = "block";
@@ -51,6 +54,12 @@ function handleRemember() {
   }
 }
 
+// Redirect cooming soon
+
+function handleRedirect(e) {
+  e.preventDefault();
+}
+
 // inputs Validation
 
 const isRequired = (value) => (value === "" ? false : true);
@@ -62,12 +71,26 @@ const isEmailValid = (email) => {
 };
 
 form.addEventListener("input", function (e) {
+  const inputValue = e.target.value;
+  const emailValue = inputEmail.value;
+  const pswValue = inputPsw.value;
+
   switch (e.target.id) {
     case "input-email":
       checkEmail();
+      if (pswValue.length >= 1) {
+        loginBtn.disabled = false;
+      } else {
+        loginBtn.disabled = true;
+      }
       break;
     case "input-psw":
       checkPassword();
+      if (emailValue.length >= 1) {
+        loginBtn.disabled = false;
+      } else {
+        loginBtn.disabled = true;
+      }
       break;
   }
 });

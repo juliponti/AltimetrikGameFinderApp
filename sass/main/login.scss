@@ -210,6 +210,7 @@ body {
 
         &--secondary__container {
           @include FlexBox(row, space-between);
+          position: relative;
           margin-top: 15px;
           margin-bottom: 23px;
 
@@ -261,12 +262,10 @@ body {
             cursor: pointer;
             position: relative;
 
-            &:after {
-              @include Underline($primary-200);
-            }
-
-            &:hover:after {
-              @include hoverUnderline;
+            &:hover {
+              & ~ .tooltip {
+                display: block;
+              }
             }
 
             &:focus-visible {
@@ -294,6 +293,11 @@ body {
 
           &:disabled {
             opacity: 0.4;
+            cursor: not-allowed;
+          }
+
+          &:hover[disabled] {
+            filter: none;
           }
 
           &:hover {
@@ -313,6 +317,7 @@ body {
         &--register {
           &__container {
             @include FlexBox;
+            position: relative;
             gap: 8px;
 
             p {
@@ -329,13 +334,9 @@ body {
             color: var(--primary-color);
             text-decoration: none;
 
-            &::after {
-              @include Underline(var(--primary-color));
-            }
-
             &:hover {
-              &:after {
-                @include hoverUnderline;
+              & ~ .tooltip {
+                display: block;
               }
             }
             &:focus-visible {
@@ -369,6 +370,7 @@ body {
         &--ssmm {
           &__container {
             @include FlexBox(column, space-between);
+            position: relative;
             height: 190px;
           }
 
@@ -386,6 +388,10 @@ body {
           text-decoration: none;
 
           &:hover {
+            & + .tooltip {
+              display: block;
+            }
+
             filter: drop-shadow(0px 3px 5px var(--ssmm-color));
             transition: all 0.3s ease;
           }
@@ -423,6 +429,83 @@ body {
 .dots {
   font-family: "Verdana", sans-serif;
   font-weight: 900;
+}
+
+.tooltip {
+  display: none;
+
+  position: absolute;
+  top: 28px;
+  left: 68%;
+
+  width: auto;
+
+  padding: 8px 11px;
+
+  background-color: #fff;
+  border-radius: 5px;
+
+  font-size: 0.9em;
+
+  transform: translate(-50%);
+  transform-style: preserve-3d;
+  z-index: 200;
+
+  &_password {
+    left: 82%;
+    width: 120px;
+  }
+
+  &_ssmm {
+    &--fb {
+      top: 45px;
+      left: 46%;
+    }
+    &--tw {
+      top: 115px;
+      left: 46%;
+    }
+    &--go {
+      top: 186px;
+      left: 46%;
+    }
+  }
+
+  &:after {
+    content: "";
+    display: block;
+
+    position: absolute;
+    left: 50%;
+    top: -1px;
+
+    width: 10px;
+    height: 10px;
+
+    transform-origin: 50% 50%;
+    transform: rotate(45deg) translateX(-50%);
+    background-color: #fff;
+    z-index: 400;
+  }
+
+  &:before {
+    content: "";
+    display: block;
+
+    position: absolute;
+    top: 0px;
+    left: 50%;
+
+    width: 10px;
+    height: 10px;
+
+    background-color: #fff;
+    box-shadow: -1px -1px 20px #aaa;
+
+    transform-origin: 50% 50%;
+    transform: rotate(45deg) translateX(-50%) translateZ(-1px);
+    z-index: -1;
+  }
 }
 
 .error {

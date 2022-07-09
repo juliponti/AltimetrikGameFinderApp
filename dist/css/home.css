@@ -1376,6 +1376,7 @@ body {
   opacity: 1;
   -webkit-transition: opacity 0.15s ease-out;
   transition: opacity 0.15s ease-out;
+  z-index: 2;
 }
 
 .modal {

@@ -485,6 +485,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
   margin-top: 15px;
   margin-bottom: 23px;
 }
@@ -550,20 +551,8 @@ body {
   position: relative;
 }
 
-.main .login__card__form--checkbox__link:after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0px;
-  border: 0px solid #4cc986;
-  width: 0%;
-}
-
-.main .login__card__form--checkbox__link:hover:after {
-  border-width: 1px;
-  width: 100%;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+.main .login__card__form--checkbox__link:hover ~ .tooltip {
+  display: block;
 }
 
 .main .login__card__form--checkbox__link:focus-visible {
@@ -589,6 +578,12 @@ body {
 
 .main .login__card__form__button:disabled {
   opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.main .login__card__form__button:hover[disabled] {
+  -webkit-filter: none;
+          filter: none;
 }
 
 .main .login__card__form__button:hover {
@@ -623,6 +618,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
   gap: 8px;
 }
 
@@ -640,20 +636,8 @@ body {
   text-decoration: none;
 }
 
-.main .login__card__form--register__link::after {
-  content: "";
-  position: absolute;
-  bottom: -1px;
-  left: 0px;
-  border: 0px solid var(--primary-color);
-  width: 0%;
-}
-
-.main .login__card__form--register__link:hover:after {
-  border-width: 1px;
-  width: 100%;
-  -webkit-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+.main .login__card__form--register__link:hover ~ .tooltip {
+  display: block;
 }
 
 .main .login__card__form--register__link:focus-visible {
@@ -743,6 +727,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
   height: 190px;
 }
 
@@ -751,6 +736,10 @@ body {
           filter: drop-shadow(0px 3px 5px var(--ssmm-color));
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
+}
+
+.main .login__card__form--ssmm:hover + .tooltip {
+  display: block;
 }
 
 .main .login__card__form--ssmm:focus-visible {
@@ -793,6 +782,77 @@ body {
 .dots {
   font-family: "Verdana", sans-serif;
   font-weight: 900;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  top: 28px;
+  left: 68%;
+  width: auto;
+  padding: 8px 11px;
+  background-color: #fff;
+  border-radius: 5px;
+  font-size: 0.9em;
+  -webkit-transform: translate(-50%);
+          transform: translate(-50%);
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  z-index: 200;
+}
+
+.tooltip_password {
+  left: 82%;
+  width: 120px;
+}
+
+.tooltip_ssmm--fb {
+  top: 45px;
+  left: 46%;
+}
+
+.tooltip_ssmm--tw {
+  top: 115px;
+  left: 46%;
+}
+
+.tooltip_ssmm--go {
+  top: 186px;
+  left: 46%;
+}
+
+.tooltip:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  top: -1px;
+  width: 10px;
+  height: 10px;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  -webkit-transform: rotate(45deg) translateX(-50%);
+          transform: rotate(45deg) translateX(-50%);
+  background-color: #fff;
+  z-index: 400;
+}
+
+.tooltip:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  -webkit-box-shadow: -1px -1px 20px #aaa;
+          box-shadow: -1px -1px 20px #aaa;
+  -webkit-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  -webkit-transform: rotate(45deg) translateX(-50%) translateZ(-1px);
+          transform: rotate(45deg) translateX(-50%) translateZ(-1px);
+  z-index: -1;
 }
 
 .error {

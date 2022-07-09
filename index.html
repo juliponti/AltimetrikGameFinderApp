@@ -167,6 +167,7 @@
                 name="password"
                 id="input-psw"
                 class="dots"
+                autocomplete="off"
               />
 
               <div class="icon__container">
@@ -221,24 +222,28 @@
                 />
               </fieldset>
               <a
-                href="https://http.cat/404"
+                href=""
                 class="login__card__form--checkbox__link"
                 target="_blank"
                 >Forgot password?</a
               >
+              <div class="tooltip tooltip_password">coming soon...</div>
             </div>
-            <button type="submit" class="login__card__form__button">
+            <button
+              type="submit"
+              class="login__card__form__button"
+              id="login-btn"
+              disabled
+            >
               Log in
             </button>
           </form>
           <div class="login__card__form--register__container">
             <p>Not registered yet?</p>
-            <a
-              href="https://http.cat/204"
-              target="_blank"
-              class="login__card__form--register__link"
+            <a href="" target="_blank" class="login__card__form--register__link"
               >Register Now</a
             >
+            <div class="tooltip">coming soon...</div>
           </div>
           <div class="login__card__form--decoration__container">
             <p>or</p>
@@ -247,7 +252,7 @@
             <a
               class="login__card__form--ssmm"
               type="button"
-              href="https://http.cat/401"
+              href=""
               target="_blank"
             >
               <div>
@@ -268,10 +273,11 @@
                 <p class="login__card__form--ssmm__p">Login with Facebook</p>
               </div>
             </a>
+            <div class="tooltip tooltip_ssmm--fb">coming soon...</div>
             <a
               class="login__card__form--ssmm"
               type="button"
-              href="https://http.cat/303"
+              href=""
               target="_blank"
             >
               <div>
@@ -293,10 +299,11 @@
                 <p class="login__card__form--ssmm__p">Login with Twitter</p>
               </div>
             </a>
+            <div class="tooltip tooltip_ssmm--tw">coming soon...</div>
             <a
               class="login__card__form--ssmm"
               type="button"
-              href="https://http.cat/402"
+              href=""
               target="_blank"
             >
               <div>
@@ -319,6 +326,7 @@
                 <p class="login__card__form--ssmm__p">Login with Google</p>
               </div>
             </a>
+            <div class="tooltip tooltip_ssmm--go">coming soon...</div>
           </div>
         </div>
       </div>
