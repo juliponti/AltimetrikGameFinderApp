@@ -9,7 +9,7 @@
     "json:server-auth": "json-server-auth --watch db.json",
     "dev": "lite-server",
     "sass": "sass --watch ./sass/main:./dist/css",
-    "start": "concurrently  \"npm run json:server-auth\" \"sass\" \"npm run dev\""
+    "start": "concurrently  \"npm run json:server-auth\" \"npm run dev\""
   },
   "repository": {
     "type": "git",

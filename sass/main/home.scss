@@ -60,95 +60,105 @@ body {
       background-color: inherit;
     }
 
+    button.go-back-arrow {
+      display: none;
+      border: none;
+      background-color: inherit;
+
+      & > svg path {
+        fill: $white;
+      }
+    }
+
     .search-icon {
       display: none;
     }
+  }
 
-    .home__header-input__container {
-      position: absolute;
-      top: 24px;
-      left: 37%;
+  &-input__container {
+    position: absolute;
+    top: 24px;
+    left: 37%;
 
-      width: 27%;
-      height: 47px;
+    width: 27%;
+    height: 47px;
 
-      margin-right: 146px;
+    margin-right: 146px;
 
-      z-index: 2;
-      input {
-        width: 95%;
-        height: 100%;
+    z-index: 2;
+    input {
+      width: 95%;
+      height: 100%;
 
-        padding: 0 37px;
-        margin-bottom: 6px;
+      padding: 0 37px;
+      margin-bottom: 6px;
 
-        background-color: $white;
-        border-radius: 4px;
-        border: transparent;
+      background-color: $white;
+      border-radius: 4px;
+      border: transparent;
 
-        color: $gray-550;
-        font-size: 0.938rem;
+      color: $gray-550;
+      font-size: 0.938rem;
 
-        &::placeholder {
-          color: $gray-400;
-        }
-
-        &:focus {
-          outline: 3px solid transparent;
-        }
+      &::placeholder {
+        color: $gray-400;
       }
 
-      img {
-        position: absolute;
-        top: 15px;
-        left: 10px;
-      }
-
-      img.cross {
-        visibility: hidden;
-        position: absolute;
-        top: 11px;
-        left: calc(100% - 61px);
-        cursor: pointer;
+      &:focus {
+        outline: 3px solid transparent;
       }
     }
 
-    .home__header-user__container {
-      @include FlexBox(row, space-between);
-      width: 115px;
+    img {
+      position: absolute;
+      top: 15px;
+      left: 10px;
+    }
 
-      button {
-        border: none;
-        background-color: inherit;
+    img.cross {
+      visibility: hidden;
+      position: absolute;
+      top: 11px;
+      left: calc(100% - 61px);
+      cursor: pointer;
+    }
+  }
 
-        color: $white;
-        font-size: 0.938rem;
+  &-user__container {
+    @include FlexBox(row, space-between);
+    width: 115px;
 
-        cursor: pointer;
+    button {
+      border: none;
+      background-color: inherit;
 
-        &:hover {
-          color: $gray-200;
-          transition: all 0.3s;
-        }
+      color: $white;
+      font-size: 0.938rem;
 
-        &:focus-visible {
-          outline: 1px solid $white;
-          outline-offset: 5px;
-          border-radius: 3px;
-        }
+      cursor: pointer;
+
+      &:hover {
+        color: $gray-200;
+        transition: all 0.3s;
       }
 
-      div {
-        width: 48px;
-        height: 48px;
-
-        border-radius: 50%;
-        border: 1px solid $white;
-
-        background-image: url("https://via.placeholder.com/48x48");
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
+      &:focus-visible {
+        outline: 1px solid $white;
+        outline-offset: 5px;
+        border-radius: 3px;
       }
+    }
+
+    div {
+      width: 48px;
+      height: 48px;
+
+      border-radius: 50%;
+      border: 1px solid $white;
+
+      background-image: url("https://via.placeholder.com/48x48");
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
     }
   }
 }
@@ -297,6 +307,7 @@ body {
     @include FlexBox(row, space-between, flex-start);
 
     width: 100%;
+
     max-width: 1400px;
     margin: 0 auto;
   }
@@ -391,6 +402,7 @@ body {
 
   &__gallery__container {
     width: 97%;
+    height: 78vh;
     margin-left: 14px;
     overflow-y: scroll;
     overflow-x: hidden;
@@ -582,7 +594,7 @@ body {
 .one-card-view__card {
   @include FlexBox(column, flex-start);
   width: 60%;
-  height: 98%;
+  height: 34%;
 
   margin: 11px auto 23px;
 
@@ -787,14 +799,13 @@ body {
 
 #loading {
   display: none;
-  position: absolute;
+  position: relative;
   top: 53%;
-  left: 57%;
 
   width: 2rem;
   height: 2rem;
 
-  margin: auto;
+  margin: 0 auto;
 
   border: 5px solid var(--text-color);
   border-top: 6px solid var(--primary-color);

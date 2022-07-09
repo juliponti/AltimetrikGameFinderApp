@@ -15,6 +15,8 @@ const input = document.getElementById("home-input");
 const cross = document.getElementById("cross");
 const layer = document.getElementById("layer");
 const userImg = document.getElementById("user-img-container");
+const hamburgerIcon = document.getElementById("hamburger");
+const goBackArrow = document.getElementById("go-back-arrow");
 
 //  banner
 const optionsContainer = document.getElementById("options-cont");
@@ -24,7 +26,7 @@ const oneVwIcon = document.getElementById("one-vw-icon");
 const oneCardVwBtn = document.getElementById("one-card-view-btn");
 
 // primary-section
-const gallery = document.getElementById("gallery");
+
 const cardContainer = document.getElementById("cards-container");
 const notFoundText = document.getElementById("not-found");
 const gamesUrl = `https://api.rawg.io/api/games?${apiKey}&page=1`;
@@ -89,11 +91,24 @@ menuHomeText.addEventListener("click", handleHomeText);
 lastSearches.addEventListener("click", handleLastSearches);
 lastSearches.addEventListener("keypress", handleLastSearches);
 
+window.addEventListener("resize", () => {
+  if (screen.width < 420) {
+    bgGradient(9.4);
+  } else if (screen.width >= 420 && screen.width < 906) {
+    bgGradient(30.4);
+  } else if (screen.width >= 906) {
+    bgGradient(84.4);
+  }
+  modalDoc.style.backgroundImage = modalBg;
+});
+
 closeBtn?.addEventListener("click", () => {
   modalRoot.classList.remove("visible");
 });
 modalRoot.addEventListener("click", () => {
   modalRoot.classList.remove("visible");
+  hamburgerIcon.style.display = "block";
+  goBackArrow.style.display = "none";
 });
 
 // adds a profile pic if there is one or the initials if there isn't
@@ -115,6 +130,7 @@ let favorite;
 let title;
 let searchData;
 let isLoading = false;
+let bgImg;
 const bgDefault = "../../assets/desktop/home/card/bg-default.jpg";
 
 // Cards component
@@ -231,6 +247,7 @@ const modal = (currentGame) =>
     const month = newDate[1];
     const currentMonth = months[month];
     const formatDayStr = `${currentMonth} ${date[2]}, ${date[0]}`;
+    bgImg = result.background_image;
 
     genres.forEach((genre) => {
       genreTitle += `${genre.name}, `;
@@ -259,11 +276,19 @@ const modal = (currentGame) =>
       shortScreenshots.push(images);
     });
 
-    modalBg = `linear-gradient(
-      180deg,
-      var(--modal-bg-1) 0%,
-      var(--modal-bg-2) 84.4%
-    ), url("${result.background_image || bgDefault}")`;
+    if (screen.width < 420) {
+      bgGradient(9.4);
+      hamburgerIcon.style.display = "none";
+      goBackArrow.style.display = "block";
+    } else if (screen.width >= 420 && screen.width < 906) {
+      bgGradient(30.4);
+      hamburgerIcon.style.display = "block";
+      goBackArrow.style.display = "none";
+    } else if (screen.width >= 906) {
+      bgGradient(84.4);
+      hamburgerIcon.style.display = "none";
+      goBackArrow.style.display = "none";
+    }
 
     return `<div>
     <button class="modal-cross-btn">
@@ -419,6 +444,14 @@ const modal = (currentGame) =>
    </div>
  </div>`;
   });
+
+function bgGradient(num) {
+  modalBg = `linear-gradient(
+      180deg,
+      var(--modal-bg-1) 0%,
+      var(--modal-bg-2) ${num}%
+    ), url("${bgImg || bgDefault}")`;
+}
 
 // Display last searches cards
 
