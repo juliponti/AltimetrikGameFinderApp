@@ -71,7 +71,6 @@ const isEmailValid = (email) => {
 };
 
 form.addEventListener("input", function (e) {
-  const inputValue = e.target.value;
   const emailValue = inputEmail.value;
   const pswValue = inputPsw.value;
 
