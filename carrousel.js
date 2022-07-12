@@ -1,10 +1,20 @@
 const prevArrow = document.getElementById("prev-arrow");
 const nextArrow = document.getElementById("next-arrow");
 
-const themeBtn = document.getElementById("theme-btn");
+const themeBtnLogin = document.getElementById("theme-btn-login");
 const body = document.getElementsByTagName("body")[0];
 
-themeBtn.addEventListener("click", handleTheme);
+themeBtnLogin.addEventListener("click", handleTheme);
+
+window.addEventListener("load", getActiveTheme);
+
+function getActiveTheme() {
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (event) => {
+      event.matches ? handleDarkTheme() : handleLightTheme();
+    });
+}
 
 let i = 0;
 
@@ -27,21 +37,29 @@ imagesLight[3] = "../../assets/desktop/slider/lightMode/slide-light-4.jpg";
 imagesLight[4] = "../../assets/desktop/slider/lightMode/slide-light-5.jpg";
 imagesLight[5] = "../../assets/desktop/slider/lightMode/slide-light-6.jpg";
 
+function handleLightTheme() {
+  themeImg = imagesLight;
+  body.style.backgroundImage = `url("${imagesLight[i]}")`;
+  themeBtnLogin.classList.remove("theme-active");
+  themeBtnLogin.classList.add("theme-disable");
+  body.classList.remove("theme--dark");
+  body.classList.add("theme");
+}
+
+function handleDarkTheme() {
+  body.style.backgroundImage = `url("${imagesDark[i]}")`;
+  themeImg = imagesDark;
+  themeBtnLogin.classList.add("theme-active");
+  themeBtnLogin.classList.remove("theme-disable");
+  body.classList.remove("theme");
+  body.classList.add("theme--dark");
+}
+
 function handleTheme() {
   if (body.classList.contains("theme--dark")) {
-    themeImg = imagesLight;
-    body.style.backgroundImage = `url("${imagesLight[i]}")`;
-    themeBtn.classList.remove("theme-active");
-    themeBtn.classList.add("theme-disable");
-    body.classList.remove("theme--dark");
-    body.classList.add("theme");
+    handleLightTheme();
   } else if (body.classList.contains("theme")) {
-    body.style.backgroundImage = `url("${imagesDark[i]}")`;
-    themeImg = imagesDark;
-    themeBtn.classList.add("theme-active");
-    themeBtn.classList.remove("theme-disable");
-    body.classList.remove("theme");
-    body.classList.add("theme--dark");
+    handleDarkTheme();
   }
 }
 

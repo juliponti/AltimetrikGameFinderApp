@@ -1,5 +1,5 @@
 @import "../configurations";
-@import "../partials/animations.scss";
+@import "../partials/animations";
 
 * {
   margin: 0;
@@ -432,24 +432,7 @@ body {
 }
 
 .tooltip {
-  display: none;
-
-  position: absolute;
-  top: 28px;
-  left: 68%;
-
-  width: auto;
-
-  padding: 8px 11px;
-
-  background-color: #fff;
-  border-radius: 5px;
-
-  font-size: 0.9em;
-
-  transform: translate(-50%);
-  transform-style: preserve-3d;
-  z-index: 200;
+  @include tooltip;
 
   &_password {
     left: 82%;
@@ -469,42 +452,6 @@ body {
       top: 186px;
       left: 46%;
     }
-  }
-
-  &:after {
-    content: "";
-    display: block;
-
-    position: absolute;
-    left: 50%;
-    top: -1px;
-
-    width: 10px;
-    height: 10px;
-
-    transform-origin: 50% 50%;
-    transform: rotate(45deg) translateX(-50%);
-    background-color: #fff;
-    z-index: 400;
-  }
-
-  &:before {
-    content: "";
-    display: block;
-
-    position: absolute;
-    top: 0px;
-    left: 50%;
-
-    width: 10px;
-    height: 10px;
-
-    background-color: #fff;
-    box-shadow: -1px -1px 20px #aaa;
-
-    transform-origin: 50% 50%;
-    transform: rotate(45deg) translateX(-50%) translateZ(-1px);
-    z-index: -1;
   }
 }
 
@@ -621,4 +568,4 @@ body {
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 
-@import "../partials/login-responsive.scss";
+@import "../partials/login-responsive";

@@ -327,6 +327,9 @@ body {
         @include FlexBox(column, space-around, flex-start);
         list-style: none;
 
+        li {
+          position: relative;
+        }
         li > button {
           @include secondaryBtns;
           border-radius: 5px;
@@ -337,6 +340,9 @@ body {
           cursor: pointer;
 
           &:hover {
+            & ~ .tooltip {
+              display: block;
+            }
             color: var(--primary-color);
             transition: all 0.3s ease;
           }
@@ -826,6 +832,10 @@ body {
   font-size: 2rem;
   text-align: center;
   animation: fadein 0.5s;
+}
+
+.tooltip {
+  @include tooltip(124px, 40px, 55%);
 }
 
 // modal

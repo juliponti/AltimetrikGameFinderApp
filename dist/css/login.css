@@ -49,6 +49,61 @@
   --chip-color: #ffffff;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-color: transparent;
+    --logo-color: #ffffff;
+    --text-color: #ffffff;
+    --primary-color: #5fe19b;
+    --bg-color: #151515;
+    --bg-img: url(../../assets/desktop/slider/slide-1.png);
+    --login-color: rgba(0, 0, 0, 0.5);
+    --card-color: #303030;
+    --ssmm-color: #ffffff;
+    --switch-color: #e1e1e4;
+    --inactive-vw-bg-color: #303030;
+    --inactive-vw-lines-color: #515151;
+    --active-vw-bg-color: #515151;
+    --active-vw-lines-color: #ffffff;
+    --controllers: #515151;
+    --footer-gradient1: rgba(0, 0, 0, 0.0001);
+    --footer-gradient2: #000000;
+    --hamburger-menu-bg: #2a2a2a;
+    --hamburger-menu-lines: #515151;
+    --modal-bg-1: rgba(48, 48, 48, 0.0001);
+    --modal-bg-2: #303030;
+    --chip-color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --header-color: rgba(255, 255, 255, 0.3);
+    --logo-color: #3d3d3d;
+    --text-color: #515151;
+    --primary-color: #36b972;
+    --bg-color: #f0f0f0;
+    --bg-img: url(../../assets/desktop/slider/lightMode/slide-light-1.png);
+    --login-color: #f0f0f0;
+    --card-color: #ffffff;
+    --box-shadow-color: rgba(106, 106, 106, 0.25);
+    --ssmm-color: #36b972;
+    --switch-color: #e1e1e4;
+    --active-vw-bg-color: #939393;
+    --active-vw-lines-color: #515151;
+    --inactive-vw-bg-color: #d8d8d8;
+    --inactive-vw-lines-color: #c4c4c4;
+    --controllers: #ffffff;
+    --footer-gradient1: rgba(255, 255, 255, 0.3);
+    --footer-gradient2: #f0f0f0;
+    --hamburger-menu-bg: #ffffff;
+    --hamburger-menu-lines: #e1e1e4;
+    --modal-bg-1: rgba(255, 255, 255, 0.3);
+    --modal-bg-2: #f0f0f0;
+    --chip-color: #36b972;
+  }
+}
+
 @-webkit-keyframes spin {
   from {
     -webkit-transform: rotate(0deg);
@@ -788,7 +843,7 @@ body {
   display: none;
   position: absolute;
   top: 28px;
-  left: 68%;
+  left: 66%;
   width: auto;
   padding: 8px 11px;
   background-color: #fff;
@@ -799,26 +854,6 @@ body {
   -webkit-transform-style: preserve-3d;
           transform-style: preserve-3d;
   z-index: 200;
-}
-
-.tooltip_password {
-  left: 82%;
-  width: 120px;
-}
-
-.tooltip_ssmm--fb {
-  top: 45px;
-  left: 46%;
-}
-
-.tooltip_ssmm--tw {
-  top: 115px;
-  left: 46%;
-}
-
-.tooltip_ssmm--go {
-  top: 186px;
-  left: 46%;
 }
 
 .tooltip:after {
@@ -853,6 +888,26 @@ body {
   -webkit-transform: rotate(45deg) translateX(-50%) translateZ(-1px);
           transform: rotate(45deg) translateX(-50%) translateZ(-1px);
   z-index: -1;
+}
+
+.tooltip_password {
+  left: 82%;
+  width: 120px;
+}
+
+.tooltip_ssmm--fb {
+  top: 45px;
+  left: 46%;
+}
+
+.tooltip_ssmm--tw {
+  top: 115px;
+  left: 46%;
+}
+
+.tooltip_ssmm--go {
+  top: 186px;
+  left: 46%;
 }
 
 .error {
@@ -1011,6 +1066,61 @@ body {
   --modal-bg-1: rgba(48, 48, 48, 0.0001);
   --modal-bg-2: #303030;
   --chip-color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-color: transparent;
+    --logo-color: #ffffff;
+    --text-color: #ffffff;
+    --primary-color: #5fe19b;
+    --bg-color: #151515;
+    --bg-img: url(../../assets/desktop/slider/slide-1.png);
+    --login-color: rgba(0, 0, 0, 0.5);
+    --card-color: #303030;
+    --ssmm-color: #ffffff;
+    --switch-color: #e1e1e4;
+    --inactive-vw-bg-color: #303030;
+    --inactive-vw-lines-color: #515151;
+    --active-vw-bg-color: #515151;
+    --active-vw-lines-color: #ffffff;
+    --controllers: #515151;
+    --footer-gradient1: rgba(0, 0, 0, 0.0001);
+    --footer-gradient2: #000000;
+    --hamburger-menu-bg: #2a2a2a;
+    --hamburger-menu-lines: #515151;
+    --modal-bg-1: rgba(48, 48, 48, 0.0001);
+    --modal-bg-2: #303030;
+    --chip-color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --header-color: rgba(255, 255, 255, 0.3);
+    --logo-color: #3d3d3d;
+    --text-color: #515151;
+    --primary-color: #36b972;
+    --bg-color: #f0f0f0;
+    --bg-img: url(../../assets/desktop/slider/lightMode/slide-light-1.png);
+    --login-color: #f0f0f0;
+    --card-color: #ffffff;
+    --box-shadow-color: rgba(106, 106, 106, 0.25);
+    --ssmm-color: #36b972;
+    --switch-color: #e1e1e4;
+    --active-vw-bg-color: #939393;
+    --active-vw-lines-color: #515151;
+    --inactive-vw-bg-color: #d8d8d8;
+    --inactive-vw-lines-color: #c4c4c4;
+    --controllers: #ffffff;
+    --footer-gradient1: rgba(255, 255, 255, 0.3);
+    --footer-gradient2: #f0f0f0;
+    --hamburger-menu-bg: #ffffff;
+    --hamburger-menu-lines: #e1e1e4;
+    --modal-bg-1: rgba(255, 255, 255, 0.3);
+    --modal-bg-2: #f0f0f0;
+    --chip-color: #36b972;
+  }
 }
 
 @media screen and (max-width: 768px) {
