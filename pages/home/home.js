@@ -147,7 +147,7 @@ function getDescription(gameData) {
     )
       .then((res) => res.json())
       .then((data) => {
-        completeGameData = Object.assign(game, data, movies);
+        completeGameData = Object.assign(game, data);
 
         return completeGameData;
       });
@@ -219,7 +219,7 @@ const card = (page) =>
                    </div>
                  </div>
                  <div>
-                    <p>${result.description || "No description available"}</p>
+                    ${result.description || "No description available"}
                  </div>
           </div>
     </button>`;
@@ -581,7 +581,6 @@ function onLoad(gamesUrl) {
 
     getDescription(gameData).then((data) => {
       hideLoading();
-      // nextPage = data.next;
 
       const currentCard = card(data);
       const allCards = currentCard.join(" ");

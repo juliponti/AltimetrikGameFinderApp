@@ -1,5 +1,5 @@
 @import "../configurations";
-@import "../partials/animations.scss";
+@import "../partials/animations";
 
 * {
   box-sizing: border-box;
@@ -313,10 +313,6 @@ body {
   }
 
   aside {
-    // position: absolute;
-    // left: 20px;
-    // top: 226px;
-
     width: 260px;
 
     .navbar__container {
@@ -331,7 +327,9 @@ body {
         @include FlexBox(column, space-around, flex-start);
         list-style: none;
 
-        li {
+        li > button {
+          @include secondaryBtns;
+          border-radius: 5px;
           color: var(--text-color);
           font-size: 1.125rem;
 
@@ -356,7 +354,9 @@ body {
 
         &:first-child {
           height: 125px;
-          li {
+          li > button {
+            @include secondaryBtns;
+            border-radius: 5px;
             font-size: 1.25rem;
             font-weight: 700;
           }
@@ -366,7 +366,9 @@ body {
           @include FlexBox(column, flex-start, flex-start);
           height: 142px;
 
-          li {
+          li > button {
+            @include secondaryBtns;
+            border-radius: 5px;
             @include FlexBox;
             height: 35px;
 
@@ -827,7 +829,7 @@ body {
 }
 
 // modal
-@import "../partials/modal.scss";
+@import "../partials/modal";
 
 // responsive
-@import "../partials/home-responsive.scss";
+@import "../partials/home-responsive";

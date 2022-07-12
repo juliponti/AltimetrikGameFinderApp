@@ -588,26 +588,31 @@ body {
   list-style: none;
 }
 
-.home__main aside .navbar__container ul li {
+.home__main aside .navbar__container ul li > button {
+  border: transparent;
+  border-radius: 11px;
+  background-color: inherit;
+  cursor: pointer;
+  border-radius: 5px;
   color: var(--text-color);
   font-size: 1.125rem;
   outline: 1px solid transparent;
   cursor: pointer;
 }
 
-.home__main aside .navbar__container ul li:hover {
+.home__main aside .navbar__container ul li > button:hover {
   color: var(--primary-color);
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
 
-.home__main aside .navbar__container ul li:focus-visible {
+.home__main aside .navbar__container ul li > button:focus-visible {
   outline: 4px solid var(--primary-color);
   outline-offset: 5px;
   border-radius: 3px;
 }
 
-.home__main aside .navbar__container ul li img {
+.home__main aside .navbar__container ul li > button img {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -620,7 +625,12 @@ body {
   height: 125px;
 }
 
-.home__main aside .navbar__container ul:first-child li {
+.home__main aside .navbar__container ul:first-child li > button {
+  border: transparent;
+  border-radius: 11px;
+  background-color: inherit;
+  cursor: pointer;
+  border-radius: 5px;
   font-size: 1.25rem;
   font-weight: 700;
 }
@@ -642,7 +652,12 @@ body {
   height: 142px;
 }
 
-.home__main aside .navbar__container ul:nth-child(2) li {
+.home__main aside .navbar__container ul:nth-child(2) li > button {
+  border: transparent;
+  border-radius: 11px;
+  background-color: inherit;
+  cursor: pointer;
+  border-radius: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -659,16 +674,16 @@ body {
   height: 35px;
 }
 
-.home__main aside .navbar__container ul:nth-child(2) li img {
+.home__main aside .navbar__container ul:nth-child(2) li > button img {
   margin-right: 7px;
   margin-bottom: 3px;
 }
 
-.home__main aside .navbar__container ul:nth-child(2) li:nth-child(2) {
+.home__main aside .navbar__container ul:nth-child(2) li > button:nth-child(2) {
   margin-top: 4px;
 }
 
-.home__main aside .navbar__container ul:nth-child(2) li:last-child {
+.home__main aside .navbar__container ul:nth-child(2) li > button:last-child {
   margin-top: 7px;
 }
 
