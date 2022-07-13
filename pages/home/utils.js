@@ -87,3 +87,33 @@ export const cardsDisplay = (hiddenP, activeP, hiddenC, activeC) => {
     (el) => !el.classList.contains(activeC) && el.classList.add(activeC)
   );
 };
+
+export const skeleton = () => {
+  return `
+  <div class="skeleton">
+  <div class="skeleton__container">
+    <div class="skeleton__container-top">
+      <div class="skeleton-bar top"></div>
+       <div class="skeleton-circle"></div>
+     </div>
+  
+    <div class="skeleton__container-bottom">
+     <div>
+       <div class="skeleton-bar bottom" ></div>
+       <div class="skeleton-bar bottom"></div>
+     </div>
+     <div>
+       <div class="skeleton-bar bottom"></div>
+       <div class="skeleton-bar bottom"></div>
+     </div>
+   </div>
+  </div>
+  `;
+};
+
+export async function getGames(url) {
+  const getData = await fetch(url);
+  const dataToJson = await getData.json();
+
+  return dataToJson;
+}

@@ -6,6 +6,8 @@ import {
   months,
   platformsImg,
   cardsDisplay,
+  skeleton,
+  getGames,
 } from "./utils.js";
 
 const apiKey = "key=6279dfde42014c419a2323685fcd031f";
@@ -30,7 +32,6 @@ const oneCardVwBtn = document.getElementById("one-card-view-btn");
 const cardContainer = document.getElementById("cards-container");
 const notFoundText = document.getElementById("not-found");
 const gamesUrl = `https://api.rawg.io/api/games?${apiKey}&page=1`;
-const gallery = document.getElementById("gallery");
 
 //modal
 const modalRoot = document.getElementById("modal-root");
@@ -502,6 +503,7 @@ function handleLastSearches() {
     }
 
     cardContainer.innerHTML = allLastCards;
+    handleFavorite();
   }
 }
 
@@ -572,18 +574,18 @@ let lastCardOnScreen;
 
 // Fetch games
 
-async function getGames(url) {
-  const getData = await fetch(url);
-  const dataToJson = await getData.json();
-
-  return dataToJson;
+function displaySkeleton() {
+  for (let i = 0; i < 10; i++) {
+    const cardSkeleton = skeleton();
+    cardContainer.innerHTML += cardSkeleton;
+  }
 }
 
 function onLoad(gamesUrl) {
+  displaySkeleton();
   homeText.style.color = `#5fe19b`;
   lastSearches.style = "#fff";
   notFoundText.style.display = "none";
-  displayLoading();
 
   getGames(gamesUrl).then((data) => {
     gameData = data.results;
@@ -592,6 +594,7 @@ function onLoad(gamesUrl) {
     allData.push(...gameData);
 
     getDescription(gameData).then((data) => {
+      cardContainer.innerHTML = "";
       const currentCard = card(data);
       const allCards = currentCard.join(" ");
 
@@ -689,13 +692,12 @@ function handleChange(e) {
     cross.style.visibility = "hidden";
     cardContainer.innerHTML = "";
     optionsContainer.innerHTML = "";
-    displayLoading();
+
     onLoad(gamesUrl);
-    hideLoading();
   } else if (currentValue && platformNames.includes(currentValue)) {
+    displaySkeleton();
     const id = consoles[currentValue];
     const platformsUrl = `https://api.rawg.io/api/games?${apiKey}&parent_platforms=${id}`;
-    displayLoading();
 
     getGames(platformsUrl).then((data) => {
       const longData = data.results;
@@ -703,6 +705,7 @@ function handleChange(e) {
       let allSearchCards;
 
       getDescription(longData).then((data) => {
+        cardContainer.innerHTML = "";
         searchData = data;
         const searchCard = card(data);
         allSearchCards = searchCard.join(" ");
@@ -745,7 +748,7 @@ function handleChange(e) {
       });
     });
   } else if (currentValue.length >= 3 || e.keyCode === 13) {
-    displayLoading();
+    displaySkeleton();
     const searchUrl = `https://api.rawg.io/api/games?${apiKey}&search=${currentValue}`;
 
     getGames(searchUrl).then((data) => {
@@ -784,6 +787,7 @@ function handleChange(e) {
       }
 
       getDescription(longData).then((data) => {
+        cardContainer.innerHTML = "";
         searchData = data;
         const searchCard = card(data);
         allSearchCards = searchCard.join(" ");

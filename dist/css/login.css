@@ -22,6 +22,8 @@
   --modal-bg-1: rgba(255, 255, 255, 0.3);
   --modal-bg-2: #f0f0f0;
   --chip-color: #36b972;
+  ---skeleton-g1: rgba(255, 255, 255, 0.05);
+  ---skeleton-g2: #ffffff;
 }
 
 :root .theme--dark {
@@ -47,6 +49,8 @@
   --modal-bg-1: rgba(48, 48, 48, 0.0001);
   --modal-bg-2: #303030;
   --chip-color: #ffffff;
+  ---skeleton-g1: rgba(219, 219, 219, 0.05);
+  ---skeleton-g2: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1041,6 +1045,8 @@ body {
   --modal-bg-1: rgba(255, 255, 255, 0.3);
   --modal-bg-2: #f0f0f0;
   --chip-color: #36b972;
+  ---skeleton-g1: rgba(255, 255, 255, 0.05);
+  ---skeleton-g2: #ffffff;
 }
 
 :root .theme--dark {
@@ -1066,6 +1072,8 @@ body {
   --modal-bg-1: rgba(48, 48, 48, 0.0001);
   --modal-bg-2: #303030;
   --chip-color: #ffffff;
+  ---skeleton-g1: rgba(219, 219, 219, 0.05);
+  ---skeleton-g2: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {

@@ -22,6 +22,8 @@
   --modal-bg-1: rgba(255, 255, 255, 0.3);
   --modal-bg-2: #f0f0f0;
   --chip-color: #36b972;
+  ---skeleton-g1: rgba(255, 255, 255, 0.05);
+  ---skeleton-g2: #ffffff;
 }
 
 :root .theme--dark {
@@ -47,6 +49,8 @@
   --modal-bg-1: rgba(48, 48, 48, 0.0001);
   --modal-bg-2: #303030;
   --chip-color: #ffffff;
+  ---skeleton-g1: rgba(219, 219, 219, 0.05);
+  ---skeleton-g2: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -226,6 +230,242 @@
   }
 }
 
+:root .theme {
+  --header-color: rgba(255, 255, 255, 0.3);
+  --logo-color: #3d3d3d;
+  --text-color: #515151;
+  --primary-color: #36b972;
+  --bg-color: #f0f0f0;
+  --bg-img: url(../../assets/desktop/slider/lightMode/slide-light-1.png);
+  --login-color: #f0f0f0;
+  --card-color: #ffffff;
+  --box-shadow-color: rgba(106, 106, 106, 0.25);
+  --ssmm-color: #36b972;
+  --switch-color: #e1e1e4;
+  --active-vw-bg-color: #939393;
+  --active-vw-lines-color: #515151;
+  --inactive-vw-bg-color: #d8d8d8;
+  --inactive-vw-lines-color: #c4c4c4;
+  --controllers: #ffffff;
+  --footer-gradient1: rgba(255, 255, 255, 0.3);
+  --footer-gradient2: #f0f0f0;
+  --hamburger-menu-bg: #ffffff;
+  --hamburger-menu-lines: #e1e1e4;
+  --modal-bg-1: rgba(255, 255, 255, 0.3);
+  --modal-bg-2: #f0f0f0;
+  --chip-color: #36b972;
+  ---skeleton-g1: rgba(255, 255, 255, 0.05);
+  ---skeleton-g2: #ffffff;
+}
+
+:root .theme--dark {
+  --header-color: transparent;
+  --logo-color: #ffffff;
+  --text-color: #ffffff;
+  --primary-color: #5fe19b;
+  --bg-color: #151515;
+  --bg-img: url(../../assets/desktop/slider/slide-1.png);
+  --login-color: rgba(0, 0, 0, 0.5);
+  --card-color: #303030;
+  --ssmm-color: #ffffff;
+  --switch-color: #e1e1e4;
+  --inactive-vw-bg-color: #303030;
+  --inactive-vw-lines-color: #515151;
+  --active-vw-bg-color: #515151;
+  --active-vw-lines-color: #ffffff;
+  --controllers: #515151;
+  --footer-gradient1: rgba(0, 0, 0, 0.0001);
+  --footer-gradient2: #000000;
+  --hamburger-menu-bg: #2a2a2a;
+  --hamburger-menu-lines: #515151;
+  --modal-bg-1: rgba(48, 48, 48, 0.0001);
+  --modal-bg-2: #303030;
+  --chip-color: #ffffff;
+  ---skeleton-g1: rgba(219, 219, 219, 0.05);
+  ---skeleton-g2: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-color: transparent;
+    --logo-color: #ffffff;
+    --text-color: #ffffff;
+    --primary-color: #5fe19b;
+    --bg-color: #151515;
+    --bg-img: url(../../assets/desktop/slider/slide-1.png);
+    --login-color: rgba(0, 0, 0, 0.5);
+    --card-color: #303030;
+    --ssmm-color: #ffffff;
+    --switch-color: #e1e1e4;
+    --inactive-vw-bg-color: #303030;
+    --inactive-vw-lines-color: #515151;
+    --active-vw-bg-color: #515151;
+    --active-vw-lines-color: #ffffff;
+    --controllers: #515151;
+    --footer-gradient1: rgba(0, 0, 0, 0.0001);
+    --footer-gradient2: #000000;
+    --hamburger-menu-bg: #2a2a2a;
+    --hamburger-menu-lines: #515151;
+    --modal-bg-1: rgba(48, 48, 48, 0.0001);
+    --modal-bg-2: #303030;
+    --chip-color: #ffffff;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --header-color: rgba(255, 255, 255, 0.3);
+    --logo-color: #3d3d3d;
+    --text-color: #515151;
+    --primary-color: #36b972;
+    --bg-color: #f0f0f0;
+    --bg-img: url(../../assets/desktop/slider/lightMode/slide-light-1.png);
+    --login-color: #f0f0f0;
+    --card-color: #ffffff;
+    --box-shadow-color: rgba(106, 106, 106, 0.25);
+    --ssmm-color: #36b972;
+    --switch-color: #e1e1e4;
+    --active-vw-bg-color: #939393;
+    --active-vw-lines-color: #515151;
+    --inactive-vw-bg-color: #d8d8d8;
+    --inactive-vw-lines-color: #c4c4c4;
+    --controllers: #ffffff;
+    --footer-gradient1: rgba(255, 255, 255, 0.3);
+    --footer-gradient2: #f0f0f0;
+    --hamburger-menu-bg: #ffffff;
+    --hamburger-menu-lines: #e1e1e4;
+    --modal-bg-1: rgba(255, 255, 255, 0.3);
+    --modal-bg-2: #f0f0f0;
+    --chip-color: #36b972;
+  }
+}
+
+.skeleton {
+  width: 363px;
+  height: 314px;
+  padding: 29px 16px;
+  border-radius: 12px;
+  background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(#fff), to(transparent)), -webkit-gradient(linear, right top, left top, from(rgba(219, 219, 219, 0.05)), to(#dbdbdb));
+  background: linear-gradient(0.25turn, transparent, #fff, transparent), linear-gradient(270deg, rgba(219, 219, 219, 0.05) 0%, #dbdbdb 100%);
+  background-repeat: no-repeat;
+  background-size: 315px 380px, 400px 380px;
+  background-position: -315px 0, 0 0;
+  opacity: 0.5;
+  -webkit-animation: wave 1s infinite;
+          animation: wave 1s infinite;
+}
+
+.skeleton__container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  gap: 13px;
+  width: 100%;
+  height: 100%;
+}
+
+.skeleton__container-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.skeleton__container-bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  width: 100%;
+}
+
+.skeleton__container-bottom > div {
+  width: 100%;
+  z-index: 3;
+}
+
+.skeleton__container-bottom > div:nth-child(2) {
+  margin-left: -4px;
+}
+
+.skeleton-bar {
+  height: 21px;
+  border-radius: 30px;
+  background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(#ffffff), to(transparent)), -webkit-gradient(linear, right top, left top, from(var(---skeleton-g1)), to(var(---skeleton-g2)));
+  background: linear-gradient(0.25turn, transparent, #ffffff, transparent), linear-gradient(270deg, var(---skeleton-g1) 0%, var(---skeleton-g2) 100%);
+  background-repeat: no-repeat;
+  background-size: 123px 28px, 400px 380px;
+  background-position: -315px 0, 0 0;
+  opacity: 0.5;
+  -webkit-animation: wave 1s infinite;
+          animation: wave 1s infinite;
+}
+
+.skeleton-circle {
+  width: 20px;
+  height: 15.75px;
+  border-radius: 22.5px;
+  background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(#ffffff), to(transparent)), -webkit-gradient(linear, right top, left top, from(var(---skeleton-g1)), to(var(---skeleton-g2)));
+  background: linear-gradient(0.25turn, transparent, #ffffff, transparent), linear-gradient(270deg, var(---skeleton-g1) 0%, var(---skeleton-g2) 100%);
+  background-repeat: no-repeat;
+  background-size: 123px 28px, 400px 380px;
+  background-position: -315px 0, 0 0;
+  opacity: 0.5;
+  -webkit-animation: wave 1s infinite;
+          animation: wave 1s infinite;
+}
+
+.skeleton .top {
+  width: 90%;
+}
+
+.skeleton .bottom {
+  height: 12.25px;
+  width: 100%;
+  margin-top: 15px;
+}
+
+@-webkit-keyframes wave {
+  100% {
+    background-position: 315px 0, 0 0;
+  }
+}
+
+@keyframes wave {
+  100% {
+    background-position: 315px 0, 0 0;
+  }
+}
+
 * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -307,9 +547,7 @@ body {
 }
 
 .home__header-input__container {
-  position: absolute;
-  top: 24px;
-  left: 37%;
+  position: relative;
   width: 27%;
   height: 47px;
   margin-right: 146px;
@@ -349,6 +587,10 @@ body {
   outline: 3px solid transparent;
 }
 
+.home__header-input__container input:focus ~ img.cross {
+  visibility: visible;
+}
+
 .home__header-input__container img {
   position: absolute;
   top: 15px;
@@ -361,6 +603,7 @@ body {
   top: 11px;
   left: calc(100% - 61px);
   cursor: pointer;
+  z-index: 7;
 }
 
 .home__header-user__container {
@@ -1399,6 +1642,8 @@ body {
   --modal-bg-1: rgba(255, 255, 255, 0.3);
   --modal-bg-2: #f0f0f0;
   --chip-color: #36b972;
+  ---skeleton-g1: rgba(255, 255, 255, 0.05);
+  ---skeleton-g2: #ffffff;
 }
 
 :root .theme--dark {
@@ -1424,6 +1669,8 @@ body {
   --modal-bg-1: rgba(48, 48, 48, 0.0001);
   --modal-bg-2: #303030;
   --chip-color: #ffffff;
+  ---skeleton-g1: rgba(219, 219, 219, 0.05);
+  ---skeleton-g2: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1932,6 +2179,8 @@ body {
   --modal-bg-1: rgba(255, 255, 255, 0.3);
   --modal-bg-2: #f0f0f0;
   --chip-color: #36b972;
+  ---skeleton-g1: rgba(255, 255, 255, 0.05);
+  ---skeleton-g2: #ffffff;
 }
 
 :root .theme--dark {
@@ -1957,6 +2206,8 @@ body {
   --modal-bg-1: rgba(48, 48, 48, 0.0001);
   --modal-bg-2: #303030;
   --chip-color: #ffffff;
+  ---skeleton-g1: rgba(219, 219, 219, 0.05);
+  ---skeleton-g2: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -2214,6 +2465,21 @@ body {
 }
 
 @media screen and (max-width: 912px) {
+  .home__header > div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
   .home__header > div svg.logo {
     display: none;
   }
@@ -2226,6 +2492,7 @@ body {
     width: 53%;
   }
   .home__header-input__container img.cross {
+    display: none;
     left: calc(100% - 11vw);
   }
   .home__header-user__container {
@@ -2390,7 +2657,7 @@ body {
     display: block;
   }
   .home__header-input__container {
-    visibility: hidden;
+    display: none;
     width: 100%;
     left: 6px;
     top: 59px;
@@ -2452,7 +2719,17 @@ body {
     display: none;
   }
   .search-active {
-    visibility: visible;
+    display: block;
+    position: absolute;
+  }
+  .search-active input {
+    padding: 0 22px;
+  }
+  .search-active img {
+    display: none;
+  }
+  .search-active img.cross {
+    display: block;
   }
   .hamburger-menu {
     height: 567px;

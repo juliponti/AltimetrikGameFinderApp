@@ -1,5 +1,6 @@
 @import "../configurations";
 @import "../partials/animations";
+@import "../partials/skeleton";
 
 * {
   box-sizing: border-box;
@@ -76,9 +77,7 @@ body {
   }
 
   &-input__container {
-    position: absolute;
-    top: 24px;
-    left: 37%;
+    position: relative;
 
     width: 27%;
     height: 47px;
@@ -107,6 +106,10 @@ body {
 
       &:focus {
         outline: 3px solid transparent;
+
+        ~ img.cross {
+          visibility: visible;
+        }
       }
     }
 
@@ -122,6 +125,7 @@ body {
       top: 11px;
       left: calc(100% - 61px);
       cursor: pointer;
+      z-index: 7;
     }
   }
 

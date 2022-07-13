@@ -79,6 +79,9 @@ $total-black: #000000;
     --modal-bg-2: #{$gray-50};
     --chip-color: #{$primary-300};
 
+    ---skeleton-g1: #{rgba(255, 255, 255, 0.05)};
+    ---skeleton-g2: #{$white};
+
     &--dark {
       --header-color: #{transparent};
       --logo-color: #{$white};
@@ -107,6 +110,9 @@ $total-black: #000000;
       --modal-bg-1: #{rgba(48, 48, 48, 0.0001)};
       --modal-bg-2: #{$gray-600};
       --chip-color: #{$white};
+
+      ---skeleton-g1: #{rgba(219, 219, 219, 0.05)};
+      ---skeleton-g2: #{$white};
     }
   }
 }
