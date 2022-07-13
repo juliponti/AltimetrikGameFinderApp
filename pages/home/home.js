@@ -8,7 +8,7 @@ import {
   cardsDisplay,
 } from "./utils.js";
 
-const apiKey = "key=4d05faf97f714c34975ad9634c84fb4d";
+const apiKey = "key=6279dfde42014c419a2323685fcd031f";
 
 // header
 const input = document.getElementById("home-input");
@@ -30,6 +30,7 @@ const oneCardVwBtn = document.getElementById("one-card-view-btn");
 const cardContainer = document.getElementById("cards-container");
 const notFoundText = document.getElementById("not-found");
 const gamesUrl = `https://api.rawg.io/api/games?${apiKey}&page=1`;
+const gallery = document.getElementById("gallery");
 
 //modal
 const modalRoot = document.getElementById("modal-root");
@@ -38,6 +39,7 @@ const closeBtn = document.querySelector(".modal-cross-btn");
 
 // aside
 const lastSearches = document.getElementById("last-searches");
+const menu = document.getElementById("hamburger-menu");
 const homeText = document.getElementById("home-text");
 const menuHomeText = document.getElementById("menu-home-text");
 
@@ -219,7 +221,7 @@ const card = (page) =>
                    </div>
                  </div>
                  <div>
-                    ${result.description || "No description available"}
+                    <p>${result.description || "No description available"}</p>
                  </div>
           </div>
     </button>`;
@@ -453,11 +455,21 @@ function bgGradient(num) {
     ), url("${bgImg || bgDefault}")`;
 }
 
+function activeObserver() {
+  const cardsOnScreen = document.querySelectorAll(
+    ".cards-container  .home__main__card"
+  );
+
+  lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
+  observer.observe(lastCardOnScreen);
+}
+
 // Display last searches cards
 
 function handleLastSearches() {
   displayLoading();
   cardContainer.innerHTML = "";
+  cardContainer.style.height = "auto";
   hideLoading();
   lastSearches.style.color = "#5fe19b";
   homeText.style.color = "#fff";
@@ -577,27 +589,21 @@ function onLoad(gamesUrl) {
     gameData = data.results;
     nextPage = data.next;
 
-    gameData.forEach((game) => allData.push(game));
+    allData.push(...gameData);
 
     getDescription(gameData).then((data) => {
-      hideLoading();
-
       const currentCard = card(data);
       const allCards = currentCard.join(" ");
 
       cardContainer.innerHTML += allCards;
 
+      hideLoading();
       handleModal(displayModal);
       handleFavorite();
 
       isLoading = false;
 
-      const cardsOnScreen = document.querySelectorAll(
-        ".cards-container  .home__main__card"
-      );
-
-      lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
-      observer.observe(lastCardOnScreen);
+      activeObserver();
     });
   });
 }
@@ -717,7 +723,9 @@ function handleChange(e) {
           hideLoading();
           layer.style.display = "none";
           cardContainer.innerHTML = allSearchCards;
+
           handleModal(searchModal);
+          activeObserver();
         } else {
           notFoundText.style.display = "none";
           cardsDisplay(
@@ -729,9 +737,10 @@ function handleChange(e) {
 
           hideLoading();
           cardContainer.innerHTML = allSearchCards;
-          handleModal(searchModal);
-        }
 
+          handleModal(searchModal);
+          activeObserver();
+        }
         handleFavorite();
       });
     });
@@ -797,7 +806,9 @@ function handleChange(e) {
           hideLoading();
 
           cardContainer.innerHTML = allSearchCards;
+
           handleModal(searchModal);
+          activeObserver();
         } else {
           notFoundText.style.display = "none";
 
@@ -809,13 +820,10 @@ function handleChange(e) {
           );
           hideLoading();
 
-          const cardsOnScreen = document.querySelectorAll(
-            ".cards-container  .one-card-view__card"
-          );
-          lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
-
           cardContainer.innerHTML = allSearchCards;
+
           handleModal(searchModal);
+          activeObserver();
         }
 
         handleFavorite();
@@ -833,6 +841,8 @@ function handleHomeText() {
   lastSearches.style.color = "#fff";
   cardContainer.innerHTML = "";
   counter = 0;
+  menu.classList.add("menu-disable");
+  menu.classList.remove("menu-active");
 
   if (threeViewVal) {
     cardsDisplay(

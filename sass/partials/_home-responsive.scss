@@ -81,16 +81,24 @@
       height: 200px;
       list-style: none;
 
+      li {
+        position: relative;
+      }
+
       & > li:first-child {
-        a {
+        button {
           color: var(--primary-color);
         }
       }
       li {
-        a {
+        button {
+          @include secondaryBtns;
+
           width: 100%;
-          text-decoration: none;
           color: var(--text-color);
+          border-radius: 5px;
+
+          cursor: pointer;
 
           &:focus-visible {
             outline: 2px solid var(--primary-color);
@@ -157,8 +165,13 @@
 }
 
 // tablet
+@media (min-width: 912px) {
+  .menu-active {
+    visibility: hidden;
+  }
+}
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 912px) {
   .home__header {
     & > div {
       svg.logo {
@@ -174,6 +187,10 @@
     &-input__container {
       left: 28%;
       width: 53%;
+
+      img.cross {
+        left: calc(100% - 11vw);
+      }
     }
 
     &-user__container {
@@ -195,7 +212,18 @@
       .banner-view-btns__container {
         margin-top: 0;
       }
+
+      .banner-text__container {
+        h1 {
+          font-size: 6vw;
+        }
+      }
     }
+  }
+
+  #loading {
+    top: 52%;
+    left: 49%;
   }
 
   .home__card__container {
@@ -453,7 +481,8 @@
   }
 
   #loading {
-    top: 39%;
+    top: 24%;
+    left: 47%;
   }
 
   .modal-root {

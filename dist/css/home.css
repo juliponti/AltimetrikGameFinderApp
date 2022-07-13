@@ -318,6 +318,7 @@ body {
 
 .home__header-input__container input {
   width: 95%;
+  max-width: 362px;
   height: 100%;
   padding: 0 37px;
   margin-bottom: 6px;
@@ -1297,8 +1298,9 @@ body {
 
 #loading {
   display: none;
-  position: relative;
-  top: 53%;
+  position: absolute;
+  top: 58%;
+  left: 58%;
   width: 2rem;
   height: 2rem;
   margin: 0 auto;
@@ -2113,17 +2115,26 @@ body {
   list-style: none;
 }
 
-.hamburger-menu__navbar > ul > li:first-child a {
+.hamburger-menu__navbar > ul li {
+  position: relative;
+}
+
+.hamburger-menu__navbar > ul > li:first-child button {
   color: var(--primary-color);
 }
 
-.hamburger-menu__navbar > ul li a {
+.hamburger-menu__navbar > ul li button {
+  border: transparent;
+  border-radius: 11px;
+  background-color: inherit;
+  cursor: pointer;
   width: 100%;
-  text-decoration: none;
   color: var(--text-color);
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.hamburger-menu__navbar > ul li a:focus-visible {
+.hamburger-menu__navbar > ul li button:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 5px;
 }
@@ -2196,7 +2207,13 @@ body {
   transition: all 0.3s ease;
 }
 
-@media screen and (max-width: 768px) {
+@media (min-width: 912px) {
+  .menu-active {
+    visibility: hidden;
+  }
+}
+
+@media screen and (max-width: 912px) {
   .home__header > div svg.logo {
     display: none;
   }
@@ -2207,6 +2224,9 @@ body {
   .home__header-input__container {
     left: 28%;
     width: 53%;
+  }
+  .home__header-input__container img.cross {
+    left: calc(100% - 11vw);
   }
   .home__header-user__container {
     display: none;
@@ -2220,6 +2240,13 @@ body {
   }
   .home__main__banner-section .banner-view-btns__container {
     margin-top: 0;
+  }
+  .home__main__banner-section .banner-text__container h1 {
+    font-size: 6vw;
+  }
+  #loading {
+    top: 52%;
+    left: 49%;
   }
   .home__card__container {
     -ms-grid-columns: (364px)[2];
@@ -2463,7 +2490,8 @@ body {
     display: block;
   }
   #loading {
-    top: 39%;
+    top: 24%;
+    left: 47%;
   }
   .modal-root.visible {
     background-color: transparent;
