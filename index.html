@@ -21,6 +21,18 @@
     <title>Altimetrik Game Finder App</title>
   </head>
   <body class="theme--dark">
+    <script>
+      const checkToken = (() => {
+        const _token = localStorage.getItem("token");
+        return () => {
+          if (_token) {
+            window.location.replace("./pages/home/index.html");
+          }
+        };
+      })();
+
+      checkToken();
+    </script>
     <!-- Header -->
     <header class="header">
       <div>
