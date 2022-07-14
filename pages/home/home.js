@@ -1,16 +1,22 @@
 import {
-  debounce,
-  optionButton,
-  displayLoading,
-  hideLoading,
-  months,
-  platformsImg,
+  activeObserver,
   cardsDisplay,
-  skeleton,
+  debounce,
+  displayLoader,
+  formatDate,
+  getDescription,
   getGames,
+  getTrailer,
+  handleFavorite,
+  handleModal,
+  handleViewDisplay,
+  hideLoader,
+  optionButton,
+  months,
+  organizeInfo,
+  organizePlataforms,
+  platformsImg,
 } from "./utils.js";
-
-const apiKey = "key=6279dfde42014c419a2323685fcd031f";
 
 // header
 const input = document.getElementById("home-input");
@@ -28,10 +34,8 @@ const oneVwIcon = document.getElementById("one-vw-icon");
 const oneCardVwBtn = document.getElementById("one-card-view-btn");
 
 // primary-section
-
 const cardContainer = document.getElementById("cards-container");
 const notFoundText = document.getElementById("not-found");
-const gamesUrl = `https://api.rawg.io/api/games?${apiKey}&page=1`;
 
 //modal
 const modalRoot = document.getElementById("modal-root");
@@ -44,15 +48,18 @@ const menu = document.getElementById("hamburger-menu");
 const homeText = document.getElementById("home-text");
 const menuHomeText = document.getElementById("menu-home-text");
 
+const lastResults = [];
+const apiKey = "key=6279dfde42014c419a2323685fcd031f";
+const gamesUrl = `https://api.rawg.io/api/games?${apiKey}&page=1`;
+
 let counter = 0;
 let currentValue;
-
 let threeViewVal;
 let oneViewVal;
-
-let lastResults = [];
 let nextPage;
 let modalBg;
+
+// It watch the last card to know when to do the next fetch
 
 let observer = new IntersectionObserver(
   (entry) => {
@@ -85,6 +92,7 @@ cross.addEventListener("click", () => {
   cross.style.visibility = "hidden";
 });
 
+// Listen to change the card view
 threeCardVwBtn.addEventListener("click", handleThreeView);
 oneCardVwBtn.addEventListener("click", handleOneView);
 
@@ -94,97 +102,65 @@ menuHomeText.addEventListener("click", handleHomeText);
 lastSearches.addEventListener("click", handleLastSearches);
 lastSearches.addEventListener("keypress", handleLastSearches);
 
+// It listen to change the bg-gradient in different screen sizes
 window.addEventListener("resize", () => {
   if (screen.width < 420) {
     bgGradient(9.4);
   } else if (screen.width >= 420 && screen.width < 906) {
     bgGradient(30.4);
+    hamburgerIcon.style.display = "block";
   } else if (screen.width >= 906) {
     bgGradient(84.4);
+    hamburgerIcon.style.display = "none";
   }
   modalDoc.style.backgroundImage = modalBg;
 });
 
+// Closing modal
 closeBtn?.addEventListener("click", () => {
   modalRoot.classList.remove("visible");
 });
-modalRoot.addEventListener("click", () => {
-  modalRoot.classList.remove("visible");
-  hamburgerIcon.style.display = "block";
-  goBackArrow.style.display = "none";
+
+modalRoot.addEventListener("click", (e) => {
+  if (e.target === modalRoot) {
+    modalRoot.classList.remove("visible");
+    if (screen.width <= 414) {
+      hamburgerIcon.style.display = "block";
+      goBackArrow.style.display = "none";
+    }
+  }
 });
-
-// adds a profile pic if there is one or the initials if there isn't
-
-if (localStorage.getItem("picture") == "true") {
-  userImg.style.backgroundImage = `url("../../assets/desktop/home/header/Custom.png")`;
-} else {
-  userImg.style.backgroundImage = `url("../../assets/desktop/home/header/EmptyState.png")`;
-}
 
 // card view in three columns active by default
 
 threeViewVal = true;
 oneViewVal = false;
 
+// Global variables
 let gameData;
 let movies;
-let favorite;
-let title;
 let searchData;
 let isLoading = false;
 let bgImg;
 const bgDefault = "../../assets/desktop/home/card/bg-default.jpg";
 
-// Cards component
-
-function getDescription(gameData) {
-  let completeGameData;
-  const promises = [];
-
-  gameData.forEach((game) => {
-    const gameId = game.id;
-
-    const gameFetch = fetch(
-      `https://api.rawg.io/api/games/${gameId}?${apiKey}&`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        completeGameData = Object.assign(game, data);
-
-        return completeGameData;
-      });
-
-    promises.push(gameFetch);
-  });
-
-  return Promise.all(promises);
-}
+// Cards & Modal component
 
 const card = (page) =>
   page.map((result) => {
     let genreTitle = "";
-    let consoles = [];
     let date = result.released;
+    let formatDateStr;
 
+    const consoles = [];
     const genres = result.genres;
     const parentPlatforms = result.parent_platforms;
 
-    date = date.split("-");
-    const month = date[1];
-    const currentMonth = months[month];
-    const formatDayStr = `${currentMonth} ${date[2]}, ${date[0]}`;
-
     counter = counter + 1;
 
-    genres.forEach((genre) => {
-      genreTitle += `${genre.name}, `;
-    });
-
-    parentPlatforms.forEach((platform) => {
-      const id = platform.platform.id;
-      consoles.push(platformsImg[id]);
-    });
+    formatDate(date, months, formatDateStr);
+    organizeInfo(genres, genreTitle);
+    organizePlataforms(parentPlatforms, consoles, platformsImg);
 
     return `<button class=${
       threeViewVal ? "home__main__card" : "one-card-view__card"
@@ -207,7 +183,7 @@ const card = (page) =>
                    <div>
                      <div>
                         <p>Release date:</p>
-                        <p>${formatDayStr || "No date avaiable"}</p>
+                        <p>${formatDateStr || "No date avaiable"}</p>
                      </div>
                      <div>
                         <p>Genres:</p>
@@ -231,13 +207,14 @@ const card = (page) =>
 const modal = (currentGame) =>
   currentGame.map((result) => {
     let genreTitle = "";
-    let consoles = [];
     let allPlatforms = "";
-    let shortScreenshots = [];
     let publisher = "";
     let developed = "";
     let date = result.released;
+    let formatDateStr;
 
+    const consoles = [];
+    const shortScreenshots = [];
     const genres = result.genres;
     const publishers = result.publishers;
     const developers = result.developers;
@@ -245,29 +222,13 @@ const modal = (currentGame) =>
     const parentPlatforms = result.parent_platforms;
     const screenshot = result.short_screenshots;
     const clip = movies?.data;
-
-    const newDate = date?.split("-");
-    const month = newDate[1];
-    const currentMonth = months[month];
-    const formatDayStr = `${currentMonth} ${date[2]}, ${date[0]}`;
     bgImg = result.background_image;
 
-    genres.forEach((genre) => {
-      genreTitle += `${genre.name}, `;
-    });
-
-    developers.forEach((dev) => {
-      developed += `${dev.name}, `;
-    });
-
-    publishers.forEach((p) => {
-      publisher += `${p.name}, `;
-    });
-
-    parentPlatforms.forEach((platform) => {
-      const id = platform.platform.id;
-      consoles.push(platformsImg[id]);
-    });
+    formatDate(date, months, formatDateStr);
+    organizeInfo(genres, genreTitle);
+    organizeInfo(developers, developed);
+    organizeInfo(publishers, publisher);
+    organizePlataforms(parentPlatforms, consoles, platformsImg);
 
     platforms.forEach((platform) => {
       const name = platform.platform.name;
@@ -306,7 +267,7 @@ const modal = (currentGame) =>
     </div>
     <h1 class="modal-title">${result.name}</h1>
    <div class="modal-chips__container">
-     <div><p>${formatDayStr || "No date avaiable"}</p></div>
+     <div><p>${formatDateStr || "No date avaiable"}</p></div>
      <div>
        <span>#${result.rating_top}</span>
        <p>TOP 2021</p>
@@ -350,7 +311,7 @@ const modal = (currentGame) =>
        </div>
        <div>
          <p>Release date</p>
-         <p>${formatDayStr || "No date avaiable"}</p>
+         <p>${formatDateStr || "No date avaiable"}</p>
        </div>
        <div>
          <p>Publisher</p>
@@ -448,6 +409,8 @@ const modal = (currentGame) =>
  </div>`;
   });
 
+// modal gradient handler
+
 function bgGradient(num) {
   modalBg = `linear-gradient(
       180deg,
@@ -456,25 +419,17 @@ function bgGradient(num) {
     ), url("${bgImg || bgDefault}")`;
 }
 
-function activeObserver() {
-  const cardsOnScreen = document.querySelectorAll(
-    ".cards-container  .home__main__card"
-  );
-
-  lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
-  observer.observe(lastCardOnScreen);
-}
-
 // Display last searches cards
 
 function handleLastSearches() {
-  displayLoading();
+  displayLoader();
   cardContainer.innerHTML = "";
   cardContainer.style.height = "auto";
-  hideLoading();
   lastSearches.style.color = "#5fe19b";
   homeText.style.color = "#fff";
+
   if (lastResults.length == 0 || !lastResults) {
+    hideLoader();
     notFoundText.style.display = "block";
     notFoundText.innerHTML = `No searches were made`;
   } else {
@@ -486,28 +441,14 @@ function handleLastSearches() {
       allLastCards += lastCards;
     });
 
-    if (threeViewVal) {
-      cardsDisplay(
-        "one-card-view__card__container",
-        "home__card__container",
-        "one-card-view__card",
-        "home__main__card"
-      );
-    } else {
-      cardsDisplay(
-        "home__card__container",
-        "one-card-view__card__container",
-        "home__main__card",
-        "one-card-view__card"
-      );
-    }
-
+    handleViewDisplay(threeViewVal, cardsDisplay);
+    hideLoader();
     cardContainer.innerHTML = allLastCards;
-    handleFavorite();
+    handleFavorite(addFavorite);
   }
 }
 
-// Card View Displays
+// Handle Card View Displays
 
 function handleThreeView() {
   threeVwIcon.classList.add("active");
@@ -551,7 +492,7 @@ function handleOneView() {
   );
 }
 
-// Like cards
+// Like cards handler
 
 function addFavorite(e) {
   const heart = e.target;
@@ -574,15 +515,8 @@ let lastCardOnScreen;
 
 // Fetch games
 
-function displaySkeleton() {
-  for (let i = 0; i < 10; i++) {
-    const cardSkeleton = skeleton();
-    cardContainer.innerHTML += cardSkeleton;
-  }
-}
-
 function onLoad(gamesUrl) {
-  displaySkeleton();
+  displayLoader();
   homeText.style.color = `#5fe19b`;
   lastSearches.style = "#fff";
   notFoundText.style.display = "none";
@@ -593,64 +527,36 @@ function onLoad(gamesUrl) {
 
     allData.push(...gameData);
 
-    getDescription(gameData).then((data) => {
-      cardContainer.innerHTML = "";
+    getDescription(gameData, apiKey).then((data) => {
       const currentCard = card(data);
       const allCards = currentCard.join(" ");
 
       cardContainer.innerHTML += allCards;
 
-      hideLoading();
+      hideLoader();
       handleModal(displayModal);
-      handleFavorite();
+      handleFavorite(addFavorite);
+      activeObserver(lastCardOnScreen, observer);
 
       isLoading = false;
-
-      activeObserver();
     });
   });
 }
 
-function handleModal(fn) {
-  title = document.getElementsByClassName("title");
-  Array.from(title).forEach((title) => title.addEventListener("click", fn));
-}
-
-function handleFavorite() {
-  favorite = document.getElementsByClassName("favorite");
-  Array.from(favorite).forEach((heart) =>
-    heart.addEventListener("click", addFavorite)
-  );
-}
-
-// modal
-
-function getTrailer(gameId) {
-  const trailers = fetch(
-    `https://api.rawg.io/api/games/${gameId}/movies?${apiKey}&`
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      const clips = data.results;
-
-      return clips;
-    });
-
-  return trailers;
-}
+// Modal
 
 function displayModal(e) {
-  displayLoading();
+  displayLoader();
   getModalInfo(allData, e);
 }
 
 function searchModal(e) {
-  displayLoading();
+  displayLoader();
   getModalInfo(searchData, e);
 }
 
 function getModalInfo(gameData, e) {
-  getDescription(gameData).then((data) => {
+  getDescription(gameData, apiKey).then((data) => {
     const currentName = e.target.innerHTML;
 
     const currentGame = data.filter((item) => {
@@ -661,7 +567,7 @@ function getModalInfo(gameData, e) {
 
     if (currentGame.length > 0) {
       const gameId = currentGame[0].id;
-      const trailer = getTrailer(gameId);
+      const trailer = getTrailer(gameId, apiKey);
       trailer.then((data) => {
         if (data) {
           movies = data[0];
@@ -671,7 +577,7 @@ function getModalInfo(gameData, e) {
         modalDoc.innerHTML = activeModal;
         modalDoc.style.backgroundImage = modalBg;
         modalRoot.classList.add("visible");
-        hideLoading();
+        hideLoader();
       });
     }
   });
@@ -685,6 +591,7 @@ function handleChange(e) {
   const platformNames = Object.keys(consoles);
 
   currentValue = inputValue.toLowerCase();
+  notFoundText.style.display = "none";
   cross.style.visibility = "visible";
 
   if (!currentValue || (!currentValue && e.keyCode === 13)) {
@@ -695,7 +602,7 @@ function handleChange(e) {
 
     onLoad(gamesUrl);
   } else if (currentValue && platformNames.includes(currentValue)) {
-    displaySkeleton();
+    displayLoader();
     const id = consoles[currentValue];
     const platformsUrl = `https://api.rawg.io/api/games?${apiKey}&parent_platforms=${id}`;
 
@@ -704,51 +611,24 @@ function handleChange(e) {
       nextPage = data.next;
       let allSearchCards;
 
-      getDescription(longData).then((data) => {
+      getDescription(longData, apiKey).then((data) => {
         cardContainer.innerHTML = "";
         searchData = data;
         const searchCard = card(data);
         allSearchCards = searchCard.join(" ");
 
-        if (!allSearchCards) {
-          notFoundText.classList.add("not-found-text");
-          cardContainer.innerHTML = "";
-          notFoundText.innerHTML = "No search results";
-        } else if (threeViewVal) {
-          notFoundText.style.display = "none";
-          cardsDisplay(
-            "one-card-view__card__container",
-            "home__card__container",
-            "one-card-view__card",
-            "home__main__card"
-          );
+        handleViewDisplay(threeViewVal, cardsDisplay);
+        hideLoader();
+        layer.style.display = "none";
+        cardContainer.innerHTML = allSearchCards;
+        handleModal(searchModal);
+        activeObserver(lastCardOnScreen, observer);
 
-          hideLoading();
-          layer.style.display = "none";
-          cardContainer.innerHTML = allSearchCards;
-
-          handleModal(searchModal);
-          activeObserver();
-        } else {
-          notFoundText.style.display = "none";
-          cardsDisplay(
-            "home__card__container",
-            "one-card-view__card__container",
-            "home__main__card",
-            "one-card-view__card"
-          );
-
-          hideLoading();
-          cardContainer.innerHTML = allSearchCards;
-
-          handleModal(searchModal);
-          activeObserver();
-        }
-        handleFavorite();
+        handleFavorite(addFavorite);
       });
     });
   } else if (currentValue.length >= 3 || e.keyCode === 13) {
-    displaySkeleton();
+    displayLoader();
     const searchUrl = `https://api.rawg.io/api/games?${apiKey}&search=${currentValue}`;
 
     getGames(searchUrl).then((data) => {
@@ -786,51 +666,26 @@ function handleChange(e) {
         }
       }
 
-      getDescription(longData).then((data) => {
+      getDescription(longData, apiKey).then((data) => {
         cardContainer.innerHTML = "";
         searchData = data;
         const searchCard = card(data);
         allSearchCards = searchCard.join(" ");
 
         if (!allSearchCards) {
-          notFoundText.style.display = "block";
           cardContainer.innerHTML = "";
-
-          notFoundText.innerHTML = `No results found`;
-          hideLoading();
-        } else if (threeViewVal) {
-          notFoundText.style.display = "none";
-
-          cardsDisplay(
-            "one-card-view__card__container",
-            "home__card__container",
-            "one-card-view__card",
-            "home__main__card"
-          );
-          hideLoading();
-
-          cardContainer.innerHTML = allSearchCards;
-
-          handleModal(searchModal);
-          activeObserver();
+          notFoundText.style.display = "block";
+          notFoundText.innerHTML = "No search results";
         } else {
+          handleViewDisplay(threeViewVal, cardsDisplay);
           notFoundText.style.display = "none";
-
-          cardsDisplay(
-            "home__card__container",
-            "one-card-view__card__container",
-            "home__main__card",
-            "one-card-view__card"
-          );
-          hideLoading();
-
+          layer.style.display = "none";
+          hideLoader();
           cardContainer.innerHTML = allSearchCards;
-
           handleModal(searchModal);
-          activeObserver();
+          activeObserver(lastCardOnScreen, observer);
+          handleFavorite(addFavorite);
         }
-
-        handleFavorite();
       });
     });
   }
@@ -848,25 +703,20 @@ function handleHomeText() {
   menu.classList.add("menu-disable");
   menu.classList.remove("menu-active");
 
-  if (threeViewVal) {
-    cardsDisplay(
-      "one-card-view__card__container",
-      "home__card__container",
-      "one-card-view__card",
-      "home__main__card"
-    );
-  } else {
-    cardsDisplay(
-      "home__card__container",
-      "one-card-view__card__container",
-      "home__main__card",
-      "one-card-view__card"
-    );
-  }
+  handleViewDisplay(threeViewVal, cardsDisplay);
+
   allData = [];
   onLoad(gamesUrl);
 }
 
+// First to execute
+
 window.addEventListener("load", () => {
+  // adds a profile pic if there is one or the initials if there isn't
+  if (localStorage.getItem("picture") == "true") {
+    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/Custom.png")`;
+  } else {
+    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/EmptyState.png")`;
+  }
   onLoad(gamesUrl);
 });

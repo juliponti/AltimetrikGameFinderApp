@@ -22,17 +22,12 @@
   </head>
   <body class="theme--dark">
     <script>
-      const checkToken = (() => {
-        const _token = localStorage.getItem("token");
-        return () => {
-          if (!_token) {
-            alert("Not allowed. You need to log in");
-            window.location.replace("../../index.html");
-          }
-        };
-      })();
+      const token = localStorage.getItem("token");
 
-      checkToken();
+      if (!token) {
+        alert("Not allowed. You need to log in");
+        window.location.replace("../../index.html");
+      }
     </script>
     <div id="layer" class="overlayer"></div>
     <!-- Header -->

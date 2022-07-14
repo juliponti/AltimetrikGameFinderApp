@@ -25,12 +25,12 @@ export const optionButton = (options) =>
   `;
   });
 
-export const displayLoading = () => {
+export const displayLoader = () => {
   const loader = document.getElementById("loading");
   loader.classList.add("display");
 };
 
-export const hideLoading = () => {
+export const hideLoader = () => {
   const loader = document.getElementById("loading");
   loader.classList.remove("display");
 };
@@ -88,32 +88,105 @@ export const cardsDisplay = (hiddenP, activeP, hiddenC, activeC) => {
   );
 };
 
-export const skeleton = () => {
-  return `
-  <div class="skeleton">
-  <div class="skeleton__container">
-    <div class="skeleton__container-top">
-      <div class="skeleton-bar top"></div>
-       <div class="skeleton-circle"></div>
-     </div>
-  
-    <div class="skeleton__container-bottom">
-     <div>
-       <div class="skeleton-bar bottom" ></div>
-       <div class="skeleton-bar bottom"></div>
-     </div>
-     <div>
-       <div class="skeleton-bar bottom"></div>
-       <div class="skeleton-bar bottom"></div>
-     </div>
-   </div>
-  </div>
-  `;
-};
-
 export async function getGames(url) {
   const getData = await fetch(url);
   const dataToJson = await getData.json();
 
   return dataToJson;
 }
+
+export const organizeInfo = (parent, newParent) => {
+  parent.forEach((child) => {
+    newParent += `${child.name}, `;
+  });
+};
+
+export const organizePlataforms = (parentPlatform, newParent, platformsImg) => {
+  parentPlatform.forEach((platform) => {
+    const id = platform.platform.id;
+    newParent.push(platformsImg[id]);
+  });
+};
+
+export const formatDate = (date, months, formatDayStr) => {
+  const newDate = date?.split("-");
+  const month = newDate[1];
+  const currentMonth = months[month];
+  return (formatDayStr = `${currentMonth} ${date[2]}, ${date[0]}`);
+};
+
+export const handleViewDisplay = (view, fn) => {
+  if (view) {
+    fn(
+      "one-card-view__card__container",
+      "home__card__container",
+      "one-card-view__card",
+      "home__main__card"
+    );
+  } else {
+    fn(
+      "home__card__container",
+      "one-card-view__card__container",
+      "home__main__card",
+      "one-card-view__card"
+    );
+  }
+};
+
+export const handleModal = (fn) => {
+  const title = document.getElementsByClassName("title");
+  Array.from(title).forEach((title) => title.addEventListener("click", fn));
+};
+
+export const handleFavorite = (fn) => {
+  const favorite = document.getElementsByClassName("favorite");
+  Array.from(favorite).forEach((heart) => heart.addEventListener("click", fn));
+};
+
+export const getTrailer = (gameId, apiKey) => {
+  const trailers = fetch(
+    `https://api.rawg.io/api/games/${gameId}/movies?${apiKey}&`
+  )
+    .then((res) => res.json())
+    .then((data) => {
+      const clips = data.results;
+
+      return clips;
+    });
+
+  return trailers;
+};
+
+export const getDescription = (gameData, apiKey) => {
+  let completeGameData;
+  const promises = [];
+
+  gameData.forEach((game) => {
+    const gameId = game.id;
+
+    const gameFetch = fetch(
+      `https://api.rawg.io/api/games/${gameId}?${apiKey}&`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        completeGameData = Object.assign(game, data);
+
+        return completeGameData;
+      });
+
+    promises.push(gameFetch);
+  });
+
+  return Promise.all(promises);
+};
+
+export const activeObserver = (lastCardOnScreen, observer) => {
+  const cardsOnScreen = document.querySelectorAll(
+    ".cards-container  .home__main__card"
+  );
+
+  lastCardOnScreen = cardsOnScreen[cardsOnScreen.length - 1];
+  if (lastCardOnScreen) {
+    observer.observe(lastCardOnScreen);
+  }
+};

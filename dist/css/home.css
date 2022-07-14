@@ -1560,6 +1560,7 @@ body {
 }
 
 .not-found-text {
+  display: block;
   color: var(--text-color);
   font-size: 2rem;
   text-align: center;
@@ -1838,7 +1839,7 @@ body {
   background-repeat: no-repeat;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
-  z-index: 2;
+  z-index: 4;
 }
 
 .modal > div:first-child {

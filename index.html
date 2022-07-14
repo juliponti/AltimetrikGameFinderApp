@@ -22,16 +22,11 @@
   </head>
   <body class="theme--dark">
     <script>
-      const checkToken = (() => {
-        const _token = localStorage.getItem("token");
-        return () => {
-          if (_token) {
-            window.location.replace("./pages/home/index.html");
-          }
-        };
-      })();
+      const token = localStorage.getItem("token");
 
-      checkToken();
+      if (token) {
+        window.location.replace("./pages/home/index.html");
+      }
     </script>
     <!-- Header -->
     <header class="header">
