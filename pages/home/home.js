@@ -40,7 +40,6 @@ const notFoundText = document.getElementById("not-found");
 //modal
 const modalRoot = document.getElementById("modal-root");
 const modalDoc = document.getElementById("modal");
-const closeBtn = document.querySelector(".modal-cross-btn");
 
 // aside
 const lastSearches = document.getElementById("last-searches");
@@ -75,6 +74,18 @@ let observer = new IntersectionObserver(
     threshhold: 1.0,
   }
 );
+
+// First to execute
+
+window.addEventListener("load", () => {
+  // adds a profile pic if there is one or the initials if there isn't
+  if (localStorage.getItem("picture") == "true") {
+    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/Custom.png")`;
+  } else {
+    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/EmptyState.png")`;
+  }
+  onLoad(gamesUrl);
+});
 
 window.addEventListener("click", () => {
   optionsContainer.innerHTML = "";
@@ -117,17 +128,12 @@ window.addEventListener("resize", () => {
 });
 
 // Closing modal
-closeBtn?.addEventListener("click", () => {
-  modalRoot.classList.remove("visible");
-});
 
-modalRoot.addEventListener("click", (e) => {
-  if (e.target === modalRoot) {
+modalRoot.addEventListener("click", () => {
+  if (screen.width <= 414) {
     modalRoot.classList.remove("visible");
-    if (screen.width <= 414) {
-      hamburgerIcon.style.display = "block";
-      goBackArrow.style.display = "none";
-    }
+    hamburgerIcon.style.display = "block";
+    goBackArrow.style.display = "none";
   }
 });
 
@@ -148,27 +154,22 @@ const bgDefault = "../../assets/desktop/home/card/bg-default.jpg";
 
 const card = (page) =>
   page.map((result) => {
-    let genreTitle = "";
     let date = result.released;
-    let formatDateStr;
 
+    const { genres, parent_platforms, background_image, name, description } =
+      result;
     const consoles = [];
-    const genres = result.genres;
-    const parentPlatforms = result.parent_platforms;
+    const formatDateStr = formatDate(date, months);
+    const genreTitle = organizeInfo(genres);
 
+    organizePlataforms(parent_platforms, consoles, platformsImg);
     counter = counter + 1;
-
-    formatDate(date, months, formatDateStr);
-    organizeInfo(genres, genreTitle);
-    organizePlataforms(parentPlatforms, consoles, platformsImg);
 
     return `<button class=${
       threeViewVal ? "home__main__card" : "one-card-view__card"
     } aria-label="game card">
           <div>
-                 <img src="${result.background_image || bgDefault}" alt="${
-      result.name
-    }"/>
+                 <img src="${background_image || bgDefault}" alt="${name}"/>
            <svg class="favorite" width="22" height="21" viewBox="0 0 22 21" fill="white" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M6.33301 3.33342C4.47967 3.33342 2.99967 4.81742 2.99967 6.62275C2.99967 8.65475 4.17567 10.8228 5.99434 12.9468C7.52234 14.7294 9.37834 16.3374 10.9997 17.6348C12.621 16.3374 14.477 14.7281 16.005 12.9468C17.8237 10.8228 18.9997 8.65342 18.9997 6.62275C18.9997 4.81742 17.5197 3.33342 15.6663 3.33342C13.813 3.33342 12.333 4.81742 12.333 6.62275C12.333 6.97638 12.1925 7.31552 11.9425 7.56556C11.6924 7.81561 11.3533 7.95609 10.9997 7.95609C10.6461 7.95609 10.3069 7.81561 10.0569 7.56556C9.80682 7.31552 9.66634 6.97638 9.66634 6.62275C9.66634 4.81742 8.18634 3.33342 6.33301 3.33342ZM10.9997 2.87875C10.4351 2.18642 9.72327 1.62865 8.91602 1.24601C8.10876 0.863371 7.22636 0.665487 6.33301 0.666754C3.03167 0.666754 0.333008 3.32009 0.333008 6.62275C0.333008 9.62409 2.02234 12.4094 3.96901 14.6814C5.94367 16.9868 8.36501 18.9721 10.181 20.3854C10.4151 20.5675 10.7031 20.6663 10.9997 20.6663C11.2962 20.6663 11.5843 20.5675 11.8183 20.3854C13.6343 18.9721 16.0557 16.9854 18.0303 14.6814C19.977 12.4094 21.6663 9.62409 21.6663 6.62275C21.6663 3.32009 18.9677 0.666754 15.6663 0.666754C13.7863 0.666754 12.101 1.52809 10.9997 2.87875Z"
                 fill="white" class="liked"/>
@@ -176,7 +177,7 @@ const card = (page) =>
          </div>
          <div>
                  <div>
-                   <h3 class="title">${result.name}</h3>
+                   <h3 class="title">${name}</h3>
                    <span class="id">#${counter}</span>
                  </div>
                  <div>
@@ -198,7 +199,7 @@ const card = (page) =>
                    </div>
                  </div>
                  <div>
-                    <p>${result.description || "No description available"}</p>
+                    <p>${description || "No description available"}</p>
                  </div>
           </div>
     </button>`;
@@ -206,36 +207,39 @@ const card = (page) =>
 
 const modal = (currentGame) =>
   currentGame.map((result) => {
-    let genreTitle = "";
     let allPlatforms = "";
-    let publisher = "";
-    let developed = "";
     let date = result.released;
-    let formatDateStr;
 
     const consoles = [];
     const shortScreenshots = [];
-    const genres = result.genres;
-    const publishers = result.publishers;
-    const developers = result.developers;
-    const platforms = result.platforms;
-    const parentPlatforms = result.parent_platforms;
-    const screenshot = result.short_screenshots;
-    const clip = movies?.data;
-    bgImg = result.background_image;
+    const {
+      genres,
+      publishers,
+      developers,
+      platforms,
+      parent_platforms,
+      short_screenshots,
+      name,
+      rating_top,
+      description,
+      website,
+    } = result;
 
-    formatDate(date, months, formatDateStr);
-    organizeInfo(genres, genreTitle);
-    organizeInfo(developers, developed);
-    organizeInfo(publishers, publisher);
-    organizePlataforms(parentPlatforms, consoles, platformsImg);
+    const clip = movies?.data;
+    const formatDateStr = formatDate(date, months);
+    const genreTitle = organizeInfo(genres);
+    const developed = organizeInfo(developers);
+    const publisher = organizeInfo(publishers);
+
+    organizePlataforms(parent_platforms, consoles, platformsImg);
+    bgImg = result.background_image;
 
     platforms.forEach((platform) => {
       const name = platform.platform.name;
       allPlatforms += `${name}, `;
     });
 
-    screenshot.forEach((img) => {
+    short_screenshots.forEach((img) => {
       const images = img.image;
       shortScreenshots.push(images);
     });
@@ -265,11 +269,11 @@ const modal = (currentGame) =>
     <div class="modal-platforms__container">
      ${consoles.join("")}
     </div>
-    <h1 class="modal-title">${result.name}</h1>
+    <h1 class="modal-title">${name}</h1>
    <div class="modal-chips__container">
      <div><p>${formatDateStr || "No date avaiable"}</p></div>
      <div>
-       <span>#${result.rating_top}</span>
+       <span>#${rating_top}</span>
        <p>TOP 2021</p>
      </div>
      <div>
@@ -278,7 +282,7 @@ const modal = (currentGame) =>
      </div>
    </div>
    <div class="modal-description">
-   ${result.description || "No description available"}
+   ${description || "No description available"}
    </div>
    <div class="modal-primary-btns__container">
      <button>
@@ -319,8 +323,8 @@ const modal = (currentGame) =>
        </div>
        <div>
          <p>Website</p>
-         <a href=${result.website}" target="_blank">${
-      result.website || "No website avaiable"
+         <a href=${website}" target="_blank">${
+      website || "No website avaiable"
     }</a>
        </div>
      </div>
@@ -578,6 +582,10 @@ function getModalInfo(gameData, e) {
         modalDoc.style.backgroundImage = modalBg;
         modalRoot.classList.add("visible");
         hideLoader();
+        const closeBtn = document.querySelector(".modal-cross-btn");
+        closeBtn.addEventListener("click", () => {
+          modalRoot.classList.remove("visible");
+        });
       });
     }
   });
@@ -607,11 +615,11 @@ function handleChange(e) {
     const platformsUrl = `https://api.rawg.io/api/games?${apiKey}&parent_platforms=${id}`;
 
     getGames(platformsUrl).then((data) => {
-      const longData = data.results;
-      nextPage = data.next;
+      const { results, next } = data;
+      nextPage = next;
       let allSearchCards;
 
-      getDescription(longData, apiKey).then((data) => {
+      getDescription(results, apiKey).then((data) => {
         cardContainer.innerHTML = "";
         searchData = data;
         const searchCard = card(data);
@@ -632,18 +640,19 @@ function handleChange(e) {
     const searchUrl = `https://api.rawg.io/api/games?${apiKey}&search=${currentValue}`;
 
     getGames(searchUrl).then((data) => {
-      const longData = data.results;
-      const shortData = longData.slice(0, 4);
+      const { results, next } = data;
+
+      const shortData = results.slice(0, 4);
       const searchResults = [];
       const allSearchResults = [];
 
       searchResults.push(shortData);
-      allSearchResults.push(longData);
-      nextPage = data.next;
-      const l = searchResults.length;
+      allSearchResults.push(results);
+      nextPage = next;
+      const searchResLength = searchResults.length;
       let allSearchCards;
 
-      for (let i = 0; i < l; i++) {
+      for (let i = 0; i < searchResLength; i++) {
         let item = searchResults[i];
         const firstResult = searchResults[i].slice(0, 1);
         lastResults.push(firstResult);
@@ -653,9 +662,9 @@ function handleChange(e) {
         optionsContainer.innerHTML = allOptions;
 
         const searchOption = document.getElementsByClassName("options");
-        const sl = searchOption.length;
+        const searchOptLength = searchOption.length;
 
-        for (let i = 0; i < sl; i++) {
+        for (let i = 0; i < searchOptLength; i++) {
           const element = searchOption[i];
           searchOption[i].addEventListener("click", () => {
             const currentOption = element.value;
@@ -666,7 +675,7 @@ function handleChange(e) {
         }
       }
 
-      getDescription(longData, apiKey).then((data) => {
+      getDescription(results, apiKey).then((data) => {
         cardContainer.innerHTML = "";
         searchData = data;
         const searchCard = card(data);
@@ -708,15 +717,3 @@ function handleHomeText() {
   allData = [];
   onLoad(gamesUrl);
 }
-
-// First to execute
-
-window.addEventListener("load", () => {
-  // adds a profile pic if there is one or the initials if there isn't
-  if (localStorage.getItem("picture") == "true") {
-    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/Custom.png")`;
-  } else {
-    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/EmptyState.png")`;
-  }
-  onLoad(gamesUrl);
-});

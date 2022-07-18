@@ -95,10 +95,13 @@ export async function getGames(url) {
   return dataToJson;
 }
 
-export const organizeInfo = (parent, newParent) => {
+export const organizeInfo = (parent) => {
+  let newParent = "";
   parent.forEach((child) => {
     newParent += `${child.name}, `;
   });
+
+  return newParent;
 };
 
 export const organizePlataforms = (parentPlatform, newParent, platformsImg) => {
@@ -108,11 +111,11 @@ export const organizePlataforms = (parentPlatform, newParent, platformsImg) => {
   });
 };
 
-export const formatDate = (date, months, formatDayStr) => {
+export const formatDate = (date, months) => {
   const newDate = date?.split("-");
   const month = newDate[1];
   const currentMonth = months[month];
-  return (formatDayStr = `${currentMonth} ${date[2]}, ${date[0]}`);
+  return `${currentMonth} ${date[2]}, ${date[0]}`;
 };
 
 export const handleViewDisplay = (view, fn) => {
