@@ -2015,6 +2015,15 @@ body {
   right: 28px;
 }
 
+.modal-primary-btns__container > button:disabled {
+  opacity: 0.4;
+}
+
+.modal-primary-btns__container > button:hover {
+  -webkit-filter: drop-shadow(0px 3px 7px #5fe19b);
+          filter: drop-shadow(0px 3px 7px #5fe19b);
+}
+
 .modal-primary-btns__container > button:first-child {
   padding: 0 38px;
   background-color: #4cc986;
@@ -2022,9 +2031,19 @@ body {
   text-align: left;
 }
 
+.modal-primary-btns__container > button:first-child:active {
+  -webkit-filter: drop-shadow(0px 6px 0px #2bb34f);
+          filter: drop-shadow(0px 6px 0px #2bb34f);
+}
+
 .modal-primary-btns__container > button:nth-child(2) {
   border: 2px solid #4cc986;
   color: #4cc986;
+}
+
+.modal-primary-btns__container > button:nth-child(2):active {
+  -webkit-box-shadow: 0px 4px 0px #4cc986;
+          box-shadow: 0px 4px 0px #4cc986;
 }
 
 .modal-info__container {

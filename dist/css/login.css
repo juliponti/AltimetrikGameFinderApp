@@ -805,6 +805,11 @@ body {
   outline: 2px solid var(--primary-color);
 }
 
+.main .login__card__form--ssmm:active {
+  -webkit-box-shadow: 0px 4px 0px var(--ssmm-color);
+          box-shadow: 0px 4px 0px var(--ssmm-color);
+}
+
 .main .login__card__form--ssmm div {
   display: -webkit-box;
   display: -ms-flexbox;
