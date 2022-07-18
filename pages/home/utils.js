@@ -136,14 +136,9 @@ export const handleViewDisplay = (view, fn) => {
   }
 };
 
-export const handleModal = (fn) => {
-  const title = document.getElementsByClassName("title");
-  Array.from(title).forEach((title) => title.addEventListener("click", fn));
-};
-
-export const handleFavorite = (fn) => {
-  const favorite = document.getElementsByClassName("favorite");
-  Array.from(favorite).forEach((heart) => heart.addEventListener("click", fn));
+export const addEventListener = (classname, fn) => {
+  const element = document.getElementsByClassName(classname);
+  Array.from(element).forEach((item) => item.addEventListener("click", fn));
 };
 
 export const getTrailer = (gameId, apiKey) => {

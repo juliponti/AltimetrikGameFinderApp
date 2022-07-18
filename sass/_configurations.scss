@@ -222,9 +222,6 @@ $total-black: #000000;
   }
 }
 
-@mixin lightTheme {
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --header-color: #{transparent};

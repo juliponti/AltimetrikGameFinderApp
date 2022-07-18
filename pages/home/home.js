@@ -1,4 +1,5 @@
 import {
+  addEventListener,
   activeObserver,
   cardsDisplay,
   debounce,
@@ -7,8 +8,6 @@ import {
   getDescription,
   getGames,
   getTrailer,
-  handleFavorite,
-  handleModal,
   handleViewDisplay,
   hideLoader,
   optionButton,
@@ -304,7 +303,9 @@ const modal = (currentGame) =>
          />
        </svg>
      </button>
+     <div class="tooltip">coming soon...</div>
      <button>Purchase</button>
+     <div class="tooltip tooltip-modal-2">coming soon...</div>
    </div>
    </div> 
     <div class="modal-info__container">
@@ -448,7 +449,8 @@ function handleLastSearches() {
     handleViewDisplay(threeViewVal, cardsDisplay);
     hideLoader();
     cardContainer.innerHTML = allLastCards;
-    handleFavorite(addFavorite);
+    addEventListener("favorite", addFavorite);
+    // handleFavorite(addFavorite);
   }
 }
 
@@ -538,8 +540,8 @@ function onLoad(gamesUrl) {
       cardContainer.innerHTML += allCards;
 
       hideLoader();
-      handleModal(displayModal);
-      handleFavorite(addFavorite);
+      addEventListener("title", displayModal);
+      addEventListener("favorite", addFavorite);
       activeObserver(lastCardOnScreen, observer);
 
       isLoading = false;
@@ -629,10 +631,9 @@ function handleChange(e) {
         hideLoader();
         layer.style.display = "none";
         cardContainer.innerHTML = allSearchCards;
-        handleModal(searchModal);
+        addEventListener("title", searchModal);
         activeObserver(lastCardOnScreen, observer);
-
-        handleFavorite(addFavorite);
+        addEventListener("favorite", addFavorite);
       });
     });
   } else if (currentValue.length >= 3 || e.keyCode === 13) {
@@ -691,9 +692,9 @@ function handleChange(e) {
           layer.style.display = "none";
           hideLoader();
           cardContainer.innerHTML = allSearchCards;
-          handleModal(searchModal);
+          addEventListener("title", searchModal);
           activeObserver(lastCardOnScreen, observer);
-          handleFavorite(addFavorite);
+          addEventListener("favorite", addFavorite);
         }
       });
     });
