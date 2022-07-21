@@ -64,7 +64,7 @@ function handleTheme() {
 }
 
 function prevPicture() {
-  if (i == 0) {
+  if (i === 0) {
     i = 6;
     document.getElementById(`bullet-${i - 1}`).style.opacity = "1";
     document.getElementById(`bullet-0`).style.opacity = "0.25";

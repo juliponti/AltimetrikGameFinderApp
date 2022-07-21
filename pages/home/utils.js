@@ -1,3 +1,5 @@
+import { snackbar } from "../../utils.js";
+
 export const debounce = (fn, wait) => {
   let timeout;
 
@@ -89,10 +91,14 @@ export const cardsDisplay = (hiddenP, activeP, hiddenC, activeC) => {
 };
 
 export async function getGames(url) {
-  const getData = await fetch(url);
-  const dataToJson = await getData.json();
+  try {
+    const getData = await fetch(url);
+    const dataToJson = await getData.json();
 
-  return dataToJson;
+    return dataToJson;
+  } catch (err) {
+    snackbar(err);
+  }
 }
 
 export const organizeInfo = (parent) => {
@@ -115,7 +121,7 @@ export const formatDate = (date, months) => {
   const newDate = date?.split("-");
   const month = newDate[1];
   const currentMonth = months[month];
-  return `${currentMonth} ${date[2]}, ${date[0]}`;
+  return `${currentMonth} ${newDate[2]}, ${newDate[0]}`;
 };
 
 export const handleViewDisplay = (view, fn) => {
@@ -143,7 +149,7 @@ export const addEventListener = (classname, fn) => {
 
 export const getTrailer = (gameId, apiKey) => {
   const trailers = fetch(
-    `https://api.rawg.io/api/games/${gameId}/movies?${apiKey}&`
+    `https://api.rawg.io/api/games/${gameId}/movies?key=${apiKey}&`
   )
     .then((res) => res.json())
     .then((data) => {
@@ -163,7 +169,7 @@ export const getDescription = (gameData, apiKey) => {
     const gameId = game.id;
 
     const gameFetch = fetch(
-      `https://api.rawg.io/api/games/${gameId}?${apiKey}&`
+      `https://api.rawg.io/api/games/${gameId}?key=${apiKey}&`
     )
       .then((res) => res.json())
       .then((data) => {

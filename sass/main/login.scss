@@ -548,22 +548,7 @@ body {
 }
 
 .snackbar {
-  visibility: hidden;
-  position: fixed;
-  left: 50%;
-  bottom: 30px;
-
-  min-width: 250px;
-  padding: 16px;
-  margin-left: -125px;
-
-  border-radius: 16px;
-  background-color: $gray-500;
-
-  color: $white;
-  text-align: center;
-
-  z-index: 3;
+  @include snackbar;
 }
 
 .show {

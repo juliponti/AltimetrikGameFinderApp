@@ -16,6 +16,7 @@ import {
   organizePlataforms,
   platformsImg,
 } from "./utils.js";
+import { snackbar } from "../../utils.js";
 
 // header
 const input = document.getElementById("home-input");
@@ -47,8 +48,8 @@ const homeText = document.getElementById("home-text");
 const menuHomeText = document.getElementById("menu-home-text");
 
 const lastResults = [];
-const apiKey = "key=6279dfde42014c419a2323685fcd031f";
-const gamesUrl = `https://api.rawg.io/api/games?${apiKey}&page=1`;
+const apiKey = "ee6b843758f64be4bc31507ee6724e62";
+const gamesUrl = `https://api.rawg.io/api/games?key=${apiKey}&page=1`;
 
 let counter = 0;
 let currentValue;
@@ -226,6 +227,7 @@ const modal = (currentGame) =>
 
     const clip = movies?.data;
     const formatDateStr = formatDate(date, months);
+    console.log(formatDateStr);
     const genreTitle = organizeInfo(genres);
     const developed = organizeInfo(developers);
     const publisher = organizeInfo(publishers);
@@ -614,7 +616,7 @@ function handleChange(e) {
   } else if (currentValue && platformNames.includes(currentValue)) {
     displayLoader();
     const id = consoles[currentValue];
-    const platformsUrl = `https://api.rawg.io/api/games?${apiKey}&parent_platforms=${id}`;
+    const platformsUrl = `https://api.rawg.io/api/games?key=${apiKey}&parent_platforms=${id}`;
 
     getGames(platformsUrl).then((data) => {
       const { results, next } = data;
@@ -638,7 +640,7 @@ function handleChange(e) {
     });
   } else if (currentValue.length >= 3 || e.keyCode === 13) {
     displayLoader();
-    const searchUrl = `https://api.rawg.io/api/games?${apiKey}&search=${currentValue}`;
+    const searchUrl = `https://api.rawg.io/api/games?key=${apiKey}&search=${currentValue}`;
 
     getGames(searchUrl).then((data) => {
       const { results, next } = data;

@@ -135,27 +135,28 @@ function checkPassword() {
 }
 
 const login = async () => {
-  const rawResponse = await fetch("http://localhost:3000/login", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: inputEmail.value,
-      password: inputPsw.value,
-      picture: true | false,
-    }),
-  });
-  if (!rawResponse.ok) {
+  try {
+    const rawResponse = await fetch("http://localhost:3000/login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: inputEmail.value,
+        password: inputPsw.value,
+      }),
+    });
+
+    const content = await rawResponse.json();
+    localStorage.setItem("user", content.user.email);
+    localStorage.setItem("token", content.accessToken);
+    localStorage.setItem("picture", content.user.picture);
+    window.location.replace("./pages/home/index.html");
+  } catch (err) {
     const message = await rawResponse.json();
     snackbar(message);
   }
-  const content = await rawResponse.json();
-  localStorage.setItem("user", content.user.email);
-  localStorage.setItem("token", content.accessToken);
-  localStorage.setItem("picture", content.user.picture);
-  window.location.replace("./pages/home/index.html");
 };
 
 form.addEventListener("submit", function (e) {
