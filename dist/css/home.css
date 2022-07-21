@@ -1028,7 +1028,7 @@ body {
       grid-template-rows: repeat(auto-fill, 324px);
   gap: 15px 13px;
   width: 98%;
-  height: 200%;
+  height: auto;
   margin: 0 auto;
 }
 
@@ -2846,6 +2846,7 @@ body {
     -webkit-box-align: start;
         -ms-flex-align: start;
             align-items: flex-start;
+    padding-bottom: 20px;
   }
   .home__main__card > div:last-child > div:nth-child(2) > div:first-child {
     width: 100%;
