@@ -11,18 +11,16 @@ import {
   handleViewDisplay,
   hideLoader,
   optionButton,
-  months,
   organizeInfo,
   organizePlataforms,
-  platformsImg,
+  getElementById,
 } from "./utils.js";
-import { snackbar } from "../../utils.js";
+
+import { platformsImg, months } from "./variables.js";
 
 // header
 const input = document.getElementById("home-input");
-const cross = document.getElementById("cross");
 const layer = document.getElementById("layer");
-const userImg = document.getElementById("user-img-container");
 const hamburgerIcon = document.getElementById("hamburger");
 const goBackArrow = document.getElementById("go-back-arrow");
 
@@ -43,9 +41,7 @@ const modalDoc = document.getElementById("modal");
 
 // aside
 const lastSearches = document.getElementById("last-searches");
-const menu = document.getElementById("hamburger-menu");
 const homeText = document.getElementById("home-text");
-const menuHomeText = document.getElementById("menu-home-text");
 
 const lastResults = [];
 const apiKey = "ee6b843758f64be4bc31507ee6724e62";
@@ -57,6 +53,21 @@ let threeViewVal;
 let oneViewVal;
 let nextPage;
 let modalBg;
+let gameData;
+let movies;
+let searchData;
+let isLoading = false;
+let bgImg;
+let itsModalOpen = false;
+const bgDefault = "../../assets/desktop/home/card/bg-default.jpg";
+
+let allData = [];
+let lastCardOnScreen;
+
+// card view in three columns active by default
+
+threeViewVal = true;
+oneViewVal = false;
 
 // It watch the last card to know when to do the next fetch
 
@@ -75,18 +86,6 @@ let observer = new IntersectionObserver(
   }
 );
 
-// First to execute
-
-window.addEventListener("load", () => {
-  // adds a profile pic if there is one or the initials if there isn't
-  if (localStorage.getItem("picture") == "true") {
-    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/Custom.png")`;
-  } else {
-    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/EmptyState.png")`;
-  }
-  onLoad(gamesUrl);
-});
-
 window.addEventListener("click", () => {
   optionsContainer.innerHTML = "";
 });
@@ -98,31 +97,37 @@ input.addEventListener("focus", () => {
 input.addEventListener("blur", () => {
   layer.style.display = "none";
 });
-cross.addEventListener("click", () => {
+getElementById("cross").addEventListener("click", () => {
   input.value = "";
-  cross.style.visibility = "hidden";
+  getElementById("cross").style.visibility = "hidden";
 });
 
 // Listen to change the card view
 threeCardVwBtn.addEventListener("click", handleThreeView);
 oneCardVwBtn.addEventListener("click", handleOneView);
 
-homeText.addEventListener("click", handleHomeText);
-homeText.addEventListener("keypress", handleHomeText);
-menuHomeText.addEventListener("click", handleHomeText);
+homeText.addEventListener("click", handleHome);
+homeText.addEventListener("keypress", handleHome);
+getElementById("menu-home-text").addEventListener("click", handleHome);
 lastSearches.addEventListener("click", handleLastSearches);
 lastSearches.addEventListener("keypress", handleLastSearches);
 
 // It listen to change the bg-gradient in different screen sizes
+
 window.addEventListener("resize", () => {
   if (screen.width < 420) {
     bgGradient(9.4);
+    if (itsModalOpen) {
+      hamburgerIcon.style.display = "none";
+      goBackArrow.style.display = "block";
+    }
   } else if (screen.width >= 420 && screen.width < 906) {
     bgGradient(30.4);
     hamburgerIcon.style.display = "block";
   } else if (screen.width >= 906) {
     bgGradient(84.4);
     hamburgerIcon.style.display = "none";
+    goBackArrow.style.display = "none";
   }
   modalDoc.style.backgroundImage = modalBg;
 });
@@ -137,20 +142,7 @@ modalRoot.addEventListener("click", () => {
   }
 });
 
-// card view in three columns active by default
-
-threeViewVal = true;
-oneViewVal = false;
-
-// Global variables
-let gameData;
-let movies;
-let searchData;
-let isLoading = false;
-let bgImg;
-const bgDefault = "../../assets/desktop/home/card/bg-default.jpg";
-
-// Cards & Modal component
+// Cards & Modal components
 
 const card = (page) =>
   page.map((result) => {
@@ -163,7 +155,7 @@ const card = (page) =>
     const genreTitle = organizeInfo(genres);
 
     organizePlataforms(parent_platforms, consoles, platformsImg);
-    counter = counter + 1;
+    counter++;
 
     return `<button class=${
       threeViewVal ? "home__main__card" : "one-card-view__card"
@@ -205,61 +197,60 @@ const card = (page) =>
     </button>`;
   });
 
-const modal = (currentGame) =>
-  currentGame.map((result) => {
-    let allPlatforms = "";
-    let date = result.released;
+const modal = (currentGame) => {
+  let allPlatforms = "";
+  let date = currentGame.released;
 
-    const consoles = [];
-    const shortScreenshots = [];
-    const {
-      genres,
-      publishers,
-      developers,
-      platforms,
-      parent_platforms,
-      short_screenshots,
-      name,
-      rating_top,
-      description,
-      website,
-    } = result;
+  const consoles = [];
+  const shortScreenshots = [];
+  const {
+    genres,
+    background_image,
+    publishers,
+    developers,
+    platforms,
+    parent_platforms,
+    short_screenshots,
+    name,
+    rating_top,
+    description,
+    website,
+  } = currentGame;
 
-    const clip = movies?.data;
-    const formatDateStr = formatDate(date, months);
-    console.log(formatDateStr);
-    const genreTitle = organizeInfo(genres);
-    const developed = organizeInfo(developers);
-    const publisher = organizeInfo(publishers);
+  const clip = movies?.data;
+  const formatDateStr = formatDate(date, months);
+  const genreTitle = organizeInfo(genres);
+  const developed = organizeInfo(developers);
+  const publisher = organizeInfo(publishers);
 
-    organizePlataforms(parent_platforms, consoles, platformsImg);
-    bgImg = result.background_image;
+  organizePlataforms(parent_platforms, consoles, platformsImg);
+  bgImg = background_image;
 
-    platforms.forEach((platform) => {
-      const name = platform.platform.name;
-      allPlatforms += `${name}, `;
-    });
+  platforms.forEach((platform) => {
+    const name = platform.platform.name;
+    allPlatforms += `${name}, `;
+  });
 
-    short_screenshots.forEach((img) => {
-      const images = img.image;
-      shortScreenshots.push(images);
-    });
+  short_screenshots.forEach((img) => {
+    const images = img.image;
+    shortScreenshots.push(images);
+  });
 
-    if (screen.width < 420) {
-      bgGradient(9.4);
-      hamburgerIcon.style.display = "none";
-      goBackArrow.style.display = "block";
-    } else if (screen.width >= 420 && screen.width < 906) {
-      bgGradient(30.4);
-      hamburgerIcon.style.display = "block";
-      goBackArrow.style.display = "none";
-    } else if (screen.width >= 906) {
-      bgGradient(84.4);
-      hamburgerIcon.style.display = "none";
-      goBackArrow.style.display = "none";
-    }
+  if (screen.width < 420) {
+    bgGradient(9.4);
+    hamburgerIcon.style.display = "none";
+    goBackArrow.style.display = "block";
+  } else if (screen.width >= 420 && screen.width < 906) {
+    bgGradient(30.4);
+    hamburgerIcon.style.display = "block";
+    goBackArrow.style.display = "none";
+  } else if (screen.width >= 906) {
+    bgGradient(84.4);
+    hamburgerIcon.style.display = "none";
+    goBackArrow.style.display = "none";
+  }
 
-    return `<div>
+  return `<div>
     <button class="modal-cross-btn">
       <svg width="43" height="69" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" >
         <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29303 5.29296C5.48056 5.10549 5.73487 5.00017 6.00003 5.00017C6.26519 5.00017 6.5195 5.10549 6.70703 5.29296L12 10.586L17.293 5.29296C17.3853 5.19745 17.4956 5.12127 17.6176 5.06886C17.7396 5.01645 17.8709 4.98886 18.0036 4.98771C18.1364 4.98655 18.2681 5.01186 18.391 5.06214C18.5139 5.11242 18.6255 5.18667 18.7194 5.28056C18.8133 5.37446 18.8876 5.48611 18.9379 5.60901C18.9881 5.7319 19.0134 5.86358 19.0123 5.99636C19.0111 6.12914 18.9835 6.26036 18.9311 6.38236C18.8787 6.50437 18.8025 6.61471 18.707 6.70696L13.414 12L18.707 17.293C18.8892 17.4816 18.99 17.7342 18.9877 17.9964C18.9854 18.2586 18.8803 18.5094 18.6948 18.6948C18.5094 18.8802 18.2586 18.9854 17.9964 18.9876C17.7342 18.9899 17.4816 18.8891 17.293 18.707L12 13.414L6.70703 18.707C6.51843 18.8891 6.26583 18.9899 6.00363 18.9876C5.74143 18.9854 5.49062 18.8802 5.30521 18.6948C5.1198 18.5094 5.01463 18.2586 5.01236 17.9964C5.01008 17.7342 5.11087 17.4816 5.29303 17.293L10.586 12L5.29303 6.70696C5.10556 6.51943 5.00024 6.26512 5.00024 5.99996C5.00024 5.73479 5.10556 5.48049 5.29303 5.29296Z"
@@ -270,7 +261,7 @@ const modal = (currentGame) =>
     <div class="modal-platforms__container">
      ${consoles.join("")}
     </div>
-    <h1 class="modal-title">${name}</h1>
+    <h1 class="modal-title long-description-title">${name}</h1>
    <div class="modal-chips__container">
      <div><p>${formatDateStr || "No date avaiable"}</p></div>
      <div>
@@ -314,7 +305,11 @@ const modal = (currentGame) =>
      <div>
        <div>
          <p>Platforms</p>
-         <p>${allPlatforms.substring(0, allPlatforms.length - 2)}</p>
+         <p class="long-description">${allPlatforms.substring(
+           0,
+           allPlatforms.length - 2
+         )}
+         </p>
        </div>
        <div>
          <p>Release date</p>
@@ -322,26 +317,32 @@ const modal = (currentGame) =>
        </div>
        <div>
          <p>Publisher</p>
-         <p>${publisher.substring(0, publisher.length - 2)}</p>
+         <p class="long-description">${publisher.substring(
+           0,
+           publisher.length - 2
+         )}</p>
        </div>
        <div>
          <p>Website</p>
          <a href=${website}" target="_blank">${
-      website || "No website avaiable"
-    }</a>
+    website || "No website avaiable"
+  }</a>
        </div>
      </div>
      <div>
        <div>
          <p>Genre</p>
-         <p>${
+         <p class="long-description">${
            genreTitle.substring(0, genreTitle.length - 2) ||
            "no specific gender"
          }</p>
        </div>
        <div>
          <p>Developed</p>
-         <p>${developed.substring(0, developed.length - 2)}</p>
+         <p class="long-description">${developed.substring(
+           0,
+           developed.length - 2
+         )}</p>
        </div>
        <div>
          <p>Age Rating</p>
@@ -414,7 +415,7 @@ const modal = (currentGame) =>
      <img src="${shortScreenshots[5] || bgDefault}" />
    </div>
  </div>`;
-  });
+};
 
 // modal gradient handler
 
@@ -442,17 +443,20 @@ function handleLastSearches() {
   } else {
     const twoLastResults = lastResults.slice(-2);
     let allLastCards = "";
+    counter = 0;
 
-    twoLastResults.forEach((res) => {
-      const lastCards = card(res);
-      allLastCards += lastCards;
-    });
+    if (twoLastResults[0].name === twoLastResults[1].name) {
+      twoLastResults.pop();
+    }
+
+    const lastCards = card(twoLastResults);
+    allLastCards = lastCards.join("");
 
     handleViewDisplay(threeViewVal, cardsDisplay);
     hideLoader();
     cardContainer.innerHTML = allLastCards;
+    addEventListener("title", lastSearchModal);
     addEventListener("favorite", addFavorite);
-    // handleFavorite(addFavorite);
   }
 }
 
@@ -518,10 +522,7 @@ function addFavorite(e) {
   }
 }
 
-let allData = [];
-let lastCardOnScreen;
-
-// Fetch games
+// First Fetch games
 
 function onLoad(gamesUrl) {
   displayLoader();
@@ -558,62 +559,81 @@ function displayModal(e) {
   getModalInfo(allData, e);
 }
 
+function lastSearchModal(e) {
+  displayLoader();
+  getModalInfo(lastResults, e);
+}
+
 function searchModal(e) {
   displayLoader();
   getModalInfo(searchData, e);
 }
 
 function getModalInfo(gameData, e) {
+  itsModalOpen = true;
   getDescription(gameData, apiKey).then((data) => {
     const currentName = e.target.innerHTML;
 
-    const currentGame = data.filter((item) => {
-      if (item.name === currentName) {
-        return item;
+    let i = 0;
+    let myGame = null;
+
+    while (myGame == null && i < data.length) {
+      if (data[i].name === currentName) {
+        myGame = data[i];
       }
-    });
 
-    if (currentGame.length > 0) {
-      const gameId = currentGame[0].id;
-      const trailer = getTrailer(gameId, apiKey);
-      trailer.then((data) => {
-        if (data) {
-          movies = data[0];
-        }
-
-        const activeModal = modal(currentGame);
-        modalDoc.innerHTML = activeModal;
-        modalDoc.style.backgroundImage = modalBg;
-        modalRoot.classList.add("visible");
-        hideLoader();
-        const closeBtn = document.querySelector(".modal-cross-btn");
-        closeBtn.addEventListener("click", () => {
-          modalRoot.classList.remove("visible");
-        });
-      });
+      i++;
     }
+
+    const gameId = myGame.id;
+    const trailer = getTrailer(gameId, apiKey);
+    trailer.then((data) => {
+      if (data) {
+        movies = data[0];
+      }
+
+      const activeModal = modal(myGame);
+      modalDoc.innerHTML = activeModal;
+      modalDoc.style.backgroundImage = modalBg;
+      modalRoot.classList.add("visible");
+      hideLoader();
+      const closeBtn = document.querySelector(".modal-cross-btn");
+      closeBtn.addEventListener("click", () => {
+        modalRoot.classList.remove("visible");
+        itsModalOpen = false;
+      });
+    });
+    //}
   });
 }
 
-// Fetch game filter by search keyword
+// Find games by search-keyword
 
 function handleChange(e) {
   const inputValue = e.target.value;
   const consoles = { pc: 1, playstation: 2, xbox: 3, nintendo: 7 };
   const platformNames = Object.keys(consoles);
+  const gallery = getElementById("gallery");
 
   currentValue = inputValue.toLowerCase();
   notFoundText.style.display = "none";
-  cross.style.visibility = "visible";
+  getElementById("cross").style.visibility = "visible";
 
   if (!currentValue || (!currentValue && e.keyCode === 13)) {
     counter = 0;
-    cross.style.visibility = "hidden";
+    getElementById("cross").style.visibility = "hidden";
     cardContainer.innerHTML = "";
     optionsContainer.innerHTML = "";
 
     onLoad(gamesUrl);
   } else if (currentValue && platformNames.includes(currentValue)) {
+    counter = 0;
+
+    gallery.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
     displayLoader();
     const id = consoles[currentValue];
     const platformsUrl = `https://api.rawg.io/api/games?key=${apiKey}&parent_platforms=${id}`;
@@ -639,6 +659,13 @@ function handleChange(e) {
       });
     });
   } else if (currentValue.length >= 3 || e.keyCode === 13) {
+    counter = 0;
+
+    gallery.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
     displayLoader();
     const searchUrl = `https://api.rawg.io/api/games?key=${apiKey}&search=${currentValue}`;
 
@@ -658,7 +685,7 @@ function handleChange(e) {
       for (let i = 0; i < searchResLength; i++) {
         let item = searchResults[i];
         const firstResult = searchResults[i].slice(0, 1);
-        lastResults.push(firstResult);
+        lastResults.push(...firstResult);
 
         const options = optionButton(item);
         const allOptions = options.join("");
@@ -672,7 +699,7 @@ function handleChange(e) {
           searchOption[i].addEventListener("click", () => {
             const currentOption = element.value;
             input.value = currentOption;
-            cross.style.visibility = "hidden";
+            getElementById("cross").style.visibility = "hidden";
             handleChange(e);
           });
         }
@@ -707,16 +734,30 @@ function handleChange(e) {
 
 // Home Page
 
-function handleHomeText() {
+function handleHome() {
+  const hamburgerMenu = getElementById("hamburger-menu");
   homeText.style.color = "#5fe19b";
   lastSearches.style.color = "#fff";
   cardContainer.innerHTML = "";
   counter = 0;
-  menu.classList.add("menu-disable");
-  menu.classList.remove("menu-active");
+  hamburgerMenu.classList.add("menu-disable");
+  hamburgerMenu.classList.remove("menu-active");
 
   handleViewDisplay(threeViewVal, cardsDisplay);
 
   allData = [];
   onLoad(gamesUrl);
 }
+
+// First to execute
+
+window.addEventListener("load", () => {
+  const userImg = getElementById("user-img-container");
+  // adds a profile pic if there is one or the initials if there isn't
+  if (localStorage.getItem("picture") == "true") {
+    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/Custom.png")`;
+  } else {
+    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/EmptyState.png")`;
+  }
+  onLoad(gamesUrl);
+});
