@@ -662,7 +662,16 @@ body {
 
       width: 26px;
       height: 26px;
-      filter: drop-shadow(0px 0px 5px black);
+      cursor: pointer;
+      filter: drop-shadow(0px 0px 5px #686868);
+
+      path {
+        pointer-events: none;
+      }
+
+      .liked {
+        animation: liked 0.2s ease;
+      }
     }
   }
 

@@ -13,39 +13,80 @@ import {
   optionButton,
   organizeInfo,
   organizePlataforms,
-  getElementById,
 } from "./utils.js";
 
-import { platformsImg, months } from "./variables.js";
+import { platformsImg, months, getElement, getKey } from "./variables.js";
 
-// header
-const input = document.getElementById("home-input");
-const layer = document.getElementById("layer");
-const hamburgerIcon = document.getElementById("hamburger");
-const goBackArrow = document.getElementById("go-back-arrow");
+// Event Listeners
 
-//  banner
-const optionsContainer = document.getElementById("options-cont");
-const threeCardVwBtn = document.getElementById("three-card-view-btn");
-const threeVwIcon = document.getElementById("three-vw-icon");
-const oneVwIcon = document.getElementById("one-vw-icon");
-const oneCardVwBtn = document.getElementById("one-card-view-btn");
+window.addEventListener("load", () => {
+  // adds a profile pic if there is one or the initials if there isn't
+  if (localStorage.getItem("picture") == "true") {
+    getElement.userImg.style.backgroundImage = `url("../../assets/desktop/home/header/Custom.png")`;
+  } else {
+    getElement.userImg.style.backgroundImage = `url("../../assets/desktop/home/header/EmptyState.png")`;
+  }
+  onLoad(gamesUrl);
+});
 
-// primary-section
-const cardContainer = document.getElementById("cards-container");
-const notFoundText = document.getElementById("not-found");
+window.addEventListener("resize", () => {
+  if (screen.width < 420) {
+    bgGradient(9.4);
+    if (itsModalOpen) {
+      getElement.hamburgerIcon.style.display = "none";
+      getElement.goBackArrow.style.display = "block";
+    }
+  } else if (screen.width >= 420 && screen.width < 906) {
+    bgGradient(30.4);
+    getElement.hamburgerIcon.style.display = "block";
+  } else if (screen.width >= 906) {
+    bgGradient(84.4);
+    getElement.hamburgerIcon.style.display = "none";
+    getElement.goBackArrow.style.display = "none";
+  }
+  getElement.modalDoc.style.backgroundImage = modalBg;
+});
 
-//modal
-const modalRoot = document.getElementById("modal-root");
-const modalDoc = document.getElementById("modal");
+window.addEventListener("click", () => {
+  getElement.searchDropdown.innerHTML = "";
+});
 
-// aside
-const lastSearches = document.getElementById("last-searches");
-const homeText = document.getElementById("home-text");
+getElement.searchInput.addEventListener(
+  "keypress",
+  debounce(handleChange, 350)
+);
+getElement.searchInput.addEventListener("focus", () => {
+  getElement.overlayer.style.display = "block";
+});
+getElement.searchInput.addEventListener("blur", () => {
+  getElement.overlayer.style.display = "none";
+});
+getElement.inputCross.addEventListener("click", () => {
+  getElement.searchInput.value = "";
+  getElement.inputCross.style.visibility = "hidden";
+});
 
+getElement.threeCardVwBtn.addEventListener("click", handleThreeView);
+getElement.oneCardVwBtn.addEventListener("click", handleOneView);
+
+getElement.homeText.addEventListener("click", handleHome);
+getElement.homeText.addEventListener("keypress", handleHome);
+getElement.menuHomeText.addEventListener("click", handleHome);
+getElement.lastSearches.addEventListener("click", handleLastSearches);
+getElement.lastSearches.addEventListener("keypress", handleLastSearches);
+
+getElement.modalRoot.addEventListener("click", () => {
+  if (screen.width <= 414) {
+    getElement.modalRoot.classList.remove("visible");
+    getElement.hamburgerIcon.style.display = "block";
+    getElement.goBackArrow.style.display = "none";
+  }
+});
+
+// Global variables
+
+const gamesUrl = `https://api.rawg.io/api/games?key=${getKey.apiKey}&page=1`;
 const lastResults = [];
-const apiKey = "ee6b843758f64be4bc31507ee6724e62";
-const gamesUrl = `https://api.rawg.io/api/games?key=${apiKey}&page=1`;
 
 let counter = 0;
 let currentValue;
@@ -56,8 +97,8 @@ let modalBg;
 let gameData;
 let movies;
 let searchData;
-let isLoading = false;
 let bgImg;
+let isLoading = false;
 let itsModalOpen = false;
 const bgDefault = "../../assets/desktop/home/card/bg-default.jpg";
 
@@ -68,79 +109,6 @@ let lastCardOnScreen;
 
 threeViewVal = true;
 oneViewVal = false;
-
-// It watch the last card to know when to do the next fetch
-
-let observer = new IntersectionObserver(
-  (entry) => {
-    entry.forEach((entry) => {
-      if (entry.isIntersecting && !isLoading) {
-        onLoad(nextPage);
-        isLoading = true;
-      }
-    });
-  },
-  {
-    rootMargin: "0px 0px 0px 0px",
-    threshhold: 1.0,
-  }
-);
-
-window.addEventListener("click", () => {
-  optionsContainer.innerHTML = "";
-});
-
-input.addEventListener("keypress", debounce(handleChange, 350));
-input.addEventListener("focus", () => {
-  layer.style.display = "block";
-});
-input.addEventListener("blur", () => {
-  layer.style.display = "none";
-});
-getElementById("cross").addEventListener("click", () => {
-  input.value = "";
-  getElementById("cross").style.visibility = "hidden";
-});
-
-// Listen to change the card view
-threeCardVwBtn.addEventListener("click", handleThreeView);
-oneCardVwBtn.addEventListener("click", handleOneView);
-
-homeText.addEventListener("click", handleHome);
-homeText.addEventListener("keypress", handleHome);
-getElementById("menu-home-text").addEventListener("click", handleHome);
-lastSearches.addEventListener("click", handleLastSearches);
-lastSearches.addEventListener("keypress", handleLastSearches);
-
-// It listen to change the bg-gradient in different screen sizes
-
-window.addEventListener("resize", () => {
-  if (screen.width < 420) {
-    bgGradient(9.4);
-    if (itsModalOpen) {
-      hamburgerIcon.style.display = "none";
-      goBackArrow.style.display = "block";
-    }
-  } else if (screen.width >= 420 && screen.width < 906) {
-    bgGradient(30.4);
-    hamburgerIcon.style.display = "block";
-  } else if (screen.width >= 906) {
-    bgGradient(84.4);
-    hamburgerIcon.style.display = "none";
-    goBackArrow.style.display = "none";
-  }
-  modalDoc.style.backgroundImage = modalBg;
-});
-
-// Closing modal
-
-modalRoot.addEventListener("click", () => {
-  if (screen.width <= 414) {
-    modalRoot.classList.remove("visible");
-    hamburgerIcon.style.display = "block";
-    goBackArrow.style.display = "none";
-  }
-});
 
 // Cards & Modal components
 
@@ -238,16 +206,16 @@ const modal = (currentGame) => {
 
   if (screen.width < 420) {
     bgGradient(9.4);
-    hamburgerIcon.style.display = "none";
-    goBackArrow.style.display = "block";
+    getElement.hamburgerIcon.style.display = "none";
+    getElement.goBackArrow.style.display = "block";
   } else if (screen.width >= 420 && screen.width < 906) {
     bgGradient(30.4);
-    hamburgerIcon.style.display = "block";
-    goBackArrow.style.display = "none";
+    getElement.hamburgerIcon.style.display = "block";
+    getElement.goBackArrow.style.display = "none";
   } else if (screen.width >= 906) {
     bgGradient(84.4);
-    hamburgerIcon.style.display = "none";
-    goBackArrow.style.display = "none";
+    getElement.hamburgerIcon.style.display = "none";
+    getElement.goBackArrow.style.display = "none";
   }
 
   return `<div>
@@ -417,118 +385,13 @@ const modal = (currentGame) => {
  </div>`;
 };
 
-// modal gradient handler
-
-function bgGradient(num) {
-  modalBg = `linear-gradient(
-      180deg,
-      var(--modal-bg-1) 0%,
-      var(--modal-bg-2) ${num}%
-    ), url("${bgImg || bgDefault}")`;
-}
-
-// Display last searches cards
-
-function handleLastSearches() {
-  displayLoader();
-  cardContainer.innerHTML = "";
-  cardContainer.style.height = "auto";
-  lastSearches.style.color = "#5fe19b";
-  homeText.style.color = "#fff";
-
-  if (lastResults.length == 0 || !lastResults) {
-    hideLoader();
-    notFoundText.style.display = "block";
-    notFoundText.innerHTML = `No searches were made`;
-  } else {
-    const twoLastResults = lastResults.slice(-2);
-    let allLastCards = "";
-    counter = 0;
-
-    if (twoLastResults[0].name === twoLastResults[1].name) {
-      twoLastResults.pop();
-    }
-
-    const lastCards = card(twoLastResults);
-    allLastCards = lastCards.join("");
-
-    handleViewDisplay(threeViewVal, cardsDisplay);
-    hideLoader();
-    cardContainer.innerHTML = allLastCards;
-    addEventListener("title", lastSearchModal);
-    addEventListener("favorite", addFavorite);
-  }
-}
-
-// Handle Card View Displays
-
-function handleThreeView() {
-  threeVwIcon.classList.add("active");
-  threeVwIcon.classList.remove("inactive");
-
-  oneVwIcon.classList.add("inactive");
-  oneVwIcon.classList.remove("active");
-
-  oneCardVwBtn.disabled = false;
-  threeCardVwBtn.disabled = true;
-
-  oneViewVal = !oneViewVal;
-  threeViewVal = !threeViewVal;
-
-  cardsDisplay(
-    "one-card-view__card__container",
-    "home__card__container",
-    "one-card-view__card",
-    "home__main__card"
-  );
-}
-
-function handleOneView() {
-  oneVwIcon.classList.add("active");
-  oneVwIcon.classList.remove("inactive");
-
-  threeVwIcon.classList.add("inactive");
-  threeVwIcon.classList.remove("active");
-
-  threeCardVwBtn.disabled = true;
-  threeCardVwBtn.disabled = false;
-
-  oneViewVal = !oneViewVal;
-  threeViewVal = !threeViewVal;
-
-  cardsDisplay(
-    "home__card__container",
-    "one-card-view__card__container",
-    "home__main__card",
-    "one-card-view__card"
-  );
-}
-
-// Like cards handler
-
-function addFavorite(e) {
-  const heart = e.target;
-
-  const currentHeart = heart.children[0];
-
-  if (currentHeart.getAttribute("fill-rule") === "#fff") {
-    currentHeart.classList.remove("liked");
-    currentHeart.removeAttribute("fill-rule");
-    currentHeart.setAttribute("fill-rule", "evenodd");
-  } else {
-    currentHeart.classList.add("liked");
-    currentHeart.removeAttribute("fill-rule");
-    currentHeart.setAttribute("fill-rule", "#fff");
-  }
-}
-
-// First Fetch games
+// First Game Fetch
 
 function onLoad(gamesUrl) {
   displayLoader();
-  homeText.style.color = `#5fe19b`;
-  lastSearches.style = "#fff";
-  notFoundText.style.display = "none";
+  getElement.homeText.style.color = `#5fe19b`;
+  getElement.lastSearches.style = "#fff";
+  getElement.notFoundText.style.display = "none";
 
   getGames(gamesUrl).then((data) => {
     gameData = data.results;
@@ -536,11 +399,11 @@ function onLoad(gamesUrl) {
 
     allData.push(...gameData);
 
-    getDescription(gameData, apiKey).then((data) => {
+    getDescription(gameData, getKey.apiKey).then((data) => {
       const currentCard = card(data);
       const allCards = currentCard.join(" ");
 
-      cardContainer.innerHTML += allCards;
+      getElement.cardContainer.innerHTML += allCards;
 
       hideLoader();
       addEventListener("title", displayModal);
@@ -552,78 +415,23 @@ function onLoad(gamesUrl) {
   });
 }
 
-// Modal
-
-function displayModal(e) {
-  displayLoader();
-  getModalInfo(allData, e);
-}
-
-function lastSearchModal(e) {
-  displayLoader();
-  getModalInfo(lastResults, e);
-}
-
-function searchModal(e) {
-  displayLoader();
-  getModalInfo(searchData, e);
-}
-
-function getModalInfo(gameData, e) {
-  itsModalOpen = true;
-  getDescription(gameData, apiKey).then((data) => {
-    const currentName = e.target.innerHTML;
-
-    let i = 0;
-    let myGame = null;
-
-    while (myGame == null && i < data.length) {
-      if (data[i].name === currentName) {
-        myGame = data[i];
-      }
-
-      i++;
-    }
-
-    const gameId = myGame.id;
-    const trailer = getTrailer(gameId, apiKey);
-    trailer.then((data) => {
-      if (data) {
-        movies = data[0];
-      }
-
-      const activeModal = modal(myGame);
-      modalDoc.innerHTML = activeModal;
-      modalDoc.style.backgroundImage = modalBg;
-      modalRoot.classList.add("visible");
-      hideLoader();
-      const closeBtn = document.querySelector(".modal-cross-btn");
-      closeBtn.addEventListener("click", () => {
-        modalRoot.classList.remove("visible");
-        itsModalOpen = false;
-      });
-    });
-    //}
-  });
-}
-
 // Find games by search-keyword
 
 function handleChange(e) {
   const inputValue = e.target.value;
   const consoles = { pc: 1, playstation: 2, xbox: 3, nintendo: 7 };
   const platformNames = Object.keys(consoles);
-  const gallery = getElementById("gallery");
+  const gallery = document.getElementById("gallery");
 
   currentValue = inputValue.toLowerCase();
-  notFoundText.style.display = "none";
-  getElementById("cross").style.visibility = "visible";
+  getElement.notFoundText.style.display = "none";
+  getElement.inputCross.style.visibility = "visible";
 
   if (!currentValue || (!currentValue && e.keyCode === 13)) {
     counter = 0;
-    getElementById("cross").style.visibility = "hidden";
-    cardContainer.innerHTML = "";
-    optionsContainer.innerHTML = "";
+    getElement.inputCross.style.visibility = "hidden";
+    getElement.cardContainer.innerHTML = "";
+    getElement.searchDropdown.innerHTML = "";
 
     onLoad(gamesUrl);
   } else if (currentValue && platformNames.includes(currentValue)) {
@@ -636,26 +444,26 @@ function handleChange(e) {
 
     displayLoader();
     const id = consoles[currentValue];
-    const platformsUrl = `https://api.rawg.io/api/games?key=${apiKey}&parent_platforms=${id}`;
+    const platformsUrl = `https://api.rawg.io/api/games?key=${getKey.apiKey}&parent_platforms=${id}`;
 
     getGames(platformsUrl).then((data) => {
       const { results, next } = data;
       nextPage = next;
       let allSearchCards;
 
-      getDescription(results, apiKey).then((data) => {
-        cardContainer.innerHTML = "";
+      getDescription(results, getKey.apiKey).then((data) => {
+        getElement.cardContainer.innerHTML = "";
         searchData = data;
         const searchCard = card(data);
         allSearchCards = searchCard.join(" ");
 
         handleViewDisplay(threeViewVal, cardsDisplay);
         hideLoader();
-        layer.style.display = "none";
-        cardContainer.innerHTML = allSearchCards;
+        getElement.overlayer.style.display = "none";
+        getElement.cardContainer.innerHTML = allSearchCards;
         addEventListener("title", searchModal);
-        activeObserver(lastCardOnScreen, observer);
         addEventListener("favorite", addFavorite);
+        activeObserver(lastCardOnScreen, observer);
       });
     });
   } else if (currentValue.length >= 3 || e.keyCode === 13) {
@@ -667,7 +475,7 @@ function handleChange(e) {
     });
 
     displayLoader();
-    const searchUrl = `https://api.rawg.io/api/games?key=${apiKey}&search=${currentValue}`;
+    const searchUrl = `https://api.rawg.io/api/games?key=${getKey.apiKey}&search=${currentValue}`;
 
     getGames(searchUrl).then((data) => {
       const { results, next } = data;
@@ -689,7 +497,7 @@ function handleChange(e) {
 
         const options = optionButton(item);
         const allOptions = options.join("");
-        optionsContainer.innerHTML = allOptions;
+        getElement.searchDropdown.innerHTML = allOptions;
 
         const searchOption = document.getElementsByClassName("options");
         const searchOptLength = searchOption.length;
@@ -698,50 +506,190 @@ function handleChange(e) {
           const element = searchOption[i];
           searchOption[i].addEventListener("click", () => {
             const currentOption = element.value;
-            input.value = currentOption;
-            getElementById("cross").style.visibility = "hidden";
+            getElement.searchInput.value = currentOption;
+            getElement.inputCross.style.visibility = "hidden";
             handleChange(e);
           });
         }
       }
 
-      getDescription(results, apiKey).then((data) => {
-        cardContainer.innerHTML = "";
+      getDescription(results, getKey.apiKey).then((data) => {
+        getElement.cardContainer.innerHTML = "";
         searchData = data;
         const searchCard = card(data);
         allSearchCards = searchCard.join(" ");
 
         if (!allSearchCards) {
-          cardContainer.innerHTML = "";
-          notFoundText.style.display = "block";
-          notFoundText.innerHTML = "No search results";
+          getElement.cardContainer.innerHTML = "";
+          getElement.notFoundText.style.display = "block";
+          getElement.notFoundText.innerHTML = "No search results";
         } else {
           handleViewDisplay(threeViewVal, cardsDisplay);
-          notFoundText.style.display = "none";
-          layer.style.display = "none";
+          getElement.notFoundText.style.display = "none";
+          getElement.overlayer.style.display = "none";
           hideLoader();
-          cardContainer.innerHTML = allSearchCards;
+          getElement.cardContainer.innerHTML = allSearchCards;
           addEventListener("title", searchModal);
-          activeObserver(lastCardOnScreen, observer);
           addEventListener("favorite", addFavorite);
+          activeObserver(lastCardOnScreen, observer);
         }
       });
     });
   }
 
-  lastSearches.style.color = "#fff";
+  getElement.lastSearches.style.color = "#fff";
+}
+
+// Display last searches cards
+
+function handleLastSearches() {
+  displayLoader();
+  getElement.cardContainer.innerHTML = "";
+  getElement.cardContainer.style.height = "auto";
+  getElement.lastSearches.style.color = "#5fe19b";
+  getElement.homeText.style.color = "#fff";
+
+  if (lastResults.length == 0 || !lastResults) {
+    hideLoader();
+    getElement.notFoundText.style.display = "block";
+    getElement.notFoundText.innerHTML = `No searches were made`;
+  } else {
+    const twoLastResults = lastResults.slice(-2);
+    let allLastCards = "";
+    counter = 0;
+
+    if (twoLastResults[0].name === twoLastResults[1].name) {
+      twoLastResults.pop();
+    }
+
+    const lastCards = card(twoLastResults);
+    allLastCards = lastCards.join("");
+
+    handleViewDisplay(threeViewVal, cardsDisplay);
+    hideLoader();
+    getElement.cardContainer.innerHTML = allLastCards;
+    addEventListener("title", lastSearchModal);
+    addEventListener("favorite", addFavorite);
+  }
+}
+
+// Handle Card View Displays
+
+function handleThreeView() {
+  getElement.threeVwIcon.classList.add("active");
+  getElement.threeVwIcon.classList.remove("inactive");
+
+  getElement.oneVwIcon.classList.add("inactive");
+  getElement.oneVwIcon.classList.remove("active");
+
+  getElement.oneCardVwBtn.disabled = false;
+  getElement.threeCardVwBtn.disabled = true;
+
+  oneViewVal = !oneViewVal;
+  threeViewVal = !threeViewVal;
+
+  cardsDisplay(
+    "one-card-view__card__container",
+    "home__card__container",
+    "one-card-view__card",
+    "home__main__card"
+  );
+}
+
+function handleOneView() {
+  getElement.oneVwIcon.classList.add("active");
+  getElement.oneVwIcon.classList.remove("inactive");
+
+  getElement.threeVwIcon.classList.add("inactive");
+  getElement.threeVwIcon.classList.remove("active");
+
+  getElement.threeCardVwBtn.disabled = false;
+
+  oneViewVal = !oneViewVal;
+  threeViewVal = !threeViewVal;
+
+  cardsDisplay(
+    "home__card__container",
+    "one-card-view__card__container",
+    "home__main__card",
+    "one-card-view__card"
+  );
+}
+
+// Modal Displays
+
+function displayModal(e) {
+  displayLoader();
+  getModalInfo(allData, e);
+}
+
+function lastSearchModal(e) {
+  displayLoader();
+  getModalInfo(lastResults, e);
+}
+
+function searchModal(e) {
+  displayLoader();
+  getModalInfo(searchData, e);
+}
+
+function getModalInfo(gameData, e) {
+  itsModalOpen = true;
+  getDescription(gameData, getKey.apiKey).then((data) => {
+    const currentName = e.target.innerHTML;
+
+    let i = 0;
+    let myGame = null;
+
+    while (myGame == null && i < data.length) {
+      if (data[i].name === currentName) {
+        myGame = data[i];
+      }
+
+      i++;
+    }
+
+    const gameId = myGame.id;
+    const trailer = getTrailer(gameId, getKey.apiKey);
+    trailer.then((data) => {
+      if (data) {
+        movies = data[0];
+      }
+
+      const activeModal = modal(myGame);
+      getElement.modalDoc.innerHTML = activeModal;
+      getElement.modalDoc.style.backgroundImage = modalBg;
+      getElement.modalRoot.classList.add("visible");
+      hideLoader();
+      const closeBtn = document.querySelector(".modal-cross-btn");
+      closeBtn.addEventListener("click", () => {
+        getElement.modalRoot.classList.remove("visible");
+        itsModalOpen = false;
+      });
+    });
+    //}
+  });
+}
+
+// modal gradient handler
+
+function bgGradient(num) {
+  modalBg = `linear-gradient(
+      180deg,
+      var(--modal-bg-1) 0%,
+      var(--modal-bg-2) ${num}%
+    ), url("${bgImg || bgDefault}")`;
 }
 
 // Home Page
 
 function handleHome() {
-  const hamburgerMenu = getElementById("hamburger-menu");
-  homeText.style.color = "#5fe19b";
-  lastSearches.style.color = "#fff";
-  cardContainer.innerHTML = "";
+  getElement.homeText.style.color = "#5fe19b";
+  getElement.lastSearches.style.color = "#fff";
+  getElement.cardContainer.innerHTML = "";
   counter = 0;
-  hamburgerMenu.classList.add("menu-disable");
-  hamburgerMenu.classList.remove("menu-active");
+  getElement.hamburgerMenu.classList.add("menu-disable");
+  getElement.hamburgerMenu.classList.remove("menu-active");
 
   handleViewDisplay(threeViewVal, cardsDisplay);
 
@@ -749,15 +697,37 @@ function handleHome() {
   onLoad(gamesUrl);
 }
 
-// First to execute
+// "Add favorite" handler
 
-window.addEventListener("load", () => {
-  const userImg = getElementById("user-img-container");
-  // adds a profile pic if there is one or the initials if there isn't
-  if (localStorage.getItem("picture") == "true") {
-    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/Custom.png")`;
+function addFavorite(e) {
+  const heart = e.target;
+  console.log(heart);
+  const currentHeart = heart.children[0];
+
+  if (currentHeart.getAttribute("fill-rule") === "#fff") {
+    currentHeart.classList.remove("liked");
+    currentHeart.removeAttribute("fill-rule");
+    currentHeart.setAttribute("fill-rule", "evenodd");
   } else {
-    userImg.style.backgroundImage = `url("../../assets/desktop/home/header/EmptyState.png")`;
+    currentHeart.classList.add("liked");
+    currentHeart.removeAttribute("fill-rule");
+    currentHeart.setAttribute("fill-rule", "#fff");
   }
-  onLoad(gamesUrl);
-});
+}
+
+// It watchs the last card to know when to do the next fetch
+
+let observer = new IntersectionObserver(
+  (entry) => {
+    entry.forEach((entry) => {
+      if (entry.isIntersecting && !isLoading) {
+        onLoad(nextPage);
+        isLoading = true;
+      }
+    });
+  },
+  {
+    rootMargin: "0px 0px 0px 0px",
+    threshhold: 1.0,
+  }
+);

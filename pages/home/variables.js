@@ -1,3 +1,66 @@
+export const getElement = (function () {
+  // header elements
+  const searchInput = document.getElementById("home-input");
+  const overlayer = document.getElementById("layer");
+  const hamburgerIcon = document.getElementById("hamburger");
+  const goBackArrow = document.getElementById("go-back-arrow");
+  const userImg = document.getElementById("user-img-container");
+  const searchDropdown = document.getElementById("search-dropdown");
+  const inputCross = document.getElementById("cross");
+
+  //  banner
+  const threeCardVwBtn = document.getElementById("three-card-view-btn");
+  const threeVwIcon = document.getElementById("three-vw-icon");
+  const oneCardVwBtn = document.getElementById("one-card-view-btn");
+  const oneVwIcon = document.getElementById("one-vw-icon");
+
+  // primary-section
+  const cardContainer = document.getElementById("cards-container");
+  const notFoundText = document.getElementById("not-found");
+
+  //modal
+  const modalRoot = document.getElementById("modal-root");
+  const modalDoc = document.getElementById("modal");
+
+  // aside
+  const lastSearches = document.getElementById("last-searches");
+  const homeText = document.getElementById("home-text");
+
+  // tablet-mobile menu
+  const hamburgerMenu = document.getElementById("hamburger-menu");
+  const menuHomeText = document.getElementById("menu-home-text");
+
+  return {
+    searchInput,
+    overlayer,
+    hamburgerIcon,
+    goBackArrow,
+    userImg,
+    searchDropdown,
+    inputCross,
+    threeCardVwBtn,
+    threeVwIcon,
+    oneCardVwBtn,
+    oneVwIcon,
+    cardContainer,
+    notFoundText,
+    modalRoot,
+    modalDoc,
+    lastSearches,
+    homeText,
+    hamburgerMenu,
+    menuHomeText,
+  };
+})();
+
+export const getKey = (function () {
+  const apiKey = "ee6b843758f64be4bc31507ee6724e62";
+
+  return {
+    apiKey,
+  };
+})();
+
 export const months = {
   "01": "Jua",
   "02": "Feb",

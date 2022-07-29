@@ -1,20 +1,13 @@
+const body = document.querySelector("body");
+const themeBtnLogin = document.getElementById("theme-btn-login");
+
 const prevArrow = document.getElementById("prev-arrow");
 const nextArrow = document.getElementById("next-arrow");
 
-const themeBtnLogin = document.getElementById("theme-btn-login");
-const body = document.getElementsByTagName("body")[0];
-
-themeBtnLogin.addEventListener("click", handleTheme);
-
 window.addEventListener("load", getActiveTheme);
-
-function getActiveTheme() {
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (event) => {
-      event.matches ? handleDarkTheme() : handleLightTheme();
-    });
-}
+themeBtnLogin.addEventListener("click", handleTheme);
+prevArrow.addEventListener("click", prevPicture);
+nextArrow.addEventListener("click", nextPicture);
 
 let i = 0;
 
@@ -36,6 +29,14 @@ imagesLight[2] = "../../assets/desktop/slider/lightMode/slide-light-3.jpg";
 imagesLight[3] = "../../assets/desktop/slider/lightMode/slide-light-4.jpg";
 imagesLight[4] = "../../assets/desktop/slider/lightMode/slide-light-5.jpg";
 imagesLight[5] = "../../assets/desktop/slider/lightMode/slide-light-6.jpg";
+
+function getActiveTheme() {
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", (event) => {
+      event.matches ? handleDarkTheme() : handleLightTheme();
+    });
+}
 
 function handleLightTheme() {
   themeImg = imagesLight;
@@ -92,6 +93,3 @@ function nextPicture() {
     document.getElementById(`bullet-${i}`).style.opacity = "1";
   }
 }
-
-prevArrow.addEventListener("click", prevPicture);
-nextArrow.addEventListener("click", nextPicture);

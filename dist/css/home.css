@@ -1089,8 +1089,18 @@ body {
   top: 23px;
   width: 26px;
   height: 26px;
-  -webkit-filter: drop-shadow(0px 0px 5px black);
-          filter: drop-shadow(0px 0px 5px black);
+  cursor: pointer;
+  -webkit-filter: drop-shadow(0px 0px 5px #686868);
+          filter: drop-shadow(0px 0px 5px #686868);
+}
+
+.one-card-view__card > div:nth-child(1) svg path {
+  pointer-events: none;
+}
+
+.one-card-view__card > div:nth-child(1) svg .liked {
+  -webkit-animation: liked 0.2s ease;
+          animation: liked 0.2s ease;
 }
 
 .one-card-view__card > div:nth-child(2) {

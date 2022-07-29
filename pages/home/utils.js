@@ -89,9 +89,11 @@ export const organizePlataforms = (parentPlatform, newParent, platformsImg) => {
 
 export const formatDate = (date, months) => {
   const newDate = date?.split("-");
-  const month = newDate[1];
-  const currentMonth = months[month];
-  return `${currentMonth} ${newDate[2]}, ${newDate[0]}`;
+  if (newDate) {
+    const month = newDate[1];
+    const currentMonth = months[month];
+    return `${currentMonth} ${newDate[2]}, ${newDate[0]}`;
+  }
 };
 
 export const handleViewDisplay = (view, fn) => {
