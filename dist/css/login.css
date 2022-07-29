@@ -1155,6 +1155,9 @@ body {
         -ms-flex-align: center;
             align-items: center;
   }
+  .header > div {
+    padding: 0 50px;
+  }
   .header-logo {
     width: 40%;
     margin: 20px 0 10px;
@@ -1203,18 +1206,38 @@ body {
         -ms-flex-align: center;
             align-items: center;
     background-image: URL("../../assets/mobile/slider/slider1-mobile.png");
+    background-position: center;
+  }
+  .header > div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
   .header-logo {
     width: 194px;
-    margin-top: 44px;
-    margin-bottom: 13px;
+  }
+  .header-theme__container {
+    margin: 0 0 13px 0;
   }
   .slider__arrow__container,
   .footer {
     display: none;
   }
+  .main .login__container {
+    margin-top: 0;
+  }
   .main .login__card {
-    padding: 22px 16px;
+    padding: 22px 18px;
   }
   .main .login__card__header h2 {
     width: 260px;

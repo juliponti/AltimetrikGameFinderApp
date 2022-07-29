@@ -1,12 +1,23 @@
 @import "../configurations";
 @import "../partials/animations";
-@import "../partials/skeleton";
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: "Exo", sans-serif;
+
+  ::-moz-selection {
+    /* Code for Firefox */
+
+    background: $primary-300;
+  }
+
+  ::selection {
+    background: $primary-300;
+  }
+
+  scroll-behavior: smooth;
 }
 
 html,
@@ -40,7 +51,7 @@ body {
     $primary-300 50%,
     $primary-350 100%
   );
-  box-shadow: 1px -3px 36px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px -3px 36px var(--header-color);
 
   & > div {
     @include FlexBox(row, space-between);
@@ -107,19 +118,19 @@ body {
       &:focus {
         outline: 3px solid transparent;
 
-        ~ img.cross {
+        ~ svg.cross {
           visibility: visible;
         }
       }
     }
 
-    img {
+    svg {
       position: absolute;
       top: 15px;
       left: 10px;
     }
 
-    img.cross {
+    svg.cross {
       visibility: hidden;
       position: absolute;
       top: 11px;
@@ -345,7 +356,7 @@ body {
           cursor: pointer;
 
           &:hover {
-            & ~ .tooltip {
+            & ~ .tooltip-home {
               display: block;
             }
             color: var(--primary-color);
@@ -357,9 +368,9 @@ body {
             border-radius: 3px;
           }
 
-          img {
-            width: fit-content;
-            height: fit-content;
+          & > svg {
+            margin-right: 5px;
+            margin-bottom: 2px;
           }
         }
 
@@ -501,7 +512,7 @@ body {
       right: 12px;
       top: 12px;
       cursor: pointer;
-      filter: drop-shadow(0px 0px 5px black);
+      filter: drop-shadow(0px 0px 5px #686868);
 
       path {
         pointer-events: none;
@@ -844,8 +855,8 @@ body {
   // animation: fadein 0.5s;
 }
 
-.tooltip {
-  @include tooltip(124px, 43px, 69%);
+.tooltip-home {
+  @include tooltip(124px, 43px, 66%);
 }
 
 .snackbar {

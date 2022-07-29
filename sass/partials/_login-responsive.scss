@@ -7,6 +7,10 @@
   .header {
     @include FlexBox(column, center);
 
+    & > div {
+      padding: 0 50px;
+    }
+
     &-logo {
       width: 40%;
       margin: 20px 0 10px;
@@ -39,12 +43,21 @@
   body {
     @include FlexBox(column, flex-start);
     background-image: URL("../../assets/mobile/slider/slider1-mobile.png");
+    background-position: center;
   }
 
-  .header-logo {
-    width: 194px;
-    margin-top: 44px;
-    margin-bottom: 13px;
+  .header {
+    & > div {
+      @include FlexBox(column, space-between, center);
+    }
+
+    &-logo {
+      width: 194px;
+    }
+
+    &-theme__container {
+      margin: 0 0 13px 0;
+    }
   }
 
   .slider__arrow__container,
@@ -54,8 +67,12 @@
 
   .main {
     .login {
+      &__container {
+        margin-top: 0;
+      }
+
       &__card {
-        padding: 22px 16px;
+        padding: 22px 18px;
 
         &__header {
           h2 {

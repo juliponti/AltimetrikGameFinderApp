@@ -154,8 +154,8 @@ const login = async () => {
     localStorage.setItem("picture", content.user.picture);
     window.location.replace("./pages/home/index.html");
   } catch (err) {
-    const message = await rawResponse.json();
-    snackbar(message);
+    //  const message = await rawResponse.json();
+    snackbar("La convinación de email y contraseña es incorrecta");
   }
 };
 
