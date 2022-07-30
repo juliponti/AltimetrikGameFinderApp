@@ -114,9 +114,9 @@ export const handleViewDisplay = (view, fn) => {
   }
 };
 
-export const addEventListener = (classname, fn) => {
+export const addEventListenerToManyEls = (classname, event, fn) => {
   const element = document.getElementsByClassName(classname);
-  Array.from(element).forEach((item) => item.addEventListener("click", fn));
+  Array.from(element).forEach((item) => item.addEventListener(event, fn));
 };
 
 export const getTrailer = (gameId, apiKey) => {
@@ -166,3 +166,40 @@ export const activeObserver = (lastCardOnScreen, observer) => {
     observer.observe(lastCardOnScreen);
   }
 };
+
+export function trapFocus(element, state) {
+  const focusableEls = element.querySelectorAll(
+    'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), video:not([disabled])'
+  );
+  const firstFocusableEl = focusableEls[0];
+  const lastfocusableEl = focusableEls[focusableEls.length - 1];
+  const KEYCODE_TAB = 9;
+
+  firstFocusableEl.focus();
+
+  function handleTrapFocus(e) {
+    const isTabPressed = e.key === "Tab" || e.keyCode === KEYCODE_TAB;
+
+    if (!isTabPressed) {
+      return;
+    }
+
+    if (e.shiftKey) {
+      if (document.activeElement === firstFocusableEl) {
+        lastfocusableEl.focus();
+        e.preventDefault();
+      }
+    } else {
+      if (document.activeElement === lastfocusableEl) {
+        firstFocusableEl.focus();
+        e.preventDefault();
+      }
+    }
+  }
+
+  if (state) {
+    element.addEventListener("keydown", handleTrapFocus);
+  } else {
+    element.removeEventListener("keydown", handleTrapFocus);
+  }
+}

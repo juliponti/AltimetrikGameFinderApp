@@ -16,6 +16,8 @@ export const getElement = (function () {
 
   // primary-section
   const cardContainer = document.getElementById("cards-container");
+  const homeMainCard = document.getElementsByClassName("home__main__card");
+  const oneCardVwCard = document.getElementsByClassName("one-card-view__card");
   const notFoundText = document.getElementById("not-found");
 
   //modal
@@ -43,6 +45,8 @@ export const getElement = (function () {
     oneCardVwBtn,
     oneVwIcon,
     cardContainer,
+    homeMainCard,
+    oneCardVwCard,
     notFoundText,
     modalRoot,
     modalDoc,
@@ -54,7 +58,7 @@ export const getElement = (function () {
 })();
 
 export const getKey = (function () {
-  const apiKey = "ee6b843758f64be4bc31507ee6724e62";
+  const apiKey = "ee11f1034e2e461295c59a50ec0fcca7";
 
   return {
     apiKey,

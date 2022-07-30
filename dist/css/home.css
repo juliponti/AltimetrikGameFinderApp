@@ -316,6 +316,13 @@ body {
   fill: #ffffff;
 }
 
+.home__header > div button.hamburger:focus-visible,
+.home__header > div button.go-back-arrow:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 6px;
+  border-radius: 1px;
+}
+
 .home__header > div .search-icon {
   display: none;
 }
@@ -1756,18 +1763,24 @@ body {
   background-color: inherit;
   cursor: pointer;
   position: absolute;
-  top: 13px;
+  top: 33px;
   right: 31px;
   cursor: pointer;
 }
 
 .modal-cross-btn > svg {
+  height: 43px;
   -webkit-filter: drop-shadow(0px 0px 9px #3d3d3d);
           filter: drop-shadow(0px 0px 9px #3d3d3d);
 }
 
 .modal-cross-btn > svg > path {
   fill: #ffffff;
+}
+
+.modal-cross-btn:focus-visible {
+  outline: 5px solid var(--primary-color);
+  outline-offset: 5px;
 }
 
 .modal-platforms__container {
@@ -1941,6 +1954,11 @@ body {
   display: block;
 }
 
+.modal-primary-btns__container > button:focus-visible {
+  outline: 3px solid #36b972;
+  outline-offset: 3px;
+}
+
 .modal-primary-btns__container > button:first-child {
   padding: 0 38px;
   background-color: #4cc986;
@@ -2027,6 +2045,12 @@ body {
   transition: all 0.3s;
 }
 
+.modal-info__container > div > div > a:focus-visible {
+  outline: 4px solid #36b972;
+  border: none;
+  border-radius: 3px;
+}
+
 .modal-info__container > div:last-child > div:last-child {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2071,6 +2095,12 @@ body {
           align-items: center;
   gap: 17px;
   height: 100%;
+}
+
+.modal-captures__container > video:focus-visible {
+  outline: 3px solid #36b972;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .modal-captures__container > div {
@@ -2456,7 +2486,7 @@ body {
     left: 28%;
     width: 53%;
   }
-  .home__header-input__container img.cross {
+  .home__header-input__container svg.cross {
     display: none;
     left: calc(100% - 11vw);
   }
@@ -2627,10 +2657,10 @@ body {
     left: 6px;
     top: 59px;
   }
-  .home__header-input__container > img:first-child {
+  .home__header-input__container > svg:first-child {
     display: none;
   }
-  .home__header-input__container > img:last-child {
+  .home__header-input__container > svg:last-child {
     left: calc(100% - 49px);
   }
   .home__main__card > div:last-child > div:nth-child(2) {
@@ -2689,12 +2719,9 @@ body {
     position: absolute;
   }
   .search-active input {
-    padding: 0 22px;
+    padding: 0 32px;
   }
-  .search-active img {
-    display: none;
-  }
-  .search-active img.cross {
+  .search-active svg.cross {
     display: block;
   }
   .hamburger-menu {

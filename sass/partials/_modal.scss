@@ -58,16 +58,23 @@
   &-cross-btn {
     @include secondaryBtns;
     position: absolute;
-    top: 13px;
+    top: 33px;
     right: 31px;
 
     cursor: pointer;
 
     & > svg {
+      height: 43px;
+      filter: drop-shadow(0px 0px 9px $gray-550);
+
       > path {
         fill: $white;
       }
-      filter: drop-shadow(0px 0px 9px $gray-550);
+    }
+
+    &:focus-visible {
+      outline: 5px solid var(--primary-color);
+      outline-offset: 5px;
     }
   }
 
@@ -188,6 +195,11 @@
         }
       }
 
+      &:focus-visible {
+        outline: 3px solid $primary-300;
+        outline-offset: 3px;
+      }
+
       &:first-child {
         padding: 0 38px;
 
@@ -249,6 +261,12 @@
             opacity: 0.5;
             transition: all 0.3s;
           }
+
+          &:focus-visible {
+            outline: 4px solid $primary-300;
+            border: none;
+            border-radius: 3px;
+          }
         }
       }
     }
@@ -278,6 +296,14 @@
     @include FlexBox(column, flex-end);
     gap: 17px;
     height: 100%;
+
+    & > video {
+      &:focus-visible {
+        outline: 3px solid $primary-300;
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+    }
 
     & > div {
       @include FlexBox;

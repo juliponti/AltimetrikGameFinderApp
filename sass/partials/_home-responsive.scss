@@ -189,7 +189,7 @@
       left: 28%;
       width: 53%;
 
-      img.cross {
+      svg.cross {
         display: none;
         left: calc(100% - 11vw);
       }
@@ -381,11 +381,11 @@
       left: 6px;
       top: 59px;
 
-      & > img:first-child {
+      & > svg:first-child {
         display: none;
       }
 
-      & > img:last-child {
+      & > svg:last-child {
         left: calc(100% - 49px);
       }
     }
@@ -439,14 +439,14 @@
     position: absolute;
 
     input {
-      padding: 0 22px;
+      padding: 0 32px;
     }
 
-    img {
-      display: none;
-    }
+    // svg {
+    //   display: none;
+    // }
 
-    img.cross {
+    svg.cross {
       display: block;
     }
   }

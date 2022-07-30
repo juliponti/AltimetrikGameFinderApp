@@ -1,5 +1,5 @@
 import {
-  addEventListener,
+  addEventListenerToManyEls,
   activeObserver,
   cardsDisplay,
   debounce,
@@ -13,6 +13,7 @@ import {
   optionButton,
   organizeInfo,
   organizePlataforms,
+  trapFocus,
 } from "./utils.js";
 
 import { platformsImg, months, getElement, getKey } from "./variables.js";
@@ -75,12 +76,10 @@ getElement.menuHomeText.addEventListener("click", handleHome);
 getElement.lastSearches.addEventListener("click", handleLastSearches);
 getElement.lastSearches.addEventListener("keypress", handleLastSearches);
 
-getElement.modalRoot.addEventListener("click", () => {
-  if (screen.width <= 414) {
-    getElement.modalRoot.classList.remove("visible");
-    getElement.hamburgerIcon.style.display = "block";
-    getElement.goBackArrow.style.display = "none";
-  }
+getElement.goBackArrow.addEventListener("click", () => {
+  getElement.modalRoot.classList.remove("visible");
+  getElement.hamburgerIcon.style.display = "block";
+  getElement.goBackArrow.style.display = "none";
 });
 
 // Global variables
@@ -366,6 +365,7 @@ const modal = (currentGame) => {
  <!-- Right Side-->
  <div class="modal-captures__container">
    <video
+     class="modal-trailer"
      poster="${movies?.preview || shortScreenshots[0]}"
      width="392"
      height="217"
@@ -406,8 +406,18 @@ function onLoad(gamesUrl) {
       getElement.cardContainer.innerHTML += allCards;
 
       hideLoader();
-      addEventListener("title", displayModal);
-      addEventListener("favorite", addFavorite);
+      addEventListenerToManyEls("title", "click", displayModal);
+      addEventListenerToManyEls(
+        "home__main__card",
+        "keypress",
+        displayModalWithEnter
+      );
+      addEventListenerToManyEls(
+        "one-card-view__card",
+        "keypress",
+        displayModalWithEnter
+      );
+      addEventListenerToManyEls("favorite", "click", addFavorite);
       activeObserver(lastCardOnScreen, observer);
 
       isLoading = false;
@@ -461,8 +471,8 @@ function handleChange(e) {
         hideLoader();
         getElement.overlayer.style.display = "none";
         getElement.cardContainer.innerHTML = allSearchCards;
-        addEventListener("title", searchModal);
-        addEventListener("favorite", addFavorite);
+        addEventListenerToManyEls("title", "click", searchModal);
+        addEventListenerToManyEls("favorite", "click", addFavorite);
         activeObserver(lastCardOnScreen, observer);
       });
     });
@@ -529,8 +539,8 @@ function handleChange(e) {
           getElement.overlayer.style.display = "none";
           hideLoader();
           getElement.cardContainer.innerHTML = allSearchCards;
-          addEventListener("title", searchModal);
-          addEventListener("favorite", addFavorite);
+          addEventListenerToManyEls("title", "click", searchModal);
+          addEventListenerToManyEls("favorite", "click", addFavorite);
           activeObserver(lastCardOnScreen, observer);
         }
       });
@@ -568,8 +578,8 @@ function handleLastSearches() {
     handleViewDisplay(threeViewVal, cardsDisplay);
     hideLoader();
     getElement.cardContainer.innerHTML = allLastCards;
-    addEventListener("title", lastSearchModal);
-    addEventListener("favorite", addFavorite);
+    addEventListenerToManyEls("title", "click", lastSearchModal);
+    addEventListenerToManyEls("favorite", "click", addFavorite);
   }
 }
 
@@ -623,6 +633,13 @@ function displayModal(e) {
   getModalInfo(allData, e);
 }
 
+function displayModalWithEnter(e) {
+  if (e.keyCode === 13) {
+    displayLoader();
+    getModalInfo(allData, e);
+  }
+}
+
 function lastSearchModal(e) {
   displayLoader();
   getModalInfo(lastResults, e);
@@ -634,9 +651,21 @@ function searchModal(e) {
 }
 
 function getModalInfo(gameData, e) {
+  const allHomeMainCards = Array.from(getElement.homeMainCard);
+  const allOneViewCards = Array.from(getElement.oneCardVwCard);
   itsModalOpen = true;
+  setTimeout(() => (getElement.modalRoot.style.display = "block"), 100);
   getDescription(gameData, getKey.apiKey).then((data) => {
-    const currentName = e.target.innerHTML;
+    let currentName;
+    console.log();
+    if (
+      allHomeMainCards.includes(e.target) ||
+      allOneViewCards.includes(e.target)
+    ) {
+      currentName = e.target.children[1].children[0].children[0].innerHTML;
+    } else {
+      currentName = e.target.innerHTML;
+    }
 
     let i = 0;
     let myGame = null;
@@ -662,10 +691,19 @@ function getModalInfo(gameData, e) {
       getElement.modalRoot.classList.add("visible");
       hideLoader();
       const closeBtn = document.querySelector(".modal-cross-btn");
+
       closeBtn.addEventListener("click", () => {
-        getElement.modalRoot.classList.remove("visible");
+        const modalTrailer = document.querySelector(".modal-trailer");
+        modalTrailer.pause();
         itsModalOpen = false;
+        getElement.modalRoot.classList.remove("visible");
+        trapFocus(getElement.modalDoc, false);
+        setTimeout(() => (getElement.modalRoot.style.display = "none"), 100);
       });
+
+      if (screen.width > 420) {
+        trapFocus(getElement.modalDoc, true);
+      }
     });
     //}
   });
