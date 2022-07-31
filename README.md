@@ -21,7 +21,7 @@ Users should be able to:
 - Use the slider
 - Log in with the given credentials
 - Search games by its name and platform avaiable (xbox, playstation, pc, nintendo)
-- Click the game title to obtain more information about it
+- Click the game title to obtain more information about it (modal)
 - Switch the view of the games
 - Switch themes
 - Obtein the first game of the last to searches clicking in "last searches"
@@ -43,7 +43,7 @@ npm install
 2. Bring up the server
 
 ```
-npm start
+npm run start
 ```
 
 3. Login with these accepted users:
@@ -67,9 +67,10 @@ npm start
 ### Built with
 
 - Semantic HTML5 markup
-- SASS / CSS
+- SASS 
 - Javascript
+- Responsive design (mobile, tablet, desktop)
 
 ## Author
 
-- Website - [Julieta](https://juliponti.github.io/portfolio/)
+- Website - [Julieta Pontino](https://juliponti.github.io/portfolio/)
