@@ -149,13 +149,14 @@ const login = async () => {
     });
 
     const content = await rawResponse.json();
-    localStorage.setItem("user", content.user.email);
+
+    localStorage.setItem("user", content.user.user);
+    localStorage.setItem("email", content.user.email);
     localStorage.setItem("token", content.accessToken);
     localStorage.setItem("picture", content.user.picture);
     window.location.replace("./pages/home/index.html");
   } catch (err) {
-    //  const message = await rawResponse.json();
-    snackbar("La convinación de email y contraseña es incorrecta");
+    snackbar("La combinación de email y contraseña es incorrecta");
   }
 };
 

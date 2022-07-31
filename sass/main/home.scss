@@ -181,7 +181,7 @@ body {
       border-radius: 50%;
       border: 1px solid $white;
 
-      background-image: url("https://via.placeholder.com/48x48");
+      // background-image: url("https://via.placeholder.com/48x48");
       background-position: 50% 50%;
       background-repeat: no-repeat;
     }
@@ -543,7 +543,7 @@ body {
       @include FlexBox(row, space-between, flex-start);
       font-weight: 700;
 
-      h3 {
+      h2 {
         color: var(--text-color);
         font-size: 1.5rem;
         cursor: pointer;

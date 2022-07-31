@@ -1,15 +1,17 @@
 {
   "users": [
     {
-      "email": "testing1@gmail.com",
-      "password": "$2a$10$CkrxlVzxpq27.5hjPtuY1OlCFNAyXfsHAxp.zDzXh8G7ODGXOIrzW",
-      "picture": false,
+      "email": "altimetrik@gmail.com",
+      "password": "$2a$10$LEAQUT8mKHui.J9hgx1obejcRB1D7.t.D7HxGM75Jp4c7s81Bp45O",
+      "user": "Julieta",
+      "picture": true,
       "id": 1
     },
     {
-      "email": "testing2@gmail.com",
-      "password": "$2a$10$6bYV.C7hLBvF.DQyc/vdbeUwPFC9Vjw15DumtcrhlaLNZYtHCFRh6",
-      "picture": true,
+      "email": "altimetrik2@gmail.com",
+      "password": "$2a$10$JvBAujgdiU3vpq19pp0uQ.lIWcRkbxzgc6yUrzGBK6yUieKfWy16e",
+      "user": "Maria",
+      "picture": false,
       "id": 2
     }
   ]

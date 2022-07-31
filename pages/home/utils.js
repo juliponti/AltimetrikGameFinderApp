@@ -67,7 +67,7 @@ export async function getGames(url) {
 
     return dataToJson;
   } catch (err) {
-    snackbar(err);
+    snackbar("An error has occurred");
   }
 }
 
@@ -114,10 +114,10 @@ export const handleViewDisplay = (view, fn) => {
   }
 };
 
-export const addEventListenerToManyEls = (classname, event, fn) => {
+export function addEventListenerToManyEls(classname, event, fn) {
   const element = document.getElementsByClassName(classname);
   Array.from(element).forEach((item) => item.addEventListener(event, fn));
-};
+}
 
 export const getTrailer = (gameId, apiKey) => {
   const trailers = fetch(

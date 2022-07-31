@@ -50,11 +50,11 @@ npm run start
 
 ```
 {
-  "email": testing1@gmail.com
+  "email": altimetrik@gmail.com
   "password": test123
 },
 {
-  "email": testing2@gmail.com
+  "email": altimetrik2@gmail.com
   "password": test123
 }
 
@@ -67,7 +67,7 @@ npm run start
 ### Built with
 
 - Semantic HTML5 markup
-- SASS 
+- SASS
 - Javascript
 - Responsive design (mobile, tablet, desktop)
 

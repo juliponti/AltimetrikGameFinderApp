@@ -429,7 +429,6 @@ body {
   height: 48px;
   border-radius: 50%;
   border: 1px solid #ffffff;
-  background-image: url("https://via.placeholder.com/48x48");
   background-position: 50% 50%;
   background-repeat: no-repeat;
 }
@@ -918,7 +917,7 @@ body {
   font-weight: 700;
 }
 
-.home__main__card > div:last-child > div:first-child h3 {
+.home__main__card > div:last-child > div:first-child h2 {
   color: var(--text-color);
   font-size: 1.5rem;
   cursor: pointer;
