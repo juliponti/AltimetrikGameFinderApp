@@ -5,7 +5,7 @@ import {
   debounce,
   displayLoader,
   formatDate,
-  getDescription,
+  getAllGameData,
   getGames,
   getTrailer,
   handleViewDisplay,
@@ -291,9 +291,9 @@ const modal = (currentGame) => {
        </div>
        <div>
          <p>Website</p>
-         <a href=${website}" target="_blank">${
-    website || "No website avaiable"
-  }</a>
+         <a href="${
+           website ? website : "javascript:void(0);"
+         }" target="_blank"> ${website || "No website avaiable"}</a>
        </div>
      </div>
      <div>
@@ -372,7 +372,9 @@ const modal = (currentGame) => {
      ${clip ? "controls" : ""}
     
    >
-     <source src="${clip ? clip["480"] : ""}" type="video/mp4" />
+     <source src=${clip ? clip["480"] : ""} type="video/mp4" data-video="${
+    clip ? true : false
+  }"/>
      Your browser does not support the video tag
    </video>
    
@@ -399,7 +401,7 @@ function onLoad(gamesUrl) {
 
     allData.push(...gameData);
 
-    getDescription(gameData, getKey.apiKey).then((data) => {
+    getAllGameData(gameData, getKey.apiKey).then((data) => {
       const currentCard = card(data);
       const allCards = currentCard.join(" ");
 
@@ -461,7 +463,7 @@ function handleSearch(e) {
       nextPage = next;
       let allSearchCards;
 
-      getDescription(results, getKey.apiKey).then((data) => {
+      getAllGameData(results, getKey.apiKey).then((data) => {
         getElement.cardContainer.innerHTML = "";
         searchData = data;
         const searchCard = card(data);
@@ -476,12 +478,12 @@ function handleSearch(e) {
         addEventListenerToManyEls(
           "home__main__card",
           "keypress",
-          searcheModalWithEnter
+          searchModalWithEnter
         );
         addEventListenerToManyEls(
           "one-card-view__card",
           "keypress",
-          searcheModalWithEnter
+          searchModalWithEnter
         );
         activeObserver(lastCardOnScreen, observer);
       });
@@ -533,7 +535,7 @@ function handleSearch(e) {
         }
       }
 
-      getDescription(results, getKey.apiKey).then((data) => {
+      getAllGameData(results, getKey.apiKey).then((data) => {
         getElement.cardContainer.innerHTML = "";
         searchData = data;
         const searchCard = card(data);
@@ -555,12 +557,12 @@ function handleSearch(e) {
           addEventListenerToManyEls(
             "home__main__card",
             "keypress",
-            searcheModalWithEnter
+            searchModalWithEnter
           );
           addEventListenerToManyEls(
             "one-card-view__card",
             "keypress",
-            searcheModalWithEnter
+            searchModalWithEnter
           );
           activeObserver(lastCardOnScreen, observer);
         }
@@ -692,7 +694,7 @@ function lastSearchesModalWithEnter(e) {
   }
 }
 
-function searcheModalWithEnter(e) {
+function searchModalWithEnter(e) {
   if (e.keyCode === 13) {
     displayLoader();
     getModalInfo(searchData, e);
@@ -704,7 +706,7 @@ function getModalInfo(gameData, e) {
   const allOneViewCards = Array.from(getElement.oneCardVwCard);
   itsModalOpen = true;
   setTimeout(() => (getElement.modalRoot.style.display = "block"), 100);
-  getDescription(gameData, getKey.apiKey).then((data) => {
+  getAllGameData(gameData, getKey.apiKey).then((data) => {
     let currentName;
 
     if (
@@ -739,6 +741,7 @@ function getModalInfo(gameData, e) {
       getElement.modalDoc.style.backgroundImage = modalBg;
       getElement.modalRoot.classList.add("visible");
       hideLoader();
+      trapFocus(getElement.modalDoc, true);
       const closeBtn = document.querySelector(".modal-cross-btn");
 
       closeBtn.addEventListener("click", () => {
@@ -749,10 +752,6 @@ function getModalInfo(gameData, e) {
         trapFocus(getElement.modalDoc, false);
         setTimeout(() => (getElement.modalRoot.style.display = "none"), 100);
       });
-
-      if (screen.width > 420) {
-        trapFocus(getElement.modalDoc, true);
-      }
     });
     //}
   });

@@ -65,6 +65,11 @@ export async function getGames(url) {
     const getData = await fetch(url);
     const dataToJson = await getData.json();
 
+    if (!getData.ok) {
+      const message = await getData.json();
+      snackbar(message);
+    }
+
     return dataToJson;
   } catch (err) {
     snackbar("An error has occurred");
@@ -133,7 +138,7 @@ export const getTrailer = (gameId, apiKey) => {
   return trailers;
 };
 
-export const getDescription = (gameData, apiKey) => {
+export const getAllGameData = (gameData, apiKey) => {
   let completeGameData;
   const promises = [];
 
@@ -168,9 +173,17 @@ export const activeObserver = (lastCardOnScreen, observer) => {
 };
 
 export function trapFocus(element, state) {
+  const source = document.querySelector("source");
+  const aEls = document.querySelector("a");
+
   const focusableEls = element.querySelectorAll(
-    'a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), video:not([disabled])'
+    `${
+      aEls.href !== "javascript:void(0);" && "a[href]:not([disabled])"
+    }, button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), ${
+      source.dataset.video === "true" && "video:not([disabled])"
+    }`
   );
+
   const firstFocusableEl = focusableEls[0];
   const lastfocusableEl = focusableEls[focusableEls.length - 1];
   const KEYCODE_TAB = 9;
@@ -198,8 +211,8 @@ export function trapFocus(element, state) {
   }
 
   if (state) {
-    element.addEventListener("keydown", handleTrapFocus);
+    return element.addEventListener("keydown", handleTrapFocus);
   } else {
-    element.removeEventListener("keydown", handleTrapFocus);
+    return element.removeEventListener("keydown", handleTrapFocus);
   }
 }

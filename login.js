@@ -148,15 +148,19 @@ const login = async () => {
       }),
     });
 
-    const content = await rawResponse.json();
+    if (!rawResponse.ok) {
+      snackbar("Email or password incorrect");
+    } else {
+      const content = await rawResponse.json();
 
-    localStorage.setItem("user", content.user.user);
-    localStorage.setItem("email", content.user.email);
-    localStorage.setItem("token", content.accessToken);
-    localStorage.setItem("picture", content.user.picture);
-    window.location.replace("./pages/home/index.html");
+      localStorage.setItem("user", content.user.user);
+      localStorage.setItem("email", content.user.email);
+      localStorage.setItem("token", content.accessToken);
+      localStorage.setItem("picture", content.user.picture);
+      window.location.replace("./pages/home/index.html");
+    }
   } catch (err) {
-    snackbar("La combinación de email y contraseña es incorrecta");
+    snackbar(err);
   }
 };
 

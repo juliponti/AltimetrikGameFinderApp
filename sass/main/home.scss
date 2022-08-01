@@ -181,7 +181,6 @@ body {
       border-radius: 50%;
       border: 1px solid $white;
 
-      // background-image: url("https://via.placeholder.com/48x48");
       background-position: 50% 50%;
       background-repeat: no-repeat;
     }
@@ -701,7 +700,7 @@ body {
       @include FlexBox(row, space-between);
       font-weight: 700;
 
-      h3 {
+      h2 {
         color: var(--text-color);
         font-size: 2rem;
         cursor: pointer;
@@ -719,9 +718,10 @@ body {
       @include FlexBox(row, space-between);
 
       width: 100%;
+
       div:nth-child(1) {
-        @include FlexBox(row, space-between);
-        width: 56%;
+        @include FlexBox(row, flex-start);
+        width: 62%;
 
         & > div {
           @include FlexBox(row, space-between, flex-start);
@@ -753,6 +753,10 @@ body {
               margin-left: 11px;
             }
           }
+        }
+
+        & > div:nth-child(2) {
+          margin-left: 20px;
         }
       }
 
