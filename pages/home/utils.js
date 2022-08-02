@@ -130,9 +130,16 @@ export const getTrailer = (gameId, apiKey) => {
   )
     .then((res) => res.json())
     .then((data) => {
+      if (!data.ok) {
+        throw data;
+      }
+
       const clips = data.results;
 
       return clips;
+    })
+    .catch((err) => {
+      snackbar(err);
     });
 
   return trailers;
@@ -150,9 +157,16 @@ export const getAllGameData = (gameData, apiKey) => {
     )
       .then((res) => res.json())
       .then((data) => {
+        if (!data) {
+          throw data;
+        }
+
         completeGameData = Object.assign(game, data);
 
         return completeGameData;
+      })
+      .catch((err) => {
+        snackbar(err);
       });
 
     promises.push(gameFetch);

@@ -159,7 +159,7 @@ const login = async () => {
     });
 
     if (!rawResponse.ok) {
-      snackbar("Email or password incorrect");
+      snackbar("Email or password are incorrect");
     } else {
       const content = await rawResponse.json();
 
