@@ -251,6 +251,12 @@ $total-black: #000000;
   }
 }
 
+@mixin btnFocus($width, $offset, $b-radius) {
+  outline: $width solid var(--primary-color);
+  outline-offset: $offset;
+  border-radius: $b-radius;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --header-color: #{transparent};

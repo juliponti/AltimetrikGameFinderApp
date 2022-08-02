@@ -251,7 +251,7 @@ body {
           @include secondaryBtns;
 
           &:focus-visible {
-            outline: 1px solid var(--primary-color);
+            @include btnFocus(3px, 4px, 32px);
           }
         }
 
@@ -434,7 +434,7 @@ body {
 
   &__gallery__container {
     width: 97%;
-    height: 78vh;
+    height: 77vh;
     margin-left: 14px;
     overflow-y: scroll;
     overflow-x: hidden;

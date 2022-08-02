@@ -62,6 +62,10 @@ body {
       margin-top: 4px;
       margin-left: 10px;
       @include secondaryBtns;
+
+      &:focus-visible {
+        @include btnFocus(3px, 2px, 13px);
+      }
     }
 
     & button.theme-active {
@@ -167,7 +171,7 @@ body {
               font-weight: 400;
             }
             &:first-child:focus {
-              outline: 1px solid var(--primary-color);
+              outline: 2px solid var(--primary-color);
             }
 
             &:focus {
@@ -498,24 +502,23 @@ body {
           fill: var(--logo-color);
         }
       }
+
+      &:focus-visible {
+        @include btnFocus(3px, 0, 50%);
+      }
     }
   }
 
   &--left {
     @include Arrows;
     left: 36%;
-    &:focus-visible {
-      outline: 2px solid $primary-100;
-      border-radius: 31px;
-    }
   }
 
   &--right {
     @include Arrows;
     right: -5%;
     &:focus-visible {
-      outline: 2px solid $primary-100;
-      border-radius: 31px;
+      @include btnFocus(5px, 0px, 31px);
     }
   }
 }

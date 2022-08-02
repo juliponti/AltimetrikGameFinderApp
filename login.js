@@ -43,6 +43,16 @@ function handleClick() {
 
 checkbox.addEventListener("click", handleRemember);
 tick.addEventListener("click", handleRemember);
+tick.addEventListener("keypress", (e) => {
+  if (e.keyCode === 13) {
+    handleRemember();
+  }
+});
+checkbox.addEventListener("keypress", (e) => {
+  if (e.keyCode === 13) {
+    handleRemember();
+  }
+});
 
 function handleRemember() {
   if (checkbox.classList.contains("checkbox--active")) {

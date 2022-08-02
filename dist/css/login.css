@@ -336,6 +336,12 @@ body {
   cursor: pointer;
 }
 
+.header-theme__container button:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+  border-radius: 13px;
+}
+
 .header-theme__container button.theme-active svg > circle {
   -webkit-transform: translateX(0);
           transform: translateX(0);
@@ -493,7 +499,7 @@ body {
 }
 
 .main .login__card__form--fieldset1 input:first-child:focus {
-  outline: 1px solid var(--primary-color);
+  outline: 2px solid var(--primary-color);
 }
 
 .main .login__card__form--fieldset1 input:focus {
@@ -952,6 +958,12 @@ body {
   fill: var(--logo-color);
 }
 
+.slider__arrow__container > button:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 0;
+  border-radius: 50%;
+}
+
 .slider__arrow--left {
   position: relative;
   background-color: transparent;
@@ -959,11 +971,6 @@ body {
   top: 45%;
   cursor: pointer;
   left: 36%;
-}
-
-.slider__arrow--left:focus-visible {
-  outline: 2px solid #5fe19b;
-  border-radius: 31px;
 }
 
 .slider__arrow--right {
@@ -976,7 +983,8 @@ body {
 }
 
 .slider__arrow--right:focus-visible {
-  outline: 2px solid #5fe19b;
+  outline: 5px solid var(--primary-color);
+  outline-offset: 0px;
   border-radius: 31px;
 }
 

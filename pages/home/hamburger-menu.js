@@ -30,7 +30,7 @@ searchIcon.addEventListener("click", () => {
   search.classList.toggle("search-active");
 });
 
-if (localStorage.getItem("picture") === true) {
+if (localStorage.getItem("picture") === "true") {
   userImg.style.backgroundImage = `url("../../assets/tablet/home/menu/Custom.png")`;
 } else {
   userImg.style.backgroundImage = `url("../../assets/tablet/home/menu/EmptyState.png")`;

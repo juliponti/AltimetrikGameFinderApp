@@ -82,6 +82,19 @@ getElement.goBackArrow.addEventListener("click", () => {
   getElement.goBackArrow.style.display = "none";
 });
 
+getElement.modalRoot.addEventListener("click", (e) => {
+  if (screen.width < 420 && e.target === getElement.modalRoot) {
+    const modalTrailer = document.querySelector(".modal-trailer");
+    modalTrailer.pause();
+    itsModalOpen = false;
+    getElement.modalRoot.classList.remove("visible");
+    setTimeout(() => (getElement.modalRoot.style.display = "none"), 100);
+
+    getElement.hamburgerIcon.style.display = "block";
+    getElement.goBackArrow.style.display = "none";
+  }
+});
+
 // Global variables
 
 const gamesUrl = `https://api.rawg.io/api/games?key=${getKey.apiKey}&page=1`;
@@ -741,7 +754,6 @@ function getModalInfo(gameData, e) {
       getElement.modalDoc.style.backgroundImage = modalBg;
       getElement.modalRoot.classList.add("visible");
       hideLoader();
-      trapFocus(getElement.modalDoc, true);
       const closeBtn = document.querySelector(".modal-cross-btn");
 
       closeBtn.addEventListener("click", () => {
@@ -752,6 +764,10 @@ function getModalInfo(gameData, e) {
         trapFocus(getElement.modalDoc, false);
         setTimeout(() => (getElement.modalRoot.style.display = "none"), 100);
       });
+
+      if (screen.width > 420) {
+        trapFocus(getElement.modalDoc, true);
+      }
     });
     //}
   });

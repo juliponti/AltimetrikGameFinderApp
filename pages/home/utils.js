@@ -174,18 +174,18 @@ export const activeObserver = (lastCardOnScreen, observer) => {
 
 export function trapFocus(element, state) {
   const source = document.querySelector("source");
-  const aEls = document.querySelector("a");
+  const aEl = document.querySelector("a");
 
   const focusableEls = element.querySelectorAll(
     `${
-      aEls.href !== "javascript:void(0);" && "a[href]:not([disabled])"
+      aEl && aEl.href !== "javascript:void(0);" && "a[href]:not([disabled])"
     }, button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled]), ${
-      source.dataset.video === "true" && "video:not([disabled])"
+      source?.dataset.video === "true" && "video:not([disabled])"
     }`
   );
 
   const firstFocusableEl = focusableEls[0];
-  const lastfocusableEl = focusableEls[focusableEls.length - 1];
+  const lastFocusableEl = focusableEls[focusableEls.length - 1];
   const KEYCODE_TAB = 9;
 
   firstFocusableEl.focus();
@@ -199,11 +199,11 @@ export function trapFocus(element, state) {
 
     if (e.shiftKey) {
       if (document.activeElement === firstFocusableEl) {
-        lastfocusableEl.focus();
+        lastFocusableEl.focus();
         e.preventDefault();
       }
     } else {
-      if (document.activeElement === lastfocusableEl) {
+      if (document.activeElement === lastFocusableEl) {
         firstFocusableEl.focus();
         e.preventDefault();
       }

@@ -127,9 +127,7 @@
       margin-left: 17px;
 
       &:focus-visible {
-        outline: 2px solid var(--primary-color);
-        outline-offset: 5px;
-        border-radius: 5px;
+        @include btnFocus(3px, 3px, 18px);
       }
     }
   }
@@ -260,6 +258,8 @@
     background-position: top;
     background-size: contain;
 
+    margin-left: 0;
+
     &-title {
       margin-top: 0;
     }
@@ -344,6 +344,15 @@
           height: 86px;
         }
       }
+    }
+  }
+
+  .tooltip {
+    left: 25%;
+    top: 448px;
+
+    &-modal-2 {
+      left: 73%;
     }
   }
 }
@@ -442,10 +451,6 @@
       padding: 0 32px;
     }
 
-    // svg {
-    //   display: none;
-    // }
-
     svg.cross {
       display: block;
     }
@@ -498,7 +503,7 @@
 
   #loading {
     top: 24%;
-    left: 47%;
+    left: 45%;
   }
 
   .modal-root {
@@ -509,7 +514,7 @@
 
   .modal {
     @include FlexBox(column, flex-start, flex-start);
-    top: 754px;
+    top: 740px;
     left: 0px;
 
     width: 100%;
@@ -605,6 +610,16 @@
 
     &-title {
       max-height: 42px;
+    }
+  }
+
+  .tooltip {
+    left: 51%;
+    top: 430px;
+
+    &-modal-2 {
+      left: 51%;
+      top: 485px;
     }
   }
 }
