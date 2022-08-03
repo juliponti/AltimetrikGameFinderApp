@@ -58,7 +58,7 @@ export const getElement = (function () {
 })();
 
 export const getKey = (function () {
-  const apiKey = "ee11f1034e2e461295c59a50ec0fcca7";
+  const apiKey = "c170612ac7ff49d28baad0215a82865c";
 
   return {
     apiKey,
