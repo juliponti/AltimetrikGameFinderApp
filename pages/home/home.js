@@ -382,9 +382,7 @@ const modal = (currentGame) => {
      poster="${movies?.preview || shortScreenshots[0]}"
      width="392"
      height="217"
-     ${clip ? "controls" : ""}
-    
-   >
+     ${clip ? "controls" : ""}>
      <source src=${clip ? clip["480"] : ""} type="video/mp4" data-video="${
     clip ? true : false
   }"/>

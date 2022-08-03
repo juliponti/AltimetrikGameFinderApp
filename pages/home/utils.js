@@ -1,20 +1,5 @@
 import { snackbar } from "../../utils.js";
 
-export const debounce = (fn, wait) => {
-  let timeout;
-
-  return (...args) => {
-    const later = () => {
-      clearTimeout(timeout);
-      fn(...args);
-    };
-
-    clearTimeout(timeout);
-
-    timeout = setTimeout(later, wait);
-  };
-};
-
 export const img = (url) => {
   const iconUrl = url;
   return `<img src="${iconUrl}" alt="" />`;
@@ -130,10 +115,6 @@ export const getTrailer = (gameId, apiKey) => {
   )
     .then((res) => res.json())
     .then((data) => {
-      if (!data.ok) {
-        throw data;
-      }
-
       const clips = data.results;
 
       return clips;
@@ -230,3 +211,18 @@ export function trapFocus(element, state) {
     return element.removeEventListener("keydown", handleTrapFocus);
   }
 }
+
+export const debounce = (fn, wait) => {
+  let timeout;
+
+  return (...args) => {
+    const later = () => {
+      clearTimeout(timeout);
+      fn(...args);
+    };
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(later, wait);
+  };
+};
